@@ -81,7 +81,7 @@ CREATE TABLE event_requests (
     event_contact_first_name VARCHAR(100),
     event_contact_last_name VARCHAR(100),
     event_contact_phone VARCHAR(15),
-    jen_story TEXT,
+    jen_story BOOLEAN,
     multi_day_event BOOLEAN,
     event_status_id INT,
     FOREIGN KEY (space_size_id) REFERENCES space_size(space_size_id),
@@ -141,15 +141,16 @@ CREATE TABLE approved_event_details (
 );
 
 
+
 ------------------------------------------INSERT DUMMY DATA SCRIPT----------------------------------------------------------
 -- Insert data into sewing_level
-INSERT INTO sewing_level (sewing_level_description) VALUES 
+INSERT INTO sewing_level (sewing_level_description) VALUES
 ('Beginner'),
 ('Intermediate'),
 ('Experienced');
 
 -- Insert data into volunteer_source
-INSERT INTO volunteer_source (source_description) VALUES 
+INSERT INTO volunteer_source (source_description) VALUES
 ('Social Media'),
 ('Word of Mouth'),
 ('Community Events'),
@@ -157,33 +158,33 @@ INSERT INTO volunteer_source (source_description) VALUES
 ('Podcast'),
 ('Other');
 
+-- Insert data into volunteer_travel_range_id
+INSERT INTO volunteer_travel_range_id (volunteer_travel_range_description) VALUES
+('City'),
+('County'),
+('Outside County');
+
+-- Insert data into space_size
+INSERT INTO space_size (space_size_description) VALUES
+('Small'),
+('Medium'),
+('Large');
+
+-- Insert data into event_type
+INSERT INTO event_type (event_type_description) VALUES
+('Sewing'),
+('Non-sewing'),
+('Both');
+
 -- Insert data into event_status
-INSERT INTO event_status (event_status_description) VALUES 
+INSERT INTO event_status (event_status_description) VALUES
 ('Approved'),
 ('Declined'),
 ('Pending'),
 ('Completed');
 
--- Insert data into event_type
-INSERT INTO event_type (event_type_description) VALUES 
-('Sewing'),
-('Non-sewing'),
-('Both');
-
--- Insert data into space_size
-INSERT INTO space_size (space_size_description) VALUES 
-('Small'),
-('Medium'),
-('Large');
-
--- Insert data into volunteer_travel_range_id
-INSERT INTO volunteer_travel_range_id (volunteer_travel_range_description) VALUES 
-('City'),
-('County'),
-('Outside County');
-
 -- Insert data into products
-INSERT INTO products (product_name) VALUES 
+INSERT INTO products (product_name) VALUES
 ('Pocket'),
 ('Collar'),
 ('Envelope'),
@@ -191,48 +192,76 @@ INSERT INTO products (product_name) VALUES
 ('Completed Product');
 
 -- Insert data into volunteers
-INSERT INTO volunteers (volunteer_first_name, volunteer_last_name, volunteer_phone, volunteer_email, volunteer_city, 
+INSERT INTO volunteers (volunteer_first_name, volunteer_last_name, volunteer_phone, volunteer_email, volunteer_city,
     volunteer_state, volunteer_zip, sewing_level_id, volunteer_source_id, volunteer_travel_range_id, 
-    willing_to_lead, willing_to_sew, volunteer_hours_per_month) 
-VALUES 
-('John', 'Doe', '1234567890', 'johndoe@example.com', 'New York', 'NY', '10001', 1, 1, 2, TRUE, TRUE, 20),
-('Jane', 'Smith', '0987654321', 'janesmith@example.com', 'Los Angeles', 'CA', '90001', 3, 2, 1, FALSE, TRUE, 10);
+    willing_to_lead, willing_to_sew, volunteer_hours_per_month)
+VALUES
+('John', 'Doe', '1234567890', 'john.doe@example.com', 'Salt Lake City', 'UT', '84101', 1, 1, 2, TRUE, TRUE, 10),
+('Jane', 'Smith', '9876543210', 'jane.smith@example.com', 'Provo', 'UT', '84604', 2, 3, 1, FALSE, TRUE, 5),
+('Alice', 'Brown', '5678901234', 'alice.brown@example.com', 'Ogden', 'UT', '84401', 3, 2, 3, TRUE, TRUE, 15),
+('Bob', 'White', '4321098765', 'bob.white@example.com', 'Logan', 'UT', '84321', 1, 1, 1, FALSE, FALSE, 8),
+('Carol', 'Green', '2468013579', 'carol.green@example.com', 'St. George', 'UT', '84770', 2, 2, 2, TRUE, FALSE, 20);
 
 -- Insert data into event_requests
-INSERT INTO event_requests (estimated_participant_count, space_size_id, event_type_id, first_choice_event_date, 
+INSERT INTO event_requests (estimated_participant_count, space_size_id, event_type_id, first_choice_event_date,
     second_choice_event_date, third_choice_event_date, event_city, event_state, event_zip, 
     estimated_event_start_time, estimated_event_duration_hours, event_contact_first_name, 
-    event_contact_last_name, event_contact_phone, jen_story, multi_day_event, event_status_id) 
-VALUES 
-(50, 2, 1, '2024-12-15', '2024-12-16', '2024-12-17', 'Chicago', 'IL', '60601', '09:00:00', 5.5, 
-    'Alice', 'Brown', '1231231234', 'Helping underprivileged kids', TRUE, 3);
+    event_contact_last_name, event_contact_phone, jen_story, multi_day_event, event_status_id)
+VALUES
+(50, 1, 1, '2024-01-10', '2024-01-11', '2024-01-12', 'Salt Lake City', 'UT', '84101', 
+    '09:00:00', 4.0, 'Emily', 'Clark', '1231231234', TRUE, FALSE, 1),
+(75, 2, 2, '2024-02-05', '2024-02-06', '2024-02-07', 'Provo', 'UT', '84604', 
+    '10:00:00', 3.5, 'Daniel', 'Adams', '4564564567', FALSE, TRUE, 2),
+(100, 3, 3, '2024-03-15', '2024-03-16', '2024-03-17', 'Ogden', 'UT', '84401', 
+    '11:00:00', 5.0, 'Grace', 'Wilson', '7897897890', TRUE, TRUE, 3),
+(25, 1, 1, '2024-04-20', '2024-04-21', '2024-04-22', 'Logan', 'UT', '84321', 
+    '08:30:00', 2.5, 'Henry', 'Lee', '1010101010', FALSE, FALSE, 1),
+(60, 2, 2, '2024-05-10', '2024-05-11', '2024-05-12', 'St. George', 'UT', '84770', 
+    '14:00:00', 6.0, 'Sophia', 'Brown', '2020202020', TRUE, TRUE, 2);
 
 -- Insert data into completed_event_products
-INSERT INTO completed_event_products (event_id, product_id, quantity_produced) 
-VALUES 
-(1, 1, 100),
-(1, 2, 50);
+INSERT INTO completed_event_products (event_id, product_id, quantity_produced)
+VALUES
+(1, 1, 50),
+(1, 2, 30),
+(2, 1, 40),
+(2, 3, 25),
+(3, 4, 60);
 
 -- Insert data into completed_event_details
-INSERT INTO completed_event_details (event_id, completed_participants_count, completed_event_notes) 
-VALUES 
-(1, 45, 'Event was successful with great participation.');
+INSERT INTO completed_event_details (event_id, completed_participants_count, completed_event_notes)
+VALUES
+(1, 45, 'Event completed successfully with a great turnout.'),
+(2, 70, 'Participants were highly engaged, and the event exceeded expectations.'),
+(3, 95, 'Wonderful event with many finished projects.'),
+(4, 20, 'Smaller group but very productive.'),
+(5, 55, 'Good turnout and a lot of interest in the sewing projects.');
 
 -- Insert data into event_people
-INSERT INTO event_people (volunteer_id, event_id) 
-VALUES 
+INSERT INTO event_people (volunteer_id, event_id)
+VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(3, 2),
+(4, 3),
+(5, 4);
 
 -- Insert data into approved_event_details
 INSERT INTO approved_event_details (event_id, approved_event_date, approved_event_start_time, 
     approved_event_duration_hours, event_address, estimated_team_members_needed, number_of_sewers, 
-    sewing_machines_to_bring, sergers_to_bring, approved_event_notes) 
-VALUES 
-(1, '2024-12-15', '09:00:00', 5.5, '123 Main St, Chicago, IL 60601', 5, 3, 2, 1, 'All preparations complete.');
+    sewing_machines_to_bring, sergers_to_bring, approved_event_notes)
+VALUES
+(1, '2024-01-10', '09:00:00', 4.0, '123 Main St', 5, 3, 2, 1, 'All set for a great event!'),
+(2, '2024-02-05', '10:00:00', 3.5, '456 Elm St', 7, 4, 3, 2, 'Space and resources ready.'),
+(3, '2024-03-15', '11:00:00', 5.0, '789 Oak St', 10, 6, 5, 3, 'Big event with multiple stations.'),
+(4, '2024-04-20', '08:30:00', 2.5, '321 Pine St', 3, 2, 1, 1, 'Simple and effective setup.'),
+(5, '2024-05-10', '14:00:00', 6.0, '654 Maple St', 8, 5, 4, 2, 'Expecting a high turnout.');
 
 -- Insert data into users
-INSERT INTO users (volunteer_id, username, password, admin_email) 
-VALUES 
-(1, 'johndoe', 'password123', 'admin@example.com'),
-(2, 'janesmith', 'password456', 'admin2@example.com');
+INSERT INTO users (volunteer_id, username, password, admin_email)
+VALUES
+(1, 'johndoe', 'securepassword123', 'admin1@example.com'),
+(2, 'janesmith', 'password456!', 'admin2@example.com'),
+(3, 'alicebrown', 'safeP@ssword!', 'admin3@example.com'),
+(4, 'bobwhite', 'Pa$$w0rd!', 'admin4@example.com'),
+(5, 'carolgreen', 'Green@123', 'admin5@example.com');
