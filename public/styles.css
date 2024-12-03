@@ -1,0 +1,193 @@
+/* Global styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 700;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background-image: image();
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 150px 20px;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero .btn-custom {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hero .btn-custom:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Mission Section */
+  .mission {
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  .mission h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  .mission p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+  
+  /* Impact Section */
+  .impact {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    color: #333;
+  }
+  
+  .impact .row {
+    margin-top: 30px;
+  }
+  
+  .impact .col-md-4 {
+    margin-bottom: 30px;
+  }
+  
+  .impact h3 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .impact p {
+    font-size: 1.1rem;
+    font-weight: 300;
+  }
+  
+  /* Volunteer Section */
+  #volunteer {
+    padding: 60px 20px;
+    background-color: #e9ecef;
+    color: #333;
+  }
+  
+  #volunteer h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  #volunteer p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    position: relative;
+  }
+  
+  .footer p {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+  
+  .footer a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .footer a:hover {
+    color: #007bff;
+  }
+  
+  .footer .social-icons {
+    margin-top: 10px;
+  }
+  
+  .footer .social-icons a {
+    margin: 0 15px;
+    font-size: 1.5rem;
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .footer .social-icons a:hover {
+    color: #007bff;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+  
+    .hero p {
+      font-size: 1.1rem;
+    }
+  
+    .hero .btn-custom {
+      font-size: 1rem;
+      padding: 10px 25px;
+    }
+  
+    .navbar-nav .nav-item .nav-link {
+      font-size: 1rem;
+    }
+  
+    .mission h2, .impact h2, #volunteer h2 {
+      font-size: 2rem;
+    }
+  }
+  
