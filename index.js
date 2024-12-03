@@ -28,4 +28,4 @@ app.get('/', (req, res) => {
   res.render('index')
 });
 
-app.listen(port, () => console.log("My travel website is listening"));
+app.listen(port, () => console.log("My INTEX website is listening"));
