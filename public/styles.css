@@ -24,50 +24,146 @@ body {
   }
 
   /* Hero Section */
-  .hero {
-    position: relative;
-    background-image: url(/assets/HomeBackground.jpg);
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    width: 100%;
-    height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust opacity for darkness */
-  }
-  
-  .hero h1,
-  .hero p,
-  .hero .btn-custom {
-    position: relative;
+ /* Hero Section */
+.hero {
+  position: relative;
+  background-image: url(/assets/HomeBackground.jpg);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.nav-item{
+  display: flex;
+  flex-direction: row;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Darken with a black overlay */
+  z-index: 1;
+}
+
+.hero h1,
+.hero p,
+.hero .hero-btn {
+  position: relative;
+  z-index: 2; /* Ensure content is above the overlay */
+}
+.navbar-toggler {
+  z-index: 1050; /* Ensure it's above other elements */
+}
+/* Custom CSS for Navbar */
+/* Navbar for Toggle Dropdown */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column; /* Dropdown displayed as a column */
+    align-items: center; /* Align items to the start for better UX */
+    width: 100%; /* Full width for dropdown */
+    padding: 0; /* Remove extra padding */
   }
 
-  .btn{
+  .nav-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%; /* Ensure full width for each item */
+    text-align: left; /* Align text to the left */
+    padding: 10px 20px; /* Add padding for better spacing */
+    border-bottom: 1px solid #ddd; /* Add separator for better visibility */
+  }
+
+  .nav-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+  }
+
+  .nav-link {
+    display: block; /* Ensure links are visible */
+    padding: 10px 0; /* Add vertical padding for touch targets */
+  }
+}
+
+/* Flex Row for Social Links (Facebook, Instagram, Login) */
+.social-gap {
+  display: flex;
+  flex-direction: row; /* Horizontal alignment */
+  gap: 10px; /* Add spacing between icons */
+  justify-content: center; /* Center align the items */
+  margin-top: 10px; /* Add spacing from the dropdown */
+}
+
+.social-gap .social-media {
+  background-color: teal; /* Consistent circle background */
+  color: white;
+  width: 40px; /* Circle size */
+  height: 40px; /* Circle size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Circular appearance */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-gap .social-media:hover {
+  background-color: white; /* Change background on hover */
+  color: teal; /* Change icon color on hover */
+  border: 1px solid teal; /* Add a border on hover */
+}
+
+
+/* Prevent layout shift on hover by keeping button size consistent */
+.login1-btn {
+  background-color: teal;
+  color: white;
+  padding: 10px 24px; /* Maintain consistent padding */
+  font-size: 1rem; /* Large text size */
+  font-weight: 700; /* Bold text */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box; /* Ensure padding is included in total width/height */
+}
+
+.login1-btn:hover {
+  background-color: white;
+  color: teal;
+  box-shadow: 0 0 0 1px teal;
+  /* Don't change padding on hover to prevent shifting */
+}
+button{
+  padding-block: 0;
+}
+
+  .hero-btn {
     background-color: teal;
     color: white;
-    letter-spacing: 2px;
-    /* border-top-right-radius: 20px ; */
-    /* border-top-left-radius: 20px ; */
+    padding: 10px 24px; /* Adjust padding to make the button larger */
+    font-size: 1rem; /* Large text size */
+    font-weight: 700; /* Bold text */
+    border: none; /* Remove the border */
+    border-radius: 30px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  
   }
-  .btn:hover{
+  
+  .hero-btn:hover {
     background-color: white;
     color: teal;
-    border: 1px solid teal;
   }
-
   /* Mission Section */
   .mission {
     padding: 60px 20px;
@@ -128,31 +224,18 @@ body {
     font-size: 1.15rem;
     line-height: 1.8;
   }
-  
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 2.5rem;
-    }
-  
-    .hero p {
-      font-size: 1.1rem;
-    }
-  
-    .hero .btn-custom {
-      font-size: 1rem;
-      padding: 10px 25px;
-    }
-  
-    .navbar-nav .nav-item .nav-link {
-      font-size: 1rem;
-    }
-  
-    .mission h2, .impact h2, #volunteer h2 {
-      font-size: 2rem;
-    }
+
+  .navbar{
+    padding: 10px;
+    ;
   }
+  
+  .navbar-brand{
+    font-weight: 300;
+    font-size: 16pt
+    
+  }
+  
   /* Navbar styles */
   header {
     position: sticky; /* Keeps it fixed at the top */
@@ -162,8 +245,10 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for separation */
   }
 
+
+
 header li{
-  font-size: 14pt;
+  font-size: 15pt;
 }  
 
 .display-4{
