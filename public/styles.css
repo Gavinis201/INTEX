@@ -24,50 +24,84 @@ body {
   }
 
   /* Hero Section */
-  .hero {
-    position: relative;
-    background-image: url(/assets/HomeBackground.jpg);
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    width: 100%;
-    height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust opacity for darkness */
-  }
-  
-  .hero h1,
-  .hero p,
-  .hero .btn-custom {
-    position: relative;
-  }
+ /* Hero Section */
+.hero {
+  position: relative;
+  background-image: url(/assets/HomeBackground.jpg);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .btn{
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Darken with a black overlay */
+  z-index: 1;
+}
+
+.hero h1,
+.hero p,
+.hero .hero-btn {
+  position: relative;
+  z-index: 2; /* Ensure content is above the overlay */
+}
+
+/* Prevent layout shift on hover by keeping button size consistent */
+.login1-btn {
+  background-color: teal;
+  color: white;
+  padding: 10px 24px; /* Maintain consistent padding */
+  font-size: 1rem; /* Large text size */
+  font-weight: 700; /* Bold text */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box; /* Ensure padding is included in total width/height */
+}
+
+.login1-btn:hover {
+  background-color: white;
+  color: teal;
+  box-shadow: 0 0 0 1px teal;
+  /* Don't change padding on hover to prevent shifting */
+}
+button{
+  padding-block: 0;
+}
+
+  .hero-btn {
     background-color: teal;
     color: white;
-    letter-spacing: 2px;
-    /* border-top-right-radius: 20px ; */
-    /* border-top-left-radius: 20px ; */
+    padding: 10px 24px; /* Adjust padding to make the button larger */
+    font-size: 1rem; /* Large text size */
+    font-weight: 700; /* Bold text */
+    border: none; /* Remove the border */
+    border-radius: 30px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+  
   }
-  .btn:hover{
+  
+  .hero-btn:hover {
     background-color: white;
     color: teal;
-    border: 1px solid teal;
   }
-
   /* Mission Section */
   .mission {
     padding: 60px 20px;
@@ -161,7 +195,9 @@ body {
     z-index: 1000; /* Keeps it above all other elements */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for separation */
   }
-
+.navbar{
+  padding: 15px;
+}
 header li{
   font-size: 14pt;
 }  
