@@ -4,47 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Turtle Shelter Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://use.typekit.net/your-adobe-font-link.css">
+  
 </head>
 <body>
   <header>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="#">Turtle Shelter Project</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-              <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
-              <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
-              <li class="nav-item"><a class="nav-link" href="#volunteer">Volunteer</a></li>
-              <li class="nav-item"><a class="nav-link" href="#volunteer">LOG IN</a></li>
-          </ul>
-        </div>
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Turtle Shelter Project on the far left -->
+        <a class="navbar-brand" href="#">TURTLE SHELTER PROJECT</a>
+        
+        <!-- Navbar links, centered -->
+        <ul class="navbar-nav mx-auto d-flex justify-content-center">
+          <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
+          <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#volunteer">Volunteer</a></li>
+          <li class="nav-item"><a class="nav-link" href="#volunteer">Jen's Story</a></li>
+        </ul>
+        
+        <!-- Social Media Icons (Facebook, Instagram) on the right -->
+       
+
+        <!-- Login Button on the far right -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <button class="btn btn-custom btn-lg">LOG IN</button>
+          </li>
+          <div class="social-media">
+            <a href="https://www.facebook.com" target="_blank">
+              <i class="fa fa-facebook-square"></i>
+            </a>
+          </div>
+          <div class="social-media">
+            <a href="https://www.instagram.com" target="_blank">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </div>
+         
+        </ul>
+        
       </div>
     </nav>
-    <!-- Hero Section -->
-    <div class="hero" style="background-image: url('assets/HomeBackground.jpg');">
-      <div class="container text-center">
-        <h1 class="display-4">Welcome to the Turtle Shelter Project</h1>
-        <p class="lead">Providing safety and support for vulnerable turtle populations.</p>
-        <a href="#volunteer" class="btn btn-custom btn-lg">Join Us</a>
-      </div>
-    </div>
   </header>
-
+  
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="container text-center">
+      <p class="lead">Helping to save lives of people experiencing homelessness</p>
+      <h1 class="display-4">STARTS WITH YOU</h1><br>
+      <a href="#volunteer" class="btn btn-custom btn-lg">Join Us</a>
+    </div>
+  </div>
+  
+  <!-- Mission Section -->
   <section id="mission" class="mission">
     <div class="container">
       <h2 class="text-center mb-4">Our Mission</h2>
-      <p>
-        At the Turtle Shelter Project, our mission is to protect endangered turtles and their habitats while fostering awareness and community action. Through dedicated conservation efforts, educational initiatives, and community support, we strive to ensure a safe future for turtles worldwide.
-      </p>
+      <p>Our mission is to provide a life-saving solution for those facing extreme cold through 
+        <b> The Turtle Shelter Vest</b> a portable, affordable, high-tech foam vest that keeps individuals warm in temperatures 
+         as low as 10 degrees below zero. Inspired by Jen’s personal experience with 
+         homelessness, we aim to alleviate suffering and save lives. We encourage communities 
+         to come together to create and distribute these vests, making a meaningful impact in 
+         the fight against cold-weather exposure.</p>
+    </div>
+    <div style="display: flex; justify-content: center; height: 250px;">
+      <img src="/assets/TurtleShelterLogo.png" alt="">
     </div>
   </section>
 
+  <!-- Impact Section -->
   <section id="impact" class="impact">
     <div class="container">
       <h2 class="text-center mb-4">Our Impact</h2>
@@ -65,6 +97,7 @@
     </div>
   </section>
 
+  <!-- Volunteer Section -->
   <section id="volunteer" class="mission">
     <div class="container">
       <h2 class="text-center mb-4">Become a Volunteer</h2>
@@ -77,10 +110,13 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
     <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
   </footer>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
