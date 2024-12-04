@@ -63,7 +63,10 @@ app.get('/view_events', (req, res) => {
   .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
   .join('space_size', 'event_requests.space_size_id','=','space_size.space_size_id' )
   .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
-  .join('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
+  .leftJoin('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
+  .leftJoin('completed_event_details', 'event_requests.event_id','=','completed_event_details.event_id' )
+  .leftJoin('completed_event_products', 'event_requests.event_id','=','completed_event_products.event_id' )
+  .leftJoin('products', 'completed_event_products.product_id','=','products.product_id' )
   .orderBy('first_choice_event_date')
   .then( event_requests => {
       // Format the dates in the event_requests array
