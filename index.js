@@ -96,6 +96,7 @@ app.get('/view_events', (req, res) => {
       knex.select('*')
       .from('completed_event_products')
       .join('products', 'completed_event_products.product_id','=','products.product_id' )
+      .orderBy('products.product_id','desc')
       .then( products => {
         res.render("view_events", { event_requests, products });
       }).catch(err => {

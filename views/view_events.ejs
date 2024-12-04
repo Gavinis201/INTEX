@@ -204,6 +204,51 @@
                                 </form>
                             </div>
                         </div> 
+                    <% } else if (event_requests[iCount].event_status_description === 'Completed') { %>
+                        <div class="card-details" id="details-<%= iCount %>" style="opacity: 0; max-height: 0; transition: max-height 0.85s ease, opacity 0.85s ease; display: flex; flex-direction: column; gap: 15px;">
+                            <hr>
+                            <!-- Outcomes Section -->
+                            <div style="background-color: #f0f8ff; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                                <% products.forEach(product_entry => { %>
+                                    <% if (product_entry.event_id === event_requests[iCount].event_id) { %>
+                                        <p style="margin: 5px 0;"><strong><%= product_entry.product_name %>:</strong> <%= products_entry.quantity_produced %></p>
+                                    <% } %>
+                                <% }) %>
+                            </div>
+                            <div style="display: flex; gap: 15px; margin-top: -10px;">
+                                <!-- Column 1 -->
+                                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                    <p style="margin-bottom: 5px;"><strong>Start Time:</strong> <%= event_requests[iCount].formatted_time_approved %></p>
+                                    <p style="margin-bottom: 5px;"><strong>Event Duration:</strong> <%= event_requests[iCount].approved_event_duration_hours %> hours</p>
+                                    <p style="margin-bottom: 5px;"><strong>Location:</strong> <%= event_requests[iCount].event_address %> <%= event_requests[iCount].event_city %>, <%= event_requests[iCount].event_state %> <%= event_requests[iCount].event_zip %></p>
+                                </div>
+                                <!-- Column 2 -->
+                                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                    <p style="margin-bottom: 5px;"><strong>Total Participants:</strong> <%= event_requests[iCount].completed_participants_count %></p>
+                                    <p style="margin-bottom: 5px;"><strong>Space Size:</strong> <%= event_requests[iCount].space_size_description %></p>
+                                    <p style="margin-bottom: 5px;"><strong>Event Type:</strong> <%= event_requests[iCount].event_type_description %></p>
+                                    <% if (event_requests[iCount].event_type_description === 'Sewing' || event_requests[iCount].event_type_description === 'Both') { %>
+                                        <p style="margin-bottom: 5px;"><strong>Sewers:</strong> <%= event_requests[iCount].number_of_sewers %></p>
+                                    <% } %>
+                                    <p style="margin-bottom: 5px;"><strong>Story? </strong> <%= event_requests[iCount].jen_story ? 'Yes' : 'No' %></p>
+                                </div>
+                                <!-- Column 3 -->
+                                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                    <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
+                                    <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
+                                    <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                                        Contact
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
+                                <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
+                                </form>
+                            </div>
+                        </div> 
                     <% } %>
                 </div>
             <% } %>
