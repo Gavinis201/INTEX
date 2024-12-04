@@ -37,6 +37,8 @@ app.get('/loginPage', (req, res) => {
 app.post('/login', (req, res) => {
   knex.select('*')
   .from('event_requests')
+  .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
+  .orderBy('first_choice_event_date')
   .then( event_requests => {
       // Format the dates in the event_requests array
       event_requests = event_requests.map(event => {

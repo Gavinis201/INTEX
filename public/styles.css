@@ -331,3 +331,19 @@ header li{
   .footeruser{
     height: 73vh;
   }
+
+  .status-pending {
+    color: grey;
+}
+
+.status-declined {
+    color: red;
+}
+
+.status-approved {
+    color: green;
+}
+
+.status-completed {
+    color: black;
+}
