@@ -38,6 +38,8 @@ app.post('/login', (req, res) => {
   knex.select('*')
   .from('event_requests')
   .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
+  .join('space_size', 'event_requests.space_size_id','=','space_size.space_size_id' )
+  .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
   .orderBy('first_choice_event_date')
   .then( event_requests => {
       // Format the dates in the event_requests array
