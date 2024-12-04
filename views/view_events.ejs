@@ -56,7 +56,14 @@
                 <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" 
                     onclick="toggleDetails('<%= iCount %>')" 
                     id="card-<%= iCount %>">
-                    <h3 style="margin: 0;"><%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %> (<%= event_requests[iCount].first_choice_event_date %>) - <%= event_requests[iCount].event_status_description %></h3>
+                    <h3 style="margin: 0;">
+                        <%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %> (<%= event_requests[iCount].first_choice_event_date %>)  
+                        <span class="<%= event_requests[iCount].event_status_description === 'Pending' ? 'status-pending' :
+                            event_requests[iCount].event_status_description === 'Declined' ? 'status-declined' :
+                            event_requests[iCount].event_status_description === 'Approved' ? 'status-approved' : 'status-completed' %>" style="float: right;">
+                            <%= event_requests[iCount].event_status_description %>
+                        </span>
+                    </h3>
                     <div class="card-details" id="details-<%= iCount %>" style="opacity: 0; max-height: 0; transition: max-height 0.85s ease, opacity 0.85s ease;">
                         <p><strong>Dates:</strong></p>
                         <ul style="margin: 0 0 10px 0; padding-left: 20px;">
