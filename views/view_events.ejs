@@ -80,18 +80,23 @@
                                 </ol>
                                 <p style="margin-bottom: 5px;"><strong>Requested Start Time:</strong> <%= event_requests[iCount].formatted_time %></p>
                                 <p style="margin-bottom: 5px;"><strong>Event Duration:</strong> <%= event_requests[iCount].estimated_event_duration_hours %> hours</p>
-                                <p style="margin-bottom: 5px;"><strong>Participants:</strong> <%= event_requests[iCount].estimated_participant_count %></p>
                             </div>
                             <!-- Column 2 -->
                             <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="margin-bottom: 5px;"><strong>Participants:</strong> <%= event_requests[iCount].estimated_participant_count %></p>
                                 <p style="margin-bottom: 5px;"><strong>Space Size:</strong> <%= event_requests[iCount].space_size_description %></p>
                                 <p style="margin-bottom: 5px;"><strong>Event Type:</strong> <%= event_requests[iCount].event_type_description %></p>
-                                <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
-                            </div>
-                            <!-- Column 3 -->
-                            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                 <p style="margin-bottom: 5px;"><strong>Story? </strong> <%= event_requests[iCount].jen_story ? 'Yes' : 'No' %></p>
                                 <p style="margin-bottom: 5px;"><strong>Multi-day Event? </strong> <%= event_requests[iCount].multi_day_event ? 'Yes' : 'No' %></p>
+                            </div>
+                            <!-- Column 3 -->
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                                <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
+                                <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                    <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 auto;">
+                                        Contact
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     
