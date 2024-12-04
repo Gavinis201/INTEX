@@ -52,7 +52,7 @@
         </header>
 
         <!-- Main Page Content -->
-        <h1 style="margin-top: 30px; text-align: center;">Events</h1>
+        <h1 style="margin-top: 30px; text-align: center;">Upcoming Events</h1>
         <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
             <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
                 <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" 
@@ -121,7 +121,7 @@
                             <hr>
                             <!-- Needs Section -->
                             <div style="background-color: #f0f8ff; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
-                                <p style="margin: 5px 0;"><strong>Team Members Needed:</strong> <%= event_requests[iCount].estimated_participant_count %></p>
+                                <p style="margin: 5px 0;"><strong>Team Members Needed:</strong> <%= event_requests[iCount].estimated_team_members_needed %></p>
                                 <% if (event_requests[iCount].event_type_description === 'Sewing' || event_requests[iCount].event_type_description === 'Both') { %>
                                     <p style="margin: 5px 0;"><strong>Sewing Machines to Bring:</strong> <%= event_requests[iCount].sewing_machines_to_bring %></p>
                                     <p style="margin: 5px 0;"><strong>Sergers to Bring:</strong> <%= event_requests[iCount].sergers_to_bring %></p>
@@ -209,9 +209,10 @@
                             <hr>
                             <!-- Outcomes Section -->
                             <div style="background-color: #f0f8ff; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                                <h2>Completed Work</h2>
                                 <% products.forEach(product_entry => { %>
                                     <% if (product_entry.event_id === event_requests[iCount].event_id) { %>
-                                        <p style="margin: 5px 0;"><strong><%= product_entry.product_name %>:</strong> <%= products_entry.quantity_produced %></p>
+                                        <p style="margin: 5px 0;"><strong><%= product_entry.product_name %>s:</strong> <%= product_entry.quantity_produced %></p>
                                     <% } %>
                                 <% }) %>
                             </div>
