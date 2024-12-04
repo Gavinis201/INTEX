@@ -21,7 +21,28 @@ const knex = require("knex")({
     }
 });
 
-app.use(express.static(path.join(__dirname, "public") ))
+app.use(express.static(path.join(__dirname, "public") ));
+
+const formattedTime = (time) => {
+  // Convert "09:00:00" to a Date object
+  const date = new Date(`1970-01-01T${time}Z`);  // Use a dummy date
+
+  // Get the hour in 24-hour format
+  let hour = date.getUTCHours();
+
+  // Determine AM or PM
+  const period = hour >= 12 ? 'PM' : 'AM';
+
+  // Convert hour to 12-hour format
+  if (hour > 12) {
+    hour -= 12;
+  } else if (hour === 0) {
+    hour = 12; // Midnight case
+  }
+
+  // Return formatted time like "9 AM"
+  return `${hour} ${period}`;
+};
 
 // Route to serve the landing page
 app.get('/', (req, res) => {
@@ -57,6 +78,10 @@ app.post('/login', (req, res) => {
           event.third_choice_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
         }
         return event;
+      });
+      // Format the time for each event request
+      event_requests.forEach(event => {
+        event.formatted_time = formattedTime(event.estimated_event_start_time);
       });
     res.render("view_events", { event_requests });
   }).catch(err => {
