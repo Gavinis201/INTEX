@@ -65,8 +65,6 @@ app.get('/view_events', (req, res) => {
   .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
   .leftJoin('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
   .leftJoin('completed_event_details', 'event_requests.event_id','=','completed_event_details.event_id' )
-  .leftJoin('completed_event_products', 'event_requests.event_id','=','completed_event_products.event_id' )
-  .leftJoin('products', 'completed_event_products.product_id','=','products.product_id' )
   .orderBy('first_choice_event_date')
   .then( event_requests => {
       // Format the dates in the event_requests array
@@ -94,7 +92,16 @@ app.get('/view_events', (req, res) => {
         event.formatted_time_estimate = formattedTime(event.estimated_event_start_time);
         event.formatted_time_approved = formattedTime(event.approved_event_start_time);
       });
-    res.render("view_events", { event_requests });
+
+      knex.select('*')
+      .from('completed_event_products')
+      .join('products', 'completed_event_products.product_id','=','products.product_id' )
+      .then( products => {
+        res.render("view_events", { event_requests, products });
+      }).catch(err => {
+          console.log(err);
+          res.status(500).json({err})
+        })
   }).catch(err => {
       console.log(err);
       res.status(500).json({err});
