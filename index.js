@@ -65,7 +65,12 @@ app.get('/view_events', (req, res) => {
   .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
   .leftJoin('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
   .leftJoin('completed_event_details', 'event_requests.event_id','=','completed_event_details.event_id' )
-  .orderBy('first_choice_event_date')
+  .orderByRaw(`
+    CASE
+      WHEN approved_event_details.approved_event_date IS NOT NULL THEN approved_event_details.approved_event_date
+      ELSE event_requests.first_choice_event_date
+    END
+  `)
   .then( event_requests => {
       // Format the dates in the event_requests array
       event_requests = event_requests.map(event => {
