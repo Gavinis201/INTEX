@@ -57,11 +57,15 @@
                     onclick="toggleDetails('<%= iCount %>')" 
                     id="card-<%= iCount %>">
                     <h3 style="margin: 0;">
-                        <%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %> (<%= event_requests[iCount].first_choice_event_date %>)  
+                        <%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %>  
                         <span class="<%= event_requests[iCount].event_status_description === 'Pending' ? 'status-pending' :
                             event_requests[iCount].event_status_description === 'Declined' ? 'status-declined' :
                             event_requests[iCount].event_status_description === 'Approved' ? 'status-approved' : 'status-completed' %>" style="float: right;">
                             <%= event_requests[iCount].event_status_description %>
+                        </span><br>
+                        <span style="font-size: 20px; font-weight: normal;">
+                            <%= event_requests[iCount].first_choice_event_date %><br>
+                            <%= event_requests[iCount].event_city %>
                         </span>
                     </h3>
                     <div class="card-details" id="details-<%= iCount %>" style="opacity: 0; max-height: 0; transition: max-height 0.85s ease, opacity 0.85s ease;">
