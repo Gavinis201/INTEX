@@ -56,6 +56,69 @@ app.get('/loginPage', (req, res) => {
   res.render('loginPage')
 });
 
+// Route to login to administrator side
+// Compares username and password
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Fetch the user by username
+    const user = await knex('users')
+      .select('*')
+      .where({ username })
+      .first(); // Fetch the first matching record
+
+    if (!user) {
+      // If no matching user is found
+      console.log('No user found with username:', username); // Debugging line
+      return res.redirect('/loginPage?error=invalid_credentials');
+    }
+
+    if (password === user.password) {
+      // Passwords match
+      return res.redirect('/loginHomePage');
+    } else {
+      // Passwords don't match
+      console.log('Password does not match user', username);
+      return res.redirect('/loginPage?error=invalid_credentials');
+    }
+  } catch (error) {
+    // Handle any errors during the database query or password comparison
+    console.error('Error during login:', error.message);
+    return res.status(500).send('An error occurred. Please try again later.');
+  }
+});
+
+// Route to serve the login landing page
+app.get('/loginHomePage', (req, res) => {
+  res.render('loginHomePage')
+});
+
+app.get('/volunteerSignUpPage', (req, res) => {
+  // Fetch Pokémon types to populate the dropdown
+  knex('sewing_level')
+    .select('sewing_level_id', 'sewing_level_description')
+    .then(sewing_types => {
+
+      knex('volunteer_source')
+        .select('volunteer_source_id', 'source_description')
+        .then(volunteer_source_types => {
+
+          knex('volunteer_travel_range_id')
+            .select('volunteer_travel_range_id', 'volunteer_travel_range_description')
+            .then(volunteer_travel_range_types => {
+          
+            // Render the add form with the Pokémon types data
+            res.render('volunteerSignUpPage', { sewing_types, volunteer_source_types, volunteer_travel_range_types});
+          })
+        })
+    })
+    .catch(error => {
+      console.error('Error fetching Sewing, Volunteer Source and Volunter travel range types:', error);
+      res.status(500).send('Internal Server Error');
+    });
+});
+
 // view_events page code
 app.post('/view_events', (req, res) => {
   knex.select('*')
