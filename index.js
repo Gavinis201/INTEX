@@ -57,7 +57,7 @@ app.get('/loginPage', (req, res) => {
 });
 
 // view_events page code
-app.post('/view_events', (req, res) => {
+app.get('/view_events', (req, res) => {
   knex.select('*')
   .from('event_requests')
   .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
