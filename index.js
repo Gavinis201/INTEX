@@ -92,6 +92,10 @@ app.get('/view_events', (req, res) => {
         }
         return event;
       });
+
+      // Get current date
+      const currentDate = new Date()
+
       // Format the time for each event request
       event_requests.forEach(event => {
         event.formatted_time_estimate = formattedTime(event.estimated_event_start_time);
@@ -103,7 +107,7 @@ app.get('/view_events', (req, res) => {
       .join('products', 'completed_event_products.product_id','=','products.product_id' )
       .orderBy('products.product_id','desc')
       .then( products => {
-        res.render("view_events", { event_requests, products });
+        res.render("view_events", { event_requests, products, currentDate });
       }).catch(err => {
           console.log(err);
           res.status(500).json({err})
