@@ -210,15 +210,15 @@ INSERT INTO event_requests (estimated_participant_count, space_size_id, event_ty
     event_contact_last_name, event_contact_phone, event_contact_email, jen_story, multi_day_event, event_status_id)
 VALUES
 (50, 1, 1, '2024-01-10', '2024-01-11', '2024-01-12', 'Salt Lake City', 'UT', '84101', 
-    '09:00:00', 4.0, 'Emily', 'Clark', '(123)-123-1234', 'emily.clark@example.com', TRUE, FALSE, 1),
+    '09:00:00', 4.0, 'Emily', 'Clark', '(123)-123-1234', 'emily.clark@example.com', TRUE, FALSE, 3),
 (75, 2, 2, '2024-02-05', '2024-02-06', '2024-02-07', 'Provo', 'UT', '84604', 
-    '10:00:00', 3.5, 'Daniel', 'Adams', '(456)-456-4567', 'daniel.adams@example.com', FALSE, TRUE, 2),
+    '10:00:00', 3.5, 'Daniel', 'Adams', '(456)-456-4567', 'daniel.adams@example.com', FALSE, TRUE, 3),
 (100, 3, 3, '2024-03-15', '2024-03-16', '2024-03-17', 'Ogden', 'UT', '84401', 
-    '11:00:00', 5.0, 'Grace', 'Wilson', '(789)-789-7890', 'grace.wilson@example.com', TRUE, TRUE, 3),
+    '11:00:00', 5.0, 'Grace', 'Wilson', '(789)-789-7890', 'grace.wilson@example.com', TRUE, TRUE, 1),
 (25, 1, 1, '2024-04-20', '2024-04-21', '2024-04-22', 'Logan', 'UT', '84321', 
-    '08:30:00', 2.5, 'Henry', 'Lee', '(101)-010-1010', 'henry.lee@example.com', FALSE, FALSE, 1),
+    '08:30:00', 2.5, 'Henry', 'Lee', '(101)-010-1010', 'henry.lee@example.com', FALSE, FALSE, 2),
 (60, 2, 2, '2024-05-10', '2024-05-11', '2024-05-12', 'St. George', 'UT', '84770', 
-    '14:00:00', 6.0, 'Sophia', 'Brown', '(202)-020-2020', 'sophia.brown@example.com', TRUE, TRUE, 2);
+    '14:00:00', 6.0, 'Sophia', 'Brown', '(202)-020-2020', 'sophia.brown@example.com', TRUE, TRUE, 4);
 
 -- Insert data into completed_event_products
 INSERT INTO completed_event_products (event_id, product_id, quantity_produced)
