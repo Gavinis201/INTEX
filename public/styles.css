@@ -332,6 +332,21 @@ header li{
     height: 73vh;
   }
 
+  .status-pending {
+    color: grey;
+}
+
+.status-declined {
+    color: red;
+}
+
+.status-approved {
+    color: green;
+}
+
+.status-completed {
+    color: black;
+}
   .height{
     position: static; 
     bottom: 0;

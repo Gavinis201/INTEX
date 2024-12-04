@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>View Events</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <header>
+            <!-- Navigation Bar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <!-- Turtle Shelter Project on the far left -->
+                    <a class="navbar-brand" href="#">TURTLE SHELTER PROJECT</a>
+                    
+                    <!-- Navbar Toggle Button for Small Screens -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <!-- Navbar links, centered (This is the collapsible part) -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#volunteer">Volunteer</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#volunteer">Jen's Story</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Social Media Icons and Login Button on the right -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <button class="login1-btn" type="submit">LOG IN</button>
+                            <div class="social-media">
+                                <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                                    <i class="fa fa-facebook-square"></i>
+                                </a>
+                            </div>
+                            <div class="social-media">
+                                <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Page Content -->
+        <h1 style="margin-top: 30px; text-align: center;">Events</h1>
+        <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
+            <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
+                <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" 
+                    onclick="toggleDetails('<%= iCount %>')" 
+                    id="card-<%= iCount %>">
+                    <h3 style="margin: 0;">
+                        <%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %>  
+                        <span class="<%= event_requests[iCount].event_status_description === 'Pending' ? 'status-pending' :
+                            event_requests[iCount].event_status_description === 'Declined' ? 'status-declined' :
+                            event_requests[iCount].event_status_description === 'Approved' ? 'status-approved' : 'status-completed' %>" style="float: right;">
+                            <%= event_requests[iCount].event_status_description %>
+                        </span><br>
+                        <span style="font-size: 20px; font-weight: normal;">
+                            <%= event_requests[iCount].first_choice_event_date %><br>
+                            <%= event_requests[iCount].event_city %>
+                        </span>
+                    </h3>
+                    <div class="card-details" id="details-<%= iCount %>" style="opacity: 0; max-height: 0; transition: max-height 0.85s ease, opacity 0.85s ease; display: flex; flex-direction: column; gap: 15px;">
+                        <hr>
+                        <div style="display: flex; gap: 15px; margin-top: -10px;">
+                            <!-- Column 1 -->
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="margin-bottom: -5px;"><strong>Preferred Dates:</strong></p>
+                                <ol style="margin-top: -4px; margin-bottom: 0px;">
+                                    <li><%= event_requests[iCount].first_choice_event_date %></li>
+                                    <li><%= event_requests[iCount].second_choice_event_date %></li>
+                                    <li><%= event_requests[iCount].third_choice_event_date %></li>
+                                </ol>
+                                <p style="margin-bottom: 5px;"><strong>Requested Start Time:</strong> <%= event_requests[iCount].formatted_time %></p>
+                                <p style="margin-bottom: 5px;"><strong>Event Duration:</strong> <%= event_requests[iCount].estimated_event_duration_hours %> hours</p>
+                            </div>
+                            <!-- Column 2 -->
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="margin-bottom: 5px;"><strong>Participants:</strong> <%= event_requests[iCount].estimated_participant_count %></p>
+                                <p style="margin-bottom: 5px;"><strong>Space Size:</strong> <%= event_requests[iCount].space_size_description %></p>
+                                <p style="margin-bottom: 5px;"><strong>Event Type:</strong> <%= event_requests[iCount].event_type_description %></p>
+                                <p style="margin-bottom: 5px;"><strong>Story? </strong> <%= event_requests[iCount].jen_story ? 'Yes' : 'No' %></p>
+                                <p style="margin-bottom: 5px;"><strong>Multi-day Event? </strong> <%= event_requests[iCount].multi_day_event ? 'Yes' : 'No' %></p>
+                            </div>
+                            <!-- Column 3 -->
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                                <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
+                                <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
+                                <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                    <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                                    Contact
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
+                            <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST">
+                                <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
+                            </form>
+                            <form action="/deletePoke/<%= event_requests[iCount].event_id %>" method="POST">
+                                <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+            <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Script tag for opening and closing card animation -->
+        <script>
+            function toggleDetails(id) {
+                const card = document.getElementById(`card-${id}`);
+                const details = document.getElementById(`details-${id}`);
+        
+                // Check the current state using `maxHeight`
+                if (details.style.maxHeight && details.style.maxHeight !== "0px") {
+                    // Collapse the card
+                    details.style.maxHeight = "0"; // Hides the content
+                    details.style.opacity = "0"; // Fade-out effect
+                    card.style.paddingBottom = "20px"; // Adjust padding if necessary
+                } else {
+                    // Expand the card
+                    details.style.maxHeight = "500px"; // Large enough to fit the content
+                    details.style.opacity = "1"; // Fade-in effect
+                    card.style.paddingBottom = "20px"; // Ensure padding remains consistent
+                }
+            }
+        </script>
+    </body>
+</html>
