@@ -53,9 +53,11 @@
         <h1>Events</h1>
         <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
             <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
-                <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer;" onclick="toggleDetails('<%= iCount %>')">
+                <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" 
+                    onclick="toggleDetails('<%= iCount %>')" 
+                    id="card-<%= iCount %>">
                     <h3 style="margin: 0;"><%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %></h3>
-                    <div class="card-details" id="details-<%= iCount %>" style="display: none; margin-top: 15px;">
+                    <div class="card-details" id="details-<%= iCount %>" style="opacity: 0; max-height: 0; transition: max-height 0.85s ease, opacity 0.85s ease;">
                         <p><strong>Dates:</strong></p>
                         <ul style="margin: 0 0 10px 0; padding-left: 20px;">
                             <li><%= event_requests[iCount].first_choice_event_date %></li>
@@ -76,7 +78,6 @@
             <% } %>
         </div>
         
-                
         <!-- Footer -->
         <footer class="footer">
             <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
@@ -88,15 +89,22 @@
 
         <script>
             function toggleDetails(id) {
+                const card = document.getElementById(`card-${id}`);
                 const details = document.getElementById(`details-${id}`);
-                if (details.style.display === "none" || details.style.display === "") {
-                    details.style.display = "block";
+        
+                // Check the current state using `maxHeight`
+                if (details.style.maxHeight && details.style.maxHeight !== "0px") {
+                    // Collapse the card
+                    details.style.maxHeight = "0"; // Hides the content
+                    details.style.opacity = "0"; // Fade-out effect
+                    card.style.paddingBottom = "20px"; // Adjust padding if necessary
                 } else {
-                    details.style.display = "none";
+                    // Expand the card
+                    details.style.maxHeight = "500px"; // Large enough to fit the content
+                    details.style.opacity = "1"; // Fade-in effect
+                    card.style.paddingBottom = "20px"; // Ensure padding remains consistent
                 }
             }
         </script>
-        
-
     </body>
 </html>
