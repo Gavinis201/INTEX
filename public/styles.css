@@ -331,3 +331,59 @@ header li{
   .footeruser{
     height: 73vh;
   }
+
+  .height{
+    position: static; 
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .table {
+    border: 1px solid teal;
+    width: 80%;
+    border-collapse: separate; /* Ensures the border-radius works */
+    border-spacing: .5px; /* Removes spacing between cells */
+    border-radius: 10px; /* Rounds the table corners */
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(0, 128, 128, 0.402); ;
+  }
+
+  .table th{
+    color: white;
+    text-shadow: 0px 0px 3px teal;
+    background-color: teal;
+    border: 1px solid teal;
+    text-align: center; /* Centers text horizontally */
+    vertical-align: baseline; /* Centers text vertically */
+    font-family: Arial, Helvetica, sans-serif; /* Matches the font-family */
+  }
+  .table td{
+    border: 1px solid teal ;
+    padding: 10px;
+  }
+
+  .button-table{
+    width: 60px;
+    height: 30px;
+    background-color: teal;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    font-size: 10pt;
+  }
+  .button-table:hover{
+    background-color: white;
+    color: teal;
+    box-shadow: 0 0 0 1px teal;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .volunteer-info{
+    letter-spacing: 5px;
+    font-size: 20pt;
+    text-transform: uppercase;
+
+  }
