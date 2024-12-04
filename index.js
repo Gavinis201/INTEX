@@ -44,6 +44,14 @@ app.post('/login', (req, res) => {
           const date = new Date(event.first_choice_event_date);
           event.first_choice_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
         }
+        if (event.second_choice_event_date) { 
+          const date = new Date(event.second_choice_event_date);
+          event.second_choice_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
+        }
+        if (event.third_choice_event_date) { 
+          const date = new Date(event.third_choice_event_date);
+          event.third_choice_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
+        }
         return event;
       });
     res.render("view_events", { event_requests });

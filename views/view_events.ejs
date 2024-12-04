@@ -65,7 +65,10 @@
                 <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
                 <tr>
                     <td><%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %></td>
-                    <td><%= event_requests[iCount].first_choice_event_date %></td>
+                    <td><%= event_requests[iCount].first_choice_event_date %><br>
+                        <%= event_requests[iCount].second_choice_event_date %><br>
+                        <%= event_requests[iCount].third_choice_event_date %>
+                    </td>
                     <td><%= event_requests[iCount].event_city %></td>
                     <td>
                         <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST">
