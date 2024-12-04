@@ -16,7 +16,7 @@ const knex = require("knex")({
         host: process.env.RDS_HOSTNAME || "localhost", 
         user: process.env.RDS_USERNAME || "intex", 
         password: process.env.RDS_PASSWORD || "password", 
-        database: process.env.RDS_DB_NAME || "intex_test10", 
+        database: process.env.RDS_DB_NAME || "intex_test13", 
         port: process.env.RDS_PORT || 5432, 
     }
 });
