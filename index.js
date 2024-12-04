@@ -14,9 +14,9 @@ const knex = require("knex")({
     client: "pg", 
     connection: {
         host: process.env.RDS_HOSTNAME || "localhost", 
-        user: process.env.RDS_USERNAME || "postgres", 
-        password: process.env.RDS_PASSWORD || "Cougars", 
-        database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
+        user: process.env.RDS_USERNAME || "intex", 
+        password: process.env.RDS_PASSWORD || "password!", 
+        database: process.env.RDS_DB_NAME || "index_test10", 
         port: process.env.RDS_PORT || 5432, 
     }
 });
@@ -32,5 +32,10 @@ app.get('/', (req, res) => {
 app.get('/loginPage', (req, res) => {
   res.render('loginPage')
 });
+
+// Temporary route to view events page through login button
+app.post('/login', (req, res) => {
+  res.render('view_events')
+})
 
 app.listen(port, () => console.log("My INTEX website is listening"));
