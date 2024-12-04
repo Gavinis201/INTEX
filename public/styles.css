@@ -294,6 +294,7 @@ header li{
     text-align: center;
     padding: 30px 10px;
     position: relative;
+    
   }
   
   .footer p {
@@ -325,4 +326,8 @@ header li{
   
   .footer .social-icons a:hover {
     color: #007bff;
+  }
+
+  .footeruser{
+    height: 73vh;
   }
