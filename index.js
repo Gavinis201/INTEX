@@ -24,6 +24,7 @@ const knex = require("knex")({
 
 app.use(express.static(path.join(__dirname, "public") ));
 
+// This formats time so that if it's stored as 09:00:00, we can display it as 9 AM
 const formattedTime = (time) => {
   // Convert "09:00:00" to a Date object
   const date = new Date(`1970-01-01T${time}Z`);  // Use a dummy date
@@ -55,8 +56,8 @@ app.get('/loginPage', (req, res) => {
   res.render('loginPage')
 });
 
-// Temporary route to view events page through login button
-app.post('/login', (req, res) => {
+// view_events page code
+app.post('/view_events', (req, res) => {
   knex.select('*')
   .from('event_requests')
   .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
@@ -120,11 +121,5 @@ app.get("/volunteer", (req, res) => {
           res.status(500).send("Internal Server Error");
       });
 });
-
-
-
-
-
-
 
 app.listen(port, () => console.log("My INTEX website is listening"));
