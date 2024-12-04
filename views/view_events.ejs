@@ -66,7 +66,8 @@
                             <%= event_requests[iCount].event_status_description %>
                         </span><br>
                         <span style="font-size: 20px; font-weight: normal;">
-                            <%= event_requests[iCount].first_choice_event_date %><br>
+                            <%= event_requests[iCount].event_status_description === 'Pending' ? event_requests[iCount].first_choice_event_date :
+                            event_requests[iCount].event_status_description === 'Declined' ? event_requests[iCount].first_choice_event_date : event_requests[iCount].approved_event_date %><br>
                             <%= event_requests[iCount].event_city %>
                         </span>
                     </h3>

@@ -63,6 +63,7 @@ app.get('/view_events', (req, res) => {
   .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
   .join('space_size', 'event_requests.space_size_id','=','space_size.space_size_id' )
   .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
+  .join('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
   .orderBy('first_choice_event_date')
   .then( event_requests => {
       // Format the dates in the event_requests array
@@ -78,6 +79,10 @@ app.get('/view_events', (req, res) => {
         if (event.third_choice_event_date) { 
           const date = new Date(event.third_choice_event_date);
           event.third_choice_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
+        }
+        if (event.approved_event_date) { 
+          const date = new Date(event.approved_event_date);
+          event.approved_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
         }
         return event;
       });
