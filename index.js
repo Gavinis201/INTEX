@@ -38,11 +38,19 @@ app.post('/login', (req, res) => {
   knex.select('*')
   .from('event_requests')
   .then( event_requests => {
-        res.render("view_events", { event_requests });
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
-})
+      // Format the dates in the event_requests array
+      event_requests = event_requests.map(event => {
+        if (event.first_choice_event_date) { 
+          const date = new Date(event.first_choice_event_date);
+          event.first_choice_event_date = date.toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}); // Formats as "January 10, 2024"
+        }
+        return event;
+      });
+    res.render("view_events", { event_requests });
+  }).catch(err => {
+      console.log(err);
+      res.status(500).json({err});
+    })
+});
 
 app.listen(port, () => console.log("My INTEX website is listening"));
