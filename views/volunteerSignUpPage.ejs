@@ -162,7 +162,14 @@
   <!-- No need for the additional collapsible section anymore -->
   
   <div class="form-container">
-    <form class="form1" action="/addPoke" method="POST">
+
+    <p style="color: green; text-align: center; " class="text-success mt-3">
+        <% if (success === 'true') { %>
+            Sign-up successful!
+        <% } %>
+    </p>
+
+    <form class="form1" action="/volunteerSignUpPage" method="POST">
         <!-- First Name and Last Name -->
         <div class="form-group">
             <div class="form-field">
@@ -172,8 +179,6 @@
                     id="volunteer_first_name" 
                     name="volunteer_first_name" 
                     required 
-                    style="text-transform: uppercase;" 
-                    oninput="this.value = this.value.toUpperCase()"
                 >
             </div>
             <div class="form-field">
@@ -183,8 +188,6 @@
                     id="volunteer_last_name" 
                     name="volunteer_last_name" 
                     required 
-                    style="text-transform: uppercase;" 
-                    oninput="this.value = this.value.toUpperCase()"
                 >
             </div>
         </div>
@@ -192,12 +195,12 @@
         <!-- Email and Phone -->
         <div class="form-group">
             <div class="form-field">
-                <label for="volunteer_email">Email</label>
-                <input type="text" id="volunteer_email" name="volunteer_email" required>
-            </div>
-            <div class="form-field">
                 <label for="volunteer_phone">Phone Number</label>
                 <input type="number" id="volunteer_phone" name="volunteer_phone" required>
+            </div>
+            <div class="form-field">
+                <label for="volunteer_email">Email</label>
+                <input type="text" id="volunteer_email" name="volunteer_email" required>
             </div>
         </div>
 
@@ -216,25 +219,65 @@
             </div>
             <div class="form-field">
                 <label for="volunteer_state">State</label>
-                <input 
-                    type="text" 
-                    id="volunteer_state" 
-                    name="volunteer_state" 
-                    required 
-                    style="text-transform: uppercase;" 
-                    oninput="this.value = this.value.toUpperCase()"
-                >
+                <select name="volunteer_city" size="1">
+                    <option value="AK">AK</option>
+                    <option value="AL">AL</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DC">DC</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="IA">IA</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VA">VA</option>
+                    <option value="VT">VT</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                  </select>
             </div>
             <div class="form-field">
+            <div class="form-field">
                 <label for="volunteer_zip">Zip</label>
-                <input 
-                    type="text" 
-                    id="volunteer_zip" 
-                    name="volunteer_zip" 
-                    required 
-                    style="text-transform: uppercase;" 
-                    oninput="this.value = this.value.toUpperCase()"
-                >
+                <input type="number" id="volunteer_zip" name="volunteer_zip" required>
+            </div>
             </div>
         </div>
 
