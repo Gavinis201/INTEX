@@ -55,11 +55,9 @@
         <h1 style="margin-top: 30px; text-align: center;">Upcoming Events</h1>
         <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
             <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
-                <% console.log(currentDate) %>
                 <% const eventDate = new Date(event_requests[iCount].event_status_description === 'Pending' ? event_requests[iCount].first_choice_event_date :
                     event_requests[iCount].event_status_description === 'Declined' ? event_requests[iCount].first_choice_event_date : event_requests[iCount].approved_event_date); %>
                 <% if (eventDate > currentDate) { %>
-                    <% console.log(event_requests[iCount].event_status_description, eventDate) %>
                     <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" 
                         onclick="toggleDetails('<%= iCount %>')" 
                         id="card-<%= iCount %>">

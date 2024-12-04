@@ -194,7 +194,6 @@ INSERT INTO products (product_name) VALUES
 ('Completed Product');
 
 -- Insert data into volunteers
--- Insert data into volunteers (12 new entries)
 INSERT INTO volunteers (volunteer_first_name, volunteer_last_name, volunteer_phone, volunteer_email, volunteer_city,
     volunteer_state, volunteer_zip, sewing_level_id, volunteer_source_id, volunteer_travel_range_id, 
     willing_to_lead, willing_to_sew, volunteer_hours_per_month)
@@ -212,64 +211,102 @@ VALUES
 ('Amos', 'King', '(212)-323-4343', 'amos.king@example.com', 'Salt Lake City', 'UT', '84104', 1, 1, 2, TRUE, TRUE, 8),
 ('Mia', 'Scott', '(323)-434-5454', 'mia.scott@example.com', 'Provo', 'UT', '84606', 3, 2, 1, FALSE, TRUE, 12);
 
-
--- Insert data into event_requests
-INSERT INTO event_requests (estimated_participant_count, space_size_id, event_type_id, first_choice_event_date,
-    second_choice_event_date, third_choice_event_date, event_city, event_state, event_zip, 
-    estimated_event_start_time, estimated_event_duration_hours, event_contact_first_name, 
-    event_contact_last_name, event_contact_phone, event_contact_email, jen_story, multi_day_event, event_status_id)
+INSERT INTO event_requests (
+    estimated_participant_count,
+    space_size_id,
+    event_type_id,
+    first_choice_event_date,
+    second_choice_event_date,
+    third_choice_event_date,
+    event_city,
+    event_state,
+    event_zip,
+    estimated_event_start_time,
+    estimated_event_duration_hours,
+    event_contact_first_name,
+    event_contact_last_name,
+    event_contact_phone,
+    event_contact_email,
+    jen_story,
+    multi_day_event,
+    event_status_id
+)
 VALUES
-(50, 1, 1, '2024-01-10', '2024-01-11', '2024-01-12', 'Salt Lake City', 'UT', '84101', 
-    '09:00:00', 4.0, 'Emily', 'Clark', '(123)-123-1234', 'emily.clark@example.com', TRUE, FALSE, 3),
-(75, 2, 2, '2024-02-05', '2024-02-06', '2024-02-07', 'Provo', 'UT', '84604', 
-    '10:00:00', 3.5, 'Daniel', 'Adams', '(456)-456-4567', 'daniel.adams@example.com', FALSE, TRUE, 3),
-(100, 3, 3, '2024-03-15', '2024-03-16', '2024-03-17', 'Ogden', 'UT', '84401', 
-    '11:00:00', 5.0, 'Grace', 'Wilson', '(789)-789-7890', 'grace.wilson@example.com', TRUE, TRUE, 1),
-(25, 1, 1, '2024-04-20', '2024-04-21', '2024-04-22', 'Logan', 'UT', '84321', 
-    '08:30:00', 2.5, 'Henry', 'Lee', '(101)-010-1010', 'henry.lee@example.com', FALSE, FALSE, 2),
-(60, 2, 2, '2024-05-10', '2024-05-11', '2024-05-12', 'St. George', 'UT', '84770', 
-    '14:00:00', 6.0, 'Sophia', 'Brown', '(202)-020-2020', 'sophia.brown@example.com', TRUE, TRUE, 4);
-(45, 2, 3, '2024-06-01', '2024-06-02', '2024-06-03', 'Moab', 'UT', '84532', 
-    '13:00:00', 3.0, 'Anna', 'Smith', '(303)-303-3030', 'anna.smith@example.com', FALSE, FALSE, 4)
+-- Past events: 2 Completed, 1 Declined
+(30, 2, 1, '2023-10-10', NULL, NULL, 'Salt Lake City', 'UT', '84102', '10:00:00', 4.0, 'John', 'Doe', '123-456-7890', 'johndoe@example.com', FALSE, FALSE, 4),
+(40, 3, 3, '2023-08-15', NULL, NULL, 'Provo', 'UT', '84603', '14:00:00', 5.0, 'Jane', 'Smith', '234-567-8901', 'janesmith@example.com', TRUE, FALSE, 4),
+(20, 1, 2, '2023-07-20', NULL, NULL, 'Ogden', 'UT', '84402', '09:00:00', 3.5, 'Bob', 'White', '345-678-9012', 'bobwhite@example.com', FALSE, TRUE, 2),
+
+-- Future events: 2 Approved, 2 Pending, 1 Declined
+(50, 3, 1, '2025-06-15', NULL, NULL, 'Logan', 'UT', '84321', '13:00:00', 6.0, 'Alice', 'Brown', '456-789-0123', 'alicebrown@example.com', TRUE, FALSE, 1),
+(60, 2, 3, '2025-07-10', NULL, NULL, 'St. George', 'UT', '84770', '11:00:00', 5.5, 'Carol', 'Green', '567-890-1234', 'carolgreen@example.com', FALSE, FALSE, 1),
+(25, 1, 2, '2025-09-05', NULL, NULL, 'Salt Lake City', 'UT', '84103', '15:00:00', 4.0, 'Eve', 'King', '678-901-2345', 'eveking@example.com', TRUE, TRUE, 3),
+(35, 2, 1, '2025-08-20', NULL, NULL, 'Provo', 'UT', '84604', '10:30:00', 3.0, 'Liam', 'Scott', '789-012-3456', 'liamscott@example.com', FALSE, FALSE, 3),
+(15, 1, 2, '2025-10-01', NULL, NULL, 'Ogden', 'UT', '84405', '09:30:00', 2.5, 'Mia', 'Johnson', '890-123-4567', 'miajohnson@example.com', TRUE, FALSE, 2);
 
 
--- Insert data into completed_event_products
-INSERT INTO completed_event_products (event_id, product_id, quantity_produced)
+INSERT INTO approved_event_details (
+    event_id,
+    approved_event_date,
+    approved_event_start_time,
+    approved_event_duration_hours,
+    event_address,
+    estimated_team_members_needed,
+    number_of_sewers,
+    sewing_machines_to_bring,
+    sergers_to_bring,
+    approved_event_notes
+)
 VALUES
-(5, 1, 60),
-(5, 3, 40),
-(5, 4, 25),
-(6, 2, 50),
-(6, 5, 30);
+-- Completed events (past dates)
+(1, '2023-10-10', '10:00:00', 4.0, '123 Main St', 5, 3, 2, 1, 'Well-organized event'),
+(2, '2023-08-15', '14:00:00', 5.0, '456 Elm St', 6, 4, 3, 2, 'Great turnout'),
 
--- Insert data into completed_event_details
-INSERT INTO completed_event_details (event_id, completed_participants_count, completed_event_notes)
-VALUES
-(5, 55, 'Good turnout and a lot of interest in the sewing projects.'),
-(6, 45, 'Event completed smoothly with significant engagement.');
+-- Approved events (future dates in 2025)
+(4, '2025-06-15', '13:00:00', 6.0, '789 Pine St', 8, 5, 4, 3, 'Preparations underway'),
+(5, '2025-07-10', '11:00:00', 5.5, '101 Maple Ave', 7, 6, 5, 2, 'Venue confirmed');
 
-INSERT INTO event_volunteers (volunteer_id, event_id)
+
+
+INSERT INTO completed_event_products (
+    event_id,
+    product_id,
+    quantity_produced
+)
 VALUES
-(1, 3),
-(1, 5),
-(2, 3),
-(3, 5),
-(4, 6),
-(5, 6),
-(6, 3),
+(1, 1, 30),
+(1, 2, 25),
+(1, 3, 20),
+(2, 1, 35),
+(2, 3, 40),
+(2, 4, 15);
+
+
+INSERT INTO completed_event_details (
+    event_id,
+    completed_participants_count,
+    completed_event_notes
+)
+VALUES
+(1, 25, 'Participants enjoyed the sewing activities.'),
+(2, 40, 'Exceeded expectations for attendance.');
+
+
+INSERT INTO event_volunteers (
+    volunteer_id,
+    event_id
+)
+VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 4),
+(6, 4),
 (7, 5),
-(8, 6),
-(9, 3),
-(10, 6);
-
--- Insert data into approved_event_details
-INSERT INTO approved_event_details (event_id, approved_event_date, approved_event_start_time, 
-    approved_event_duration_hours, event_address, estimated_team_members_needed, number_of_sewers, 
-    sewing_machines_to_bring, sergers_to_bring, approved_event_notes)
-VALUES
-(3, '2024-03-15', '11:00:00', 5.0, '789 Oak St', 10, 6, 5, 3, 'Big event with multiple stations.'),
-(5, '2024-05-10', '14:00:00', 6.0, '654 Maple St', 8, 5, 4, 2, 'Expecting a high turnout.'),
-(6, '2024-06-01', '13:00:00', 3.0, '987 Birch Ave', 7, 4, 3, 2, 'Event planned for multiple activities');
+(8, 5),
+(1, 5),
+(9, 1);
 
 -- Insert data into users
 INSERT INTO users (volunteer_id, username, password, admin_email)
