@@ -94,8 +94,10 @@ app.get('/loginHomePage', (req, res) => {
   res.render('loginHomePage')
 });
 
+// Route to Volunteer Sign Up Page
 app.get('/volunteerSignUpPage', (req, res) => {
-  // Fetch Pokémon types to populate the dropdown
+  const { success } = req.query; 
+  // Fetch types to populate the dropdown
   knex('sewing_level')
     .select('sewing_level_id', 'sewing_level_description')
     .then(sewing_types => {
@@ -108,8 +110,8 @@ app.get('/volunteerSignUpPage', (req, res) => {
             .select('volunteer_travel_range_id', 'volunteer_travel_range_description')
             .then(volunteer_travel_range_types => {
           
-            // Render the add form with the Pokémon types data
-            res.render('volunteerSignUpPage', { sewing_types, volunteer_source_types, volunteer_travel_range_types});
+            // Render the add form with the sewing, volunteer source and volunteer travel range type
+            res.render('volunteerSignUpPage', { sewing_types, volunteer_source_types, volunteer_travel_range_types, success});
           })
         })
     })
@@ -117,6 +119,49 @@ app.get('/volunteerSignUpPage', (req, res) => {
       console.error('Error fetching Sewing, Volunteer Source and Volunter travel range types:', error);
       res.status(500).send('Internal Server Error');
     });
+});
+
+// Route to Create new volunteer
+app.post('/volunteerSignUpPage', (req, res) => {
+   // Extract form values from req.body
+   const volunteer_first_name = req.body.volunteer_first_name || ''; // Default to empty string if not provided
+   const volunteer_last_name = req.body.volunteer_last_name || ''; // Default to empty string if not provided
+   const volunteer_phone = parseInt(req.body.volunteer_phone); // Convert to integer
+   const volunteer_email = req.body.volunteer_email || '';
+   const volunteer_city = req.body.volunteer_city || '';
+   const volunteer_state = req.body.volunteer_state || '';
+   const volunteer_zip = parseInt(req.body.volunteer_zip);
+   const sewing_level_id = req.body.sewing_level_id || 'Beginner'; 
+   const volunteer_source_id = req.body.volunteer_source_id || 'Other'; 
+   const volunteer_travel_range_id = req.body.volunteer_travel_range_id || 'City'; 
+   const willing_to_lead = req.body.willing_to_lead === 'true';
+   const willing_to_sew = req.body.willing_to_sew === 'true'; 
+   const volunteer_hours_per_month = parseInt(req.body.volunteer_hours_per_month);
+ 
+   // Insert the new volunteer into the database
+   knex('volunteers')
+     .insert({
+      volunteer_first_name: volunteer_first_name, 
+      volunteer_last_name: volunteer_last_name,
+      volunteer_phone: volunteer_phone,
+      volunteer_email: volunteer_email,
+      volunteer_city: volunteer_city,
+      volunteer_state: volunteer_state,
+      volunteer_zip: volunteer_zip,
+      sewing_level_id: sewing_level_id,
+      volunteer_source_id: volunteer_source_id,
+      volunteer_travel_range_id: volunteer_travel_range_id,
+      willing_to_lead: willing_to_lead,
+      willing_to_sew: willing_to_sew,
+      volunteer_hours_per_month: volunteer_hours_per_month
+     })
+     .then(() => {
+         res.redirect('/volunteerSignUpPage?success=true'); // Redirect to the Home page after adding
+     })
+     .catch(error => {
+         console.error('Error adding Volunteer:', error);
+         res.status(500).send('Internal Server Error');
+     });
 });
 
 // view_events page code
