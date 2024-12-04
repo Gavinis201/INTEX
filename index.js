@@ -88,7 +88,8 @@ app.get('/view_events', (req, res) => {
       });
       // Format the time for each event request
       event_requests.forEach(event => {
-        event.formatted_time = formattedTime(event.estimated_event_start_time);
+        event.formatted_time_estimate = formattedTime(event.estimated_event_start_time);
+        event.formatted_time_approved = formattedTime(event.approved_event_start_time);
       });
     res.render("view_events", { event_requests });
   }).catch(err => {
