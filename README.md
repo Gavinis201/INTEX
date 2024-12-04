@@ -81,6 +81,7 @@ CREATE TABLE event_requests (
     event_contact_first_name VARCHAR(30),
     event_contact_last_name VARCHAR(30),
     event_contact_phone VARCHAR(15),
+    event_contact_email VARCHAR(75),
     jen_story BOOLEAN,
     multi_day_event BOOLEAN,
     event_status_id INT,
@@ -196,28 +197,28 @@ INSERT INTO volunteers (volunteer_first_name, volunteer_last_name, volunteer_pho
     volunteer_state, volunteer_zip, sewing_level_id, volunteer_source_id, volunteer_travel_range_id, 
     willing_to_lead, willing_to_sew, volunteer_hours_per_month)
 VALUES
-('John', 'Doe', '1234567890', 'john.doe@example.com', 'Salt Lake City', 'UT', '84101', 1, 1, 2, TRUE, TRUE, 10),
-('Jane', 'Smith', '9876543210', 'jane.smith@example.com', 'Provo', 'UT', '84604', 2, 3, 1, FALSE, TRUE, 5),
-('Alice', 'Brown', '5678901234', 'alice.brown@example.com', 'Ogden', 'UT', '84401', 3, 2, 3, TRUE, TRUE, 15),
-('Bob', 'White', '4321098765', 'bob.white@example.com', 'Logan', 'UT', '84321', 1, 1, 1, FALSE, FALSE, 8),
-('Carol', 'Green', '2468013579', 'carol.green@example.com', 'St. George', 'UT', '84770', 2, 2, 2, TRUE, FALSE, 20);
+('John', 'Doe', '(123)-456-7890', 'john.doe@example.com', 'Salt Lake City', 'UT', '84101', 1, 1, 2, TRUE, TRUE, 10),
+('Jane', 'Smith', '(987)-654-3210', 'jane.smith@example.com', 'Provo', 'UT', '84604', 2, 3, 1, FALSE, TRUE, 5),
+('Alice', 'Brown', '(567)-890-1234', 'alice.brown@example.com', 'Ogden', 'UT', '84401', 3, 2, 3, TRUE, TRUE, 15),
+('Bob', 'White', '(432)-109-8765', 'bob.white@example.com', 'Logan', 'UT', '84321', 1, 1, 1, FALSE, FALSE, 8),
+('Carol', 'Green', '(246)-801-3579', 'carol.green@example.com', 'St. George', 'UT', '84770', 2, 2, 2, TRUE, FALSE, 20);
 
 -- Insert data into event_requests
 INSERT INTO event_requests (estimated_participant_count, space_size_id, event_type_id, first_choice_event_date,
     second_choice_event_date, third_choice_event_date, event_city, event_state, event_zip, 
     estimated_event_start_time, estimated_event_duration_hours, event_contact_first_name, 
-    event_contact_last_name, event_contact_phone, jen_story, multi_day_event, event_status_id)
+    event_contact_last_name, event_contact_phone, event_contact_email, jen_story, multi_day_event, event_status_id)
 VALUES
 (50, 1, 1, '2024-01-10', '2024-01-11', '2024-01-12', 'Salt Lake City', 'UT', '84101', 
-    '09:00:00', 4.0, 'Emily', 'Clark', '1231231234', TRUE, FALSE, 1),
+    '09:00:00', 4.0, 'Emily', 'Clark', '(123)-123-1234', 'emily.clark@example.com', TRUE, FALSE, 1),
 (75, 2, 2, '2024-02-05', '2024-02-06', '2024-02-07', 'Provo', 'UT', '84604', 
-    '10:00:00', 3.5, 'Daniel', 'Adams', '4564564567', FALSE, TRUE, 2),
+    '10:00:00', 3.5, 'Daniel', 'Adams', '(456)-456-4567', 'daniel.adams@example.com', FALSE, TRUE, 2),
 (100, 3, 3, '2024-03-15', '2024-03-16', '2024-03-17', 'Ogden', 'UT', '84401', 
-    '11:00:00', 5.0, 'Grace', 'Wilson', '7897897890', TRUE, TRUE, 3),
+    '11:00:00', 5.0, 'Grace', 'Wilson', '(789)-789-7890', 'grace.wilson@example.com', TRUE, TRUE, 3),
 (25, 1, 1, '2024-04-20', '2024-04-21', '2024-04-22', 'Logan', 'UT', '84321', 
-    '08:30:00', 2.5, 'Henry', 'Lee', '1010101010', FALSE, FALSE, 1),
+    '08:30:00', 2.5, 'Henry', 'Lee', '(101)-010-1010', 'henry.lee@example.com', FALSE, FALSE, 1),
 (60, 2, 2, '2024-05-10', '2024-05-11', '2024-05-12', 'St. George', 'UT', '84770', 
-    '14:00:00', 6.0, 'Sophia', 'Brown', '2020202020', TRUE, TRUE, 2);
+    '14:00:00', 6.0, 'Sophia', 'Brown', '(202)-020-2020', 'sophia.brown@example.com', TRUE, TRUE, 2);
 
 -- Insert data into completed_event_products
 INSERT INTO completed_event_products (event_id, product_id, quantity_produced)
