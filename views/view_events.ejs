@@ -51,39 +51,28 @@
             </nav>
         </header>
         <h1>Events</h1>
-        <table border="1" cellpadding="10" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Dates</th>
-                    <th>Location</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
-                <tr>
-                    <td><%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %></td>
-                    <td><%= event_requests[iCount].first_choice_event_date %><br>
-                        <%= event_requests[iCount].second_choice_event_date %><br>
-                        <%= event_requests[iCount].third_choice_event_date %>
-                    </td>
-                    <td><%= event_requests[iCount].event_city %></td>
-                    <td>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 20px;">
+            <% for (let iCount = 0; iCount < event_requests.length; iCount++) { %>
+                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 300px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h3><%= event_requests[iCount].event_contact_first_name %> <%= event_requests[iCount].event_contact_last_name %></h3>
+                    <p><strong>Dates:</strong></p>
+                    <ul>
+                        <li><%= event_requests[iCount].first_choice_event_date %></li>
+                        <li><%= event_requests[iCount].second_choice_event_date %></li>
+                        <li><%= event_requests[iCount].third_choice_event_date %></li>
+                    </ul>
+                    <p><strong>Location:</strong> <%= event_requests[iCount].event_city %></p>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between;">
                         <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST">
-                            <button type="submit">Edit</button>
+                            <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit</button>
                         </form>
-                    </td>
-                    <td>
                         <form action="/deletePoke/<%= event_requests[iCount].event_id %>" method="POST">
-                            <button type="submit">Delete</button>
+                            <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
                         </form>
-                    </td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            <% } %>
+        </div>        
         <!-- Footer -->
         <footer class="footer">
             <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
