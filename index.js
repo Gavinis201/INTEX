@@ -4,6 +4,8 @@ let app = express();
 
 let path = require("path");
 
+let security = false;
+
 const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
@@ -13,11 +15,12 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg", 
     connection: {
-        host: process.env.RDS_HOSTNAME || "localhost", 
-        user: process.env.RDS_USERNAME || "postgres", 
-        password: process.env.RDS_PASSWORD || "Gavin12", 
-        database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
-        port: process.env.RDS_PORT || 5432,
+      host: "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
+      user: "ebroot", 
+      password: "Intex2024", 
+      database: "TSP2024", 
+      port: 5432,
+      ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
     }
 });
 
@@ -60,6 +63,7 @@ app.get('/', (req, res) => {
 // Route to serve the login page
 app.get('/loginPage', (req, res) => {
   const error = req.query.error;
+  security = false;
   res.render("loginPage", { error });
 });
 
@@ -83,9 +87,11 @@ app.post('/login', async (req, res) => {
 
     if (password === user.password) {
       // Passwords match
+      security = true;
       return res.redirect('/loginHomePage');
     } else {
       // Passwords don't match
+      security = false;
       console.log('Password does not match user', username);
       return res.redirect('/loginPage?error=invalid_credentials');
     }
