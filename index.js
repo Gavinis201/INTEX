@@ -28,9 +28,11 @@ app.use(express.static(path.join(__dirname, "public") ));
 const formattedTime = (time) => {
   // Convert "09:00:00" to a Date object
   const date = new Date(`1970-01-01T${time}Z`);  // Use a dummy date
+  let output = '';
 
   // Get the hour in 24-hour format
   let hour = date.getUTCHours();
+  let min = date.getUTCMinutes();
 
   // Determine AM or PM
   const period = hour >= 12 ? 'PM' : 'AM';
@@ -41,9 +43,14 @@ const formattedTime = (time) => {
   } else if (hour === 0) {
     hour = 12; // Midnight case
   }
-
+  if (min>=10) {
+    output = `${hour}:${min} ${period}`
+  }
+  else if (min<10) {
+    output = `${hour}:0${min} ${period}`
+  }
   // Return formatted time like "9 AM"
-  return `${hour} ${period}`;
+  return output;
 };
 
 // Route to serve the landing page
@@ -244,9 +251,245 @@ app.get('/view_events', (req, res) => {
 });
 
 //
-app.get('/editEventDetails/:id', (req, res) => {
-  const eventId = req.params.id;
-  res.render('editEventDetails', { eventId });
+app.get('/editEventDetails/:id/:status', (req, res) => {
+  let id = req.params.id;
+  let status = req.params.status
+
+  knex.select(
+    'event_requests.*',
+    'event_status.*',
+    'space_size.*',
+    'event_type.*',
+    'approved_event_date',
+    'approved_event_start_time',
+    'approved_event_duration_hours',
+    'event_address',
+    'estimated_team_members_needed',
+    'number_of_sewers',
+    'sewing_machines_to_bring',
+    'sergers_to_bring',
+    'approved_event_notes',
+    'completed_participants_count',
+    'completed_event_notes'
+  )
+  .from('event_requests')
+  .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
+  .join('space_size', 'event_requests.space_size_id','=','space_size.space_size_id' )
+  .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
+  .leftJoin('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
+  .leftJoin('completed_event_details', 'event_requests.event_id','=','completed_event_details.event_id' )
+  .where('event_requests.event_id',id)
+  .first()
+  .then(event => {
+      if (!event) {
+          return res.status(404).send('Event not found');
+      }
+
+      knex.select('*')
+      .from('products')
+      .orderBy('products.product_id','asc')
+      .then(products => {
+
+        knex.select('*')
+        .from('completed_event_products')
+        .join('products', 'completed_event_products.product_id','=','products.product_id' )
+        .where('event_id',id)
+        .orderBy('products.product_id','desc')
+        .then( event_products => {
+          res.render('editEventDetails', {event, status, products, event_products});
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({err})
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({err})
+      });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({err})
+  });
+});
+
+app.post('/editEventDetails/:id/:status', (req,res) => {
+  const id = req.params.id;
+  const status = req.params.status
+  if (status === 'Approved') {
+    // Assign data from req.body to variables and ensure correct type conversion
+    const event_contact_first_name = req.body.event_contact_first_name;
+    const event_contact_last_name = req.body.event_contact_last_name;
+    const event_address = req.body.event_address;
+    const event_city = req.body.event_city;
+    const event_state = req.body.event_state;
+    const event_zip = req.body.event_zip;
+
+    // Convert number fields to integers
+    const estimated_team_members_needed = parseInt(req.body.estimated_team_members_needed);
+    const sewing_machines_to_bring = parseInt(req.body.sewing_machines_to_bring);
+    const sergers_to_bring = parseInt(req.body.sergers_to_bring);
+    const estimated_participant_count = parseInt(req.body.estimated_participant_count);
+    const approved_event_duration_hours = parseFloat(req.body.approved_event_duration_hours);
+    const number_of_sewers = parseInt(req.body.number_of_sewers);
+
+    // Convert space size and event type to integers
+    const space_size_id = parseInt(req.body.space_size_id);
+    const event_type_id = parseInt(req.body.event_type_id);
+
+    // Convert checkbox field to boolean
+    const jen_story = req.body.jen_story === 'true'; // true if checked, false if not
+
+    // Convert date and time fields to the correct formats for PostgreSQL
+    const approved_event_date = req.body.approved_event_date ? new Date(req.body.approved_event_date).toISOString().slice(0, 10) : null;
+    const approved_event_start_time = req.body.approved_event_start_time ? req.body.approved_event_start_time : null;
+
+    // Contact Information
+    const event_contact_phone = req.body.event_contact_phone;
+    const event_contact_email = req.body.event_contact_email;
+
+    knex('event_requests')
+    .where('event_id', id)
+    .update({
+      event_contact_first_name: event_contact_first_name,
+      event_contact_last_name: event_contact_last_name,
+      event_city: event_city,
+      event_state: event_state,
+      event_zip: event_zip,
+      estimated_participant_count: estimated_participant_count,
+      space_size_id: space_size_id,
+      event_type_id: event_type_id,
+      jen_story: jen_story,
+      event_contact_phone: event_contact_phone,
+      event_contact_email: event_contact_email
+    })
+    .then(() => {
+      knex('approved_event_details')
+      .where('event_id', id)
+      .update({
+        event_address: event_address, 
+        estimated_team_members_needed: estimated_team_members_needed, 
+        sewing_machines_to_bring: sewing_machines_to_bring, 
+        sergers_to_bring: sergers_to_bring, 
+        approved_event_duration_hours: approved_event_duration_hours, 
+        number_of_sewers: number_of_sewers, 
+        approved_event_date: approved_event_date, 
+        approved_event_start_time: approved_event_start_time
+      })
+      .then(() => {
+        res.redirect('/view_events');
+      });
+      
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({err})
+  });
+  } else if (status === 'Pending') {
+    // Assign data from req.body to variables and ensure correct type conversion
+    const event_contact_first_name = req.body.event_contact_first_name;
+    const event_contact_last_name = req.body.event_contact_last_name;
+    const event_city = req.body.event_city;
+    const event_state = req.body.event_state;
+    const event_zip = req.body.event_zip;
+
+    // Convert number fields to integers
+    const estimated_participant_count = parseInt(req.body.estimated_participant_count);
+    const estimated_event_duration_hours = parseFloat(req.body.estimated_event_duration_hours);
+
+    // Convert space size and event type to integers
+    const space_size_id = parseInt(req.body.space_size_id);
+    const event_type_id = parseInt(req.body.event_type_id);
+
+    // Convert checkbox field to boolean
+    const jen_story = req.body.jen_story === 'true'; // true if checked, false if not
+
+    // Convert date and time fields to the correct formats for PostgreSQL
+    const first_choice_event_date = req.body.first_choice_event_date ? new Date(req.body.first_choice_event_date).toISOString().slice(0, 10) : null;
+    const second_choice_event_date = req.body.second_choice_event_date ? new Date(req.body.second_choice_event_date).toISOString().slice(0, 10) : null;
+    const third_choice_event_date = req.body.third_choice_event_date ? new Date(req.body.third_choice_event_date).toISOString().slice(0, 10) : null;
+    const estimated_event_start_time = req.body.estimated_event_start_time ? req.body.estimated_event_start_time : null;
+
+    // Contact Information
+    const event_contact_phone = req.body.event_contact_phone;
+    const event_contact_email = req.body.event_contact_email;
+
+    knex('event_requests')
+    .where('event_id', id)
+    .update({
+      event_contact_first_name: event_contact_first_name,
+      event_contact_last_name: event_contact_last_name,
+      event_city: event_city,
+      event_state: event_state,
+      event_zip: event_zip,
+      estimated_participant_count: estimated_participant_count,
+      space_size_id: space_size_id,
+      event_type_id: event_type_id,
+      jen_story: jen_story,
+      event_contact_phone: event_contact_phone,
+      event_contact_email: event_contact_email,
+      first_choice_event_date:first_choice_event_date,
+      second_choice_event_date:second_choice_event_date,
+      third_choice_event_date:third_choice_event_date,
+      estimated_event_start_time:estimated_event_start_time
+    })
+    .then(() => {
+      res.redirect('/view_events')
+    });
+
+
+  } else if (status === 'Declined') {
+
+    // Assign data from req.body to variables and ensure correct type conversion
+    const event_contact_first_name = req.body.event_contact_first_name;
+    const event_contact_last_name = req.body.event_contact_last_name;
+    const event_city = req.body.event_city;
+    const event_state = req.body.event_state;
+    const event_zip = req.body.event_zip;
+
+    // Convert number fields to integers
+    const estimated_participant_count = parseInt(req.body.estimated_participant_count);
+    const estimated_event_duration_hours = parseFloat(req.body.estimated_event_duration_hours);
+
+    // Convert space size and event type to integers
+    const space_size_id = parseInt(req.body.space_size_id);
+    const event_type_id = parseInt(req.body.event_type_id);
+
+    // Convert checkbox field to boolean
+    const jen_story = req.body.jen_story === 'true'; // true if checked, false if not
+
+    // Convert date and time fields to the correct formats for PostgreSQL
+    const first_choice_event_date = req.body.first_choice_event_date ? new Date(req.body.first_choice_event_date).toISOString().slice(0, 10) : null;
+    const estimated_event_start_time = req.body.estimated_event_start_time ? req.body.estimated_event_start_time : null;
+
+    // Contact Information
+    const event_contact_phone = req.body.event_contact_phone;
+    const event_contact_email = req.body.event_contact_email;
+
+    knex('event_requests')
+    .where('event_id', id)
+    .update({
+      event_contact_first_name: event_contact_first_name,
+      event_contact_last_name: event_contact_last_name,
+      event_city: event_city,
+      event_state: event_state,
+      event_zip: event_zip,
+      estimated_participant_count: estimated_participant_count,
+      space_size_id: space_size_id,
+      event_type_id: event_type_id,
+      jen_story: jen_story,
+      event_contact_phone: event_contact_phone,
+      event_contact_email: event_contact_email,
+      first_choice_event_date:first_choice_event_date,
+      estimated_event_start_time:estimated_event_start_time
+    })
+    .then(() => {
+      res.redirect('/view_events')
+    });
+
+  }
+
 });
 
 
