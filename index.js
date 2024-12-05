@@ -743,20 +743,30 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
         res.status(500).send("Internal Server Error");
       });
   });
-  
   app.post("/deleteVolunteer/:volunteer_id", (req, res) => {
-    knex("volunteers")
-        .where("volunteer_id", req.params.volunteer_id)
-        .del()  // Deletes the record with the matching volunteer_id
+    const volunteerId = req.params.volunteer_id;
+
+    // Start by deleting the record in `users` referencing the volunteer
+    knex("users")
+        .where("volunteer_id", volunteerId)
+        .del()
         .then(() => {
-            // Redirect to the correct page, like the volunteer list
-            res.redirect("/volunteer");  // Redirect to the page showing the volunteer list
+            // Then delete the dependent records in `event_volunteers`
+            return knex("event_volunteers").where("volunteer_id", volunteerId).del();
+        })
+        .then(() => {
+            // Finally, delete the volunteer record
+            return knex("volunteers").where("volunteer_id", volunteerId).del();
+        })
+        .then(() => {
+            res.redirect("/volunteer");
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({ error: err.message });  // Provide more useful error details
+            console.error("Error deleting volunteer:", err);
+            res.status(500).json({ error: "Unable to delete the volunteer. Please try again." });
         });
 });
+
 
 
     
