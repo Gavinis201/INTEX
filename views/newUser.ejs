@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turtle Shelter Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Add New User</title>
+</head>
+<body>
+
+  <header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Turtle Shelter Project on the far left -->
+        <a class="navbar-brand" href="/">TURTLE SHELTER PROJECT</a>
+  
+        <!-- Navbar Toggle Button for Small Screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Navbar links, centered -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="/loginHomePage">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+          <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
+          </ul>
+      </div>
+  
+        <!-- Social Media Icons and Login Button on the right -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <div class="social-media">
+              <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                <i class="fa fa-facebook-square"></i>
+              </a>
+            </div>
+            <div class="social-media">
+              <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                <i class="fa fa-instagram"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container mt-5">
+    <h1>Add New User</h1>
+    <!-- Show error message -->
+    <% if (formSubmitted && error) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+    <% } %>
+    <form action="/newUser" method="POST">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="admin_email" class="form-label">Email</label>
+        <input type="admin_email" id="admin_email" name="admin_email" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+  </div>
+</body>
+</html>

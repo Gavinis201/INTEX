@@ -24,10 +24,12 @@
         <!-- Navbar links, centered (This is the collapsible part) -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
-            <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
-            <li class="nav-item"><a class="nav-link" href="#volunteer">Volunteer</a></li>
-            <li class="nav-item"><a class="nav-link" href="#volunteer">Jen's Story</a></li>
+            <!-- Fill navigation links as those pages are built -->
+            <li class="nav-item"><a class="nav-link" href="#">Mission</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Impact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/volunteerSignUpPage">Volunteer</a></li>
+            <li class="nav-item"><a class="nav-link" href="/eventRequest">Request An Event</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Jen's Story</a></li>
           </ul>
         </div>
   
@@ -65,7 +67,10 @@
       <p class="lead">Helping to save lives of people experiencing homelessness</p>
       <h1 class="display-4">STARTS WITH YOU</h1><br>
     </div>
-    <button class="hero-btn">Join Us</button>
+    <form action="/volunteerSignUpPage" method="GET">
+      <button class="hero-btn">Join Us</button>
+    </form>
+    
   </div>
   
   <!-- Mission Section -->
@@ -113,7 +118,7 @@
         Join us in making a difference! Volunteers play a crucial role in our efforts, from participating in rescue missions to helping with events and raising awareness. Fill out our volunteer form to get started.
       </p>
       <div class="text-center">
-        <a href="/volunteer-form" class="login1-btn">Sign Up to Volunteer</a>
+        <a href="/volunteerSignUpPage" class="login1-btn">Sign Up to Volunteer</a>
       </div>
     </div>
   </section>
