@@ -56,7 +56,7 @@
         <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
             <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" >
                 <% if (status === 'Approved') { %>
-                <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                <form action="/editEventDetails/<%= event.event_id %>/<%= status %>" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
                     <!-- Event Requirements -->
                     <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
                         <legend style="font-weight: bold; padding-bottom: 20px;">Event Requirements</legend>
@@ -139,18 +139,16 @@
                         <div style="margin-bottom: 15px;">
                             <label for="event_type_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Type</strong></label>
                             <select id="event_type_id" name="event_type_id" required style="width: 100%; padding: 8px; font-size: 1em;">
-                                <option value="1" <%= event.event_type_description === 'Sewing' ? 'selected' : '' %>>Sewing</option>
-                                <option value="2" <%= event.event_type_description === 'Non-Sewing' ? 'selected' : '' %>>Non-Sewing</option>
-                                <option value="3" <%= event.event_type_description === 'Both' ? 'selected' : '' %>>Both</option>
+                                <option value="1" <%= event.event_type_id === 1 ? 'selected' : '' %>>Sewing</option>
+                                <option value="2" <%= event.event_type_id === 2 ? 'selected' : '' %>>Non-Sewing</option>
+                                <option value="3" <%= event.event_type_id === 3 ? 'selected' : '' %>>Both</option>
                             </select>
                         </div>
                         
-                        <% if (event.event_type_description === 'Sewing' || event.event_type_description === 'Both') { %>
                             <div style="margin-bottom: 15px;">
                                 <label for="number_of_sewers" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Sewers</strong></label>
                                 <input type="number" id="number_of_sewers" name="number_of_sewers" value="<%= event.number_of_sewers %>" style="width: 100%; padding: 8px; font-size: 1em;">
                             </div>
-                        <% } %>
                         
                         <div style="margin-bottom: 15px;">
                             <label for="jen_story" style="display: inline-block; font-size: 1.2em; margin-right: 10px;"><strong>Story?</strong></label>
@@ -488,12 +486,11 @@
                             </div>
                     
                             <!-- Sewers -->
-                            <% if (event.event_type_description === 'Sewing' || event.event_type_description === 'Both') { %>
                                 <div style="margin-bottom: 15px;">
                                     <label for="number_of_sewers" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Sewers</strong></label>
                                     <input type="number" id="number_of_sewers" name="number_of_sewers" value="<%= event.number_of_sewers %>" style="width: 100%; padding: 8px; font-size: 1em;">
                                 </div>
-                            <% } %>
+
                     
                             <!-- Story -->
                             <div style="margin-bottom: 15px;">
