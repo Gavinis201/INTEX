@@ -279,18 +279,28 @@ app.get('/editEventDetails/:id/:status', (req, res) => {
           return res.status(404).send('Event not found');
       }
 
-      res.render('editEventDetails', {event, status})
-      // // Query all planets after fetching the character
-      // knex('planets')
-      // .select('id', 'planet_name')
-      // .then(planets => {
-      //     // Render the edit form and pass both characters and planets
-      //     res.render('editCharacter', { character, planets });
-      // })
-      // .catch(error => {
-      //     console.error('Error fetching planets:', error);
-      //     res.status(500).send('Internal Server Error');
-      // });
+      knex.select('*')
+      .from('products')
+      .orderBy('products.product_id','asc')
+      .then(products => {
+
+        knex.select('*')
+        .from('completed_event_products')
+        .join('products', 'completed_event_products.product_id','=','products.product_id' )
+        .where('event_id',id)
+        .orderBy('products.product_id','desc')
+        .then( event_products => {
+          res.render('editEventDetails', {event, status, products, event_products});
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({err})
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({err})
+      });
   })
   .catch(err => {
     console.log(err);

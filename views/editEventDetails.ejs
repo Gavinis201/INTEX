@@ -55,11 +55,12 @@
         <h1 style="margin-top: 30px; text-align: center;">Edit Event</h1>
         <div style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
             <div class="card" style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; width: 100%; max-width: 1000px; margin: 0 auto; cursor: pointer; overflow: hidden;" >
+                <% if (status === 'Approved') { %>
                 <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
                     <!-- Event Requirements -->
                     <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
                         <legend style="font-weight: bold; padding-bottom: 20px;">Event Requirements</legend>
-                        
+
                         <div style="margin-top: 20px; margin-bottom: 15px;">
                             <label for="estimated_team_members_needed" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Team Members Needed</strong></label>
                             <input type="number" id="estimated_team_members_needed" name="estimated_team_members_needed" value="<%= event.estimated_team_members_needed %>" required style="width: 100%; padding: 8px; font-size: 1em;">
@@ -80,6 +81,11 @@
                     <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
                         <legend style="font-weight: bold; padding-bottom: 20px;">Event Logistics</legend>
                         
+                        <div style="margin-bottom: 15px;">
+                            <label for="approved_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Date</strong></label>
+                            <input type="date" id="approved_event_date" name="approved_event_date" value="<%= new Date(event.approved_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                        </div>
+
                         <div style="margin-top: 20px; margin-bottom: 15px;">
                             <label for="approved_event_start_time" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Start Time</strong></label>
                             <input type="time" id="approved_event_start_time" name="approved_event_start_time" value="<%= event.approved_event_start_time %>" required style="width: 100%; padding: 8px; font-size: 1em;">
@@ -156,6 +162,18 @@
                     <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
                         <legend style="font-weight: bold; padding-bottom: 20px;">Contact Information</legend>
                         
+                        <!-- First Name -->
+                        <div style="margin-bottom: 15px;">
+                            <label for="event_contact_first_name" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>First Name</strong></label>
+                            <input type="text" id="event_contact_first_name" name="event_contact_first_name" value="<%= event.event_contact_first_name %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                        </div>
+                
+                        <!-- Last Name -->
+                        <div style="margin-bottom: 15px;">
+                            <label for="event_contact_last_name" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Last Name</strong></label>
+                            <input type="text" id="event_contact_last_name" name="event_contact_last_name" value="<%= event.event_contact_last_name %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                        
+                        </div>
                         <div style="margin-top: 20px; margin-bottom: 15px;">
                             <label for="event_contact_phone" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Phone Number</strong></label>
                             <input type="tel" id="event_contact_phone" name="event_contact_phone" value="<%= event.event_contact_phone %>" required style="width: 100%; padding: 8px; font-size: 1em;">
@@ -169,6 +187,326 @@
                 
                     <button type="submit" style="padding: 12px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Save Changes</button>
                 </form>
+                <% } else if (status === 'Pending') { %>
+                    <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                        <!-- Event Logistics -->
+                        <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
+                            <legend style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">Event Logistics</legend>
+                            <div style="margin-bottom: 15px;">
+                                <label for="first_choice_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>First Choice Event Date</strong></label>
+                                <input type="date" id="first_choice_event_date" name="first_choice_event_date" value="<%= new Date(event.first_choice_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label for="second_choice_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Second Choice Event Date</strong></label>
+                                <input type="date" id="second_choice_event_date" name="second_choice_event_date" value="<% (!event.second_choice_event_date) ? new Date(event.second_choice_event_date).toISOString().slice(0, 10) : event.second_choice_event_date %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label for="third_choice_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Third Choice Event Date</strong></label>
+                                <input type="date" id="third_choice_event_date" name="third_choice_event_date" value="<% (!event.third_choice_event_date) ? new Date(event.third_choice_event_date).toISOString().slice(0, 10) : event.third_choice_event_date %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                    
+                            <div style="margin-bottom: 15px;">
+                                <label for="estimated_event_start_time" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Requested Start Time</strong></label>
+                                <input type="time" id="estimated_event_start_time" name="estimated_event_start_time" value="<%= event.estimated_event_start_time %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                    
+                            <div style="margin-bottom: 15px;">
+                                <label for="estimated_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Duration (Hours)</strong></label>
+                                <input type="number" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+
+                            <div style="flex: 1;">
+                                <label for="event_city" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>City</strong></label>
+                                <input type="text" id="event_city" name="event_city" value="<%= event.event_city %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Event Information -->
+                        <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
+                            <legend style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">Event Information</legend>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label for="estimated_participant_count" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Participants</strong></label>
+                                <input type="number" id="estimated_participant_count" name="estimated_participant_count" value="<%= event.estimated_participant_count %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                    
+                            <div style="margin-bottom: 15px;">
+                                <label for="space_size_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Space Size</strong></label>
+                                <select id="space_size_id" name="space_size_id" required style="width: 100%; padding: 8px; font-size: 1em;">
+                                    <option value="1" <%= event.space_size_description === 'Small' ? 'selected' : '' %>>Small</option>
+                                    <option value="2" <%= event.space_size_description === 'Medium' ? 'selected' : '' %>>Medium</option>
+                                    <option value="3" <%= event.space_size_description === 'Large' ? 'selected' : '' %>>Large</option>
+                                </select>
+                            </div>
+                    
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_type_description" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Type</strong></label>
+                                <select id="event_type_id" name="event_type_id" required style="width: 100%; padding: 8px; font-size: 1em;">
+                                    <option value="1" <%= event.event_type_description === 'Sewing' ? 'selected' : '' %>>Sewing</option>
+                                    <option value="2" <%= event.event_type_description === 'Non-Sewing' ? 'selected' : '' %>>Non-Sewing</option>
+                                    <option value="3" <%= event.event_type_description === 'Both' ? 'selected' : '' %>>Both</option>
+                                </select>
+                            </div>
+                    
+                            <div style="margin-bottom: 15px;">
+                                <label for="jen_story" style="display: inline-block; font-size: 1.2em; margin-right: 10px;"><strong>Story?</strong></label>
+                                <input type="checkbox" id="jen_story" name="jen_story" value="true" <%= event.jen_story ? 'checked' : '' %> style="transform: scale(1.5); vertical-align: middle;">
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Contact Information -->
+                        <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
+                            <legend style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">Contact Information</legend>
+
+                            <!-- First Name -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_first_name" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>First Name</strong></label>
+                                <input type="text" id="event_contact_first_name" name="event_contact_first_name" value="<%= event.event_contact_first_name %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Last Name -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_last_name" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Last Name</strong></label>
+                                <input type="text" id="event_contact_last_name" name="event_contact_last_name" value="<%= event.event_contact_last_name %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_phone" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Phone Number</strong></label>
+                                <input type="tel" id="event_contact_phone" name="event_contact_phone" value="<%= event.event_contact_phone %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                    
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_email" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Email</strong></label>
+                                <input type="email" id="event_contact_email" name="event_contact_email" value="<%= event.event_contact_email %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Submit Button -->
+                        <div style="text-align: center;">
+                            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer;">Submit</button>
+                        </div>
+                    </form>                    
+                <% } else if (status === 'Declined') { %>
+                    <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                        <!-- Event Logistics Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Event Logistics</strong></legend>
+                    
+                            <!-- Approved Event Date -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="first_choice_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>First Choice Event Date</strong></label>
+                                <input type="date" id="first_choice_event_date" name="first_choice_event_date" value="<%= new Date(event.first_choice_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Start Time -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="estimated_event_start_time" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Start Time</strong></label>
+                                <input type="time" id="estimated_event_start_time" name="estimated_event_start_time" value="<%= event.estimated_event_start_time %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Event Duration -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="estimated_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Duration (hours)</strong></label>
+                                <input type="number" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Location City -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_city" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>City</strong></label>
+                                <input type="text" id="event_city" name="event_city" value="<%= event.event_city %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Event Information Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Event Information</strong></legend>
+                    
+                            <!-- Participants -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="estimated_participant_count" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Participants</strong></label>
+                                <input type="number" id="estimated_participant_count" name="estimated_participant_count" value="<%= event.estimated_participant_count %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Space Size Dropdown -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="space_size_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Space Size</strong></label>
+                                <select id="space_size_id" name="space_size_id" required style="width: 100%; padding: 8px; font-size: 1em;">
+                                    <option value="1" <%= event.space_size_description === 'Small' ? 'selected' : '' %>>Small</option>
+                                    <option value="2" <%= event.space_size_description === 'Medium' ? 'selected' : '' %>>Medium</option>
+                                    <option value="3" <%= event.space_size_description === 'Large' ? 'selected' : '' %>>Large</option>
+                                </select>
+                            </div>
+                    
+                            <!-- Event Type Dropdown -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_type_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Type</strong></label>
+                                <select id="event_type_id" name="event_type_id" required style="width: 100%; padding: 8px; font-size: 1em;">
+                                    <option value="1" <%= event.event_type_description === 'Sewing' ? 'selected' : '' %>>Sewing</option>
+                                    <option value="2" <%= event.event_type_description === 'Crafting' ? 'selected' : '' %>>Crafting</option>
+                                    <option value="3" <%= event.event_type_description === 'Both' ? 'selected' : '' %>>Both</option>
+                                </select>
+                            </div>
+                    
+                            <!-- Story -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="jen_story" style="display: inline-block; margin-right: 10px; font-size: 1.2em;"><strong>Story?</strong></label>
+                                <input type="checkbox" id="jen_story" name="jen_story" value="true" style="transform: scale(1.5);" <%= event.jen_story ? 'checked' : '' %>>
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Contact Information Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Contact Information</strong></legend>
+                    
+                            <!-- First Name -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_first_name" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>First Name</strong></label>
+                                <input type="text" id="event_contact_first_name" name="event_contact_first_name" value="<%= event.event_contact_first_name %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Last Name -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_last_name" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Last Name</strong></label>
+                                <input type="text" id="event_contact_last_name" name="event_contact_last_name" value="<%= event.event_contact_last_name %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Phone Number -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_phone" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Phone Number</strong></label>
+                                <input type="tel" id="event_contact_phone" name="event_contact_phone" value="<%= event.event_contact_phone %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Email -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_email" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Email</strong></label>
+                                <input type="email" id="event_contact_email" name="event_contact_email" value="<%= event.event_contact_email %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Submit Button -->
+                        <div style="text-align: center;">
+                            <button type="submit" style="padding: 10px 20px; font-size: 1.2em; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                        </div>
+                    </form>                    
+                <% } else if (status === 'Completed') { %>
+                    <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                        <!-- Completed Work Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Completed Work</strong></legend>
+                            <% products.forEach(product_entry => { %>
+                                <% 
+                                    // Find matching product in event_products
+                                    const matchedProduct = event_products.find(ep => ep.product_id === product_entry.product_id);
+                                    const quantity = matchedProduct ? matchedProduct.quantity_produced : 0; 
+                                %>
+                                <div style="margin-bottom: 10px;">
+                                    <label for="product_<%= product_entry.product_id %>" style="display: block; margin-bottom: 5px; font-size: 1.2em;">
+                                        <strong><%= product_entry.product_name %> Quantity</strong>
+                                    </label>
+                                    <input type="number" 
+                                        id="product_<%= product_entry.product_id %>" 
+                                        name="product_<%= product_entry.product_id %>" 
+                                        value="<%= quantity %>" 
+                                        style="width: 100%; padding: 8px; font-size: 1em;" 
+                                        required>
+                                </div>
+                            <% }) %>
+                        </fieldset>
+                        
+                    
+                        <!-- Event Logistics Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Event Logistics</strong></legend>
+                    
+                            <!-- Approved Start Time -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="approved_event_start_time" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Start Time</strong></label>
+                                <input type="time" id="approved_event_start_time" name="approved_event_start_time" value="<%= event.approved_event_start_time %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Event Duration -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="approved_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Duration (hours)</strong></label>
+                                <input type="number" id="approved_event_duration_hours" name="approved_event_duration_hours" value="<%= event.approved_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Location -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_city" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>City</strong></label>
+                                <input type="text" id="event_city" name="event_city" value="<%= event.event_city %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Event Information Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Event Information</strong></legend>
+                    
+                            <!-- Total Participants -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="completed_participants_count" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Total Participants</strong></label>
+                                <input type="number" id="completed_participants_count" name="completed_participants_count" value="<%= event.completed_participants_count %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Space Size -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="space_size_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Space Size</strong></label>
+                                <select id="space_size_id" name="space_size_id" required style="width: 100%; padding: 8px; font-size: 1em;">
+                                    <option value="1" <%= event.space_size_description === 'Small' ? 'selected' : '' %>>Small</option>
+                                    <option value="2" <%= event.space_size_description === 'Medium' ? 'selected' : '' %>>Medium</option>
+                                    <option value="3" <%= event.space_size_description === 'Large' ? 'selected' : '' %>>Large</option>
+                                </select>
+                            </div>
+                    
+                            <!-- Event Type -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_type_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Type</strong></label>
+                                <select id="event_type_id" name="event_type_id" required style="width: 100%; padding: 8px; font-size: 1em;">
+                                    <option value="1" <%= event.event_type_description === 'Sewing' ? 'selected' : '' %>>Sewing</option>
+                                    <option value="2" <%= event.event_type_description === 'Crafting' ? 'selected' : '' %>>Crafting</option>
+                                    <option value="3" <%= event.event_type_description === 'Both' ? 'selected' : '' %>>Both</option>
+                                </select>
+                            </div>
+                    
+                            <!-- Sewers -->
+                            <% if (event.event_type_description === 'Sewing' || event.event_type_description === 'Both') { %>
+                                <div style="margin-bottom: 15px;">
+                                    <label for="number_of_sewers" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Sewers</strong></label>
+                                    <input type="number" id="number_of_sewers" name="number_of_sewers" value="<%= event.number_of_sewers %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                                </div>
+                            <% } %>
+                    
+                            <!-- Story -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="jen_story" style="display: inline-block; margin-right: 10px; font-size: 1.2em;"><strong>Story?</strong></label>
+                                <input type="checkbox" id="jen_story" name="jen_story" value="true" style="transform: scale(1.5);" <%= event.jen_story ? 'checked' : '' %>>
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Contact Information Field Set -->
+                        <fieldset style="margin-bottom: 20px;">
+                            <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Contact Information</strong></legend>
+                    
+                            <!-- Phone Number -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_phone" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Phone Number</strong></label>
+                                <input type="tel" id="event_contact_phone" name="event_contact_phone" value="<%= event.event_contact_phone %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                    
+                            <!-- Email -->
+                            <div style="margin-bottom: 15px;">
+                                <label for="event_contact_email" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Email</strong></label>
+                                <input type="email" id="event_contact_email" name="event_contact_email" value="<%= event.event_contact_email %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                            </div>
+                        </fieldset>
+                    
+                        <!-- Submit Button -->
+                        <div style="text-align: center;">
+                            <button type="submit" style="padding: 10px 20px; font-size: 1.2em; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                        </div>
+                    </form>                    
+                <% } %>
             </div>
         </div>
     </body>
