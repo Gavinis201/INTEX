@@ -57,7 +57,8 @@ const formattedTime = (time) => {
 
 // Route to serve the landing page
 app.get('/', (req, res) => {
-  res.render('index')
+    security = false;
+    res.render('index')
 });
 
 // Route to serve the login page
