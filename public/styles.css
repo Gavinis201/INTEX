@@ -402,3 +402,158 @@ header li{
     text-transform: uppercase;
 
   }
+
+
+  /* General Form Styles */
+.volunteer-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px;
+}
+
+.radio-group label {
+  font-weight: normal;
+  color: #333;
+}
+
+
+
+
+.form-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  background-color: teal;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: white;
+  color: teal;
+  box-shadow: 0 0 1px teal;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+.form-select {
+  width: 100%; /* Ensures the dropdown matches the width of the container */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-select {
+  max-height: 150px; /* Limit the height of the dropdown */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.form-group1 {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.form-group{
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+
+.form-input:focus, .form-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.container10 {
+  display: flex;
+  gap: 40em;
+}
+
+.search-form {
+  flex: 1; /* Allows search form to take up available space */
+}
+
+.add-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-form-left {
+  display: flex;
+  align-items: center;
+}
+
+.search-form-left input {
+  margin-right: 10px; /* Adds space between the input and button */
+}
+@media screen and (max-width: 768px) {
+  .volunteer-form {
+    padding: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    font-size: 1em;
+  }
+
+  .form-input, .form-select {
+    font-size: 0.9em;
+  }
+
+  .form-button {
+    font-size: 1em;
+  }
+}
+
+

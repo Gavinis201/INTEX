@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turtle Shelter Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Page Header -->
+    <h1 class="page-title">Edit Volunteer</h1>
+    
+    <!-- Form for editing a VOLUNTEER -->
+    <form action="/editVolunteer/<%= volunteer.volunteer_id %>" method="POST" class="volunteer-form">
+        <!-- VOLUNTEER FIRST NAME -->
+        <div class="form-group">
+            <label for="volunteer_first_name" class="form-label">First Name</label>
+            <input
+                type="text" 
+                id="volunteer_first_name" 
+                name="volunteer_first_name" 
+                class="form-input"
+                value="<%= volunteer.volunteer_first_name %>"
+                required 
+                oninput="this.value = this.value.toUpperCase()" 
+            >
+        </div>
+
+        <!-- VOLUNTEER LAST NAME -->
+        <div class="form-group">
+            <label for="volunteer_last_name" class="form-label">Last Name</label>
+            <input
+                type="text" 
+                id="volunteer_last_name" 
+                name="volunteer_last_name" 
+                class="form-input"
+                value="<%= volunteer.volunteer_last_name %>"
+                required 
+                oninput="this.value = this.value.toUpperCase()" 
+            >
+        </div>
+
+        <!-- VOLUNTEER PHONE NUMBER -->
+        <div class="form-group">
+            <label for="volunteer_phone" class="form-label">Phone Number</label>
+            <input 
+                type="number" 
+                id="volunteer_phone" 
+                name="volunteer_phone" 
+                class="form-input" 
+                value="<%= volunteer.volunteer_phone %>"
+                required
+            >
+        </div>
+
+        <!-- VOLUNTEER EMAIL -->
+        <div class="form-group">
+            <label for="volunteer_email" class="form-label">Email</label>
+            <input 
+                type="email" 
+                id="volunteer_email" 
+                name="volunteer_email" 
+                class="form-input" 
+                value="<%= volunteer.volunteer_email %>"
+                required
+            >
+        </div>
+
+        <!-- VOLUNTEER CITY -->
+        <div class="form-group">
+            <label for="volunteer_city" class="form-label">City</label>
+            <input 
+                type="text" 
+                id="volunteer_city" 
+                name="volunteer_city" 
+                class="form-input" 
+                value="<%= volunteer.volunteer_city %>"
+                required
+            >
+        </div>
+
+        <!-- VOLUNTEER STATE -->
+        <div class="form-group">
+            <label for="volunteer_state" class="form-label">State</label>
+            <select id="volunteer_state" name="volunteer_state" class="form-select" required>
+                <option value="<%= volunteer.volunteer_state %>" selected><%= volunteer.volunteer_state %></option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <!-- Add more states as needed -->
+            </select>
+        </div>
+
+        <!-- VOLUNTEER ZIP -->
+        <div class="form-group">
+            <label for="volunteer_zip" class="form-label">Zip Code</label>
+            <input 
+                type="number" 
+                id="volunteer_zip" 
+                name="volunteer_zip" 
+                class="form-input" 
+                value="<%= volunteer.volunteer_zip %>"
+                required
+            >
+        </div>
+
+        <!-- SEWING LEVEL DESCRIPTION -->
+        <div class="form-group">
+            <label for="sewing_level_id" class="form-label">Sewing Level</label>
+            <select id="sewing_level_id" name="sewing_level_id" class="form-select" required>
+                <% sewing_levels.forEach(type => { %>
+                    <option value="<%= type.sewing_level_id %>" 
+                        <% if (type.sewing_level_id === volunteer.sewing_level_id) { %> selected <% } %>>
+                        <%= type.sewing_level_description %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- REFERRED BY -->
+        <div class="form-group">
+            <label for="volunteer_source_id" class="form-label">Referred by</label>
+            <select id="volunteer_source_id" name="volunteer_source_id" class="form-select" required>
+                <% volunteer_sources.forEach(type => { %>
+                    <option value="<%= type.volunteer_source_id %>" 
+                        <% if (type.volunteer_source_id === volunteer.volunteer_source_id) { %> selected <% } %>>
+                        <%= type.source_description %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- VOLUNTEER TRAVEL DESCRIPTION -->
+        <div class="form-group">
+            <label for="volunteer_travel_range_id" class="form-label">Travel Range Description</label>
+            <select id="volunteer_travel_range_id" name="volunteer_travel_range_id" class="form-select" required>
+                <% travel_ranges.forEach(type => { %>
+                    <option value="<%= type.volunteer_travel_range_id %>" 
+                        <% if (type.volunteer_travel_range_id === volunteer.volunteer_travel_range_id) { %> selected <% } %>>
+                        <%= type.volunteer_travel_range_description %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- WILLING TO SEW -->
+        <div class="form-group">
+            <label class="form-label">Willing to Sew</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="willing_to_sew" value="Y" 
+                        <% if (volunteer.willing_to_sew === true) { %> checked <% } %>> Yes
+                </label>
+                <label>
+                    <input type="radio" name="willing_to_sew" value="N" 
+                        <% if (volunteer.willing_to_sew === false) { %> checked <% } %>> No
+                </label>
+            </div>
+        </div>
+
+        <!-- WILLING TO LEAD -->
+        <div class="form-group">
+            <label class="form-label">Willing to Lead</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="willing_to_lead" value="Y" 
+                        <% if (volunteer.willing_to_lead === true) { %> checked <% } %>> Yes
+                </label>
+                <label>
+                    <input type="radio" name="willing_to_lead" value="N" 
+                        <% if (volunteer.willing_to_lead === false) { %> checked <% } %>> No
+                </label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="form-button">Update Volunteer</button>
+    </form>
+<br>
+    <footer class="footer">
+        <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+        <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+      </footer>
+    
+      <!-- Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

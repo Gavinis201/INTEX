@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turtle Shelter Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Page Header -->
+    <h1 class="page-title">Add Volunteer</h1>
+    
+    <!-- Form for adding a new VOLUNTEER -->
+    <form action="/addVolunteer" method="POST" class="volunteer-form">
+        <!-- VOLUNTEER FIRST NAME -->
+        <div class="form-group">
+            <label for="volunteer_first_name" class="form-label">First Name</label>
+            <input
+                type="text" 
+                id="volunteer_first_name" 
+                name="volunteer_first_name" 
+                class="form-input"
+                required 
+                oninput="capitalizeFirstLetter(this)"
+            >
+        </div>
+
+        <!-- VOLUNTEER LAST NAME -->
+        <div class="form-group">
+            <label for="volunteer_last_name" class="form-label">Last Name</label>
+            <input
+                type="text" 
+                id="volunteer_last_name" 
+                name="volunteer_last_name" 
+                class="form-input"
+                required 
+                oninput="capitalizeFirstLetter(this)"
+            >
+        </div>
+        
+        <script>
+            function capitalizeFirstLetter(input) {
+                // Ensure only the first letter is uppercase and the rest are lowercase
+                let value = input.value;
+                input.value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+            }
+        </script>
+        
+        
+
+        <!-- VOLUNTEER PHONE NUMBER -->
+        <div class="form-group">
+            <label for="volunteer_phone" class="form-label">Phone Number</label>
+            <input 
+                type="number" 
+                id="volunteer_phone" 
+                name="volunteer_phone" 
+                class="form-input" 
+                required
+            >
+        </div>
+
+        <!-- VOLUNTEER EMAIL -->
+        <div class="form-group">
+            <label for="volunteer_email" class="form-label">Email</label>
+            <input 
+                type="email" 
+                id="volunteer_email" 
+                name="volunteer_email" 
+                class="form-input" 
+                required
+            >
+        </div>
+
+        <!-- VOLUNTEER CITY -->
+        <div class="form-group">
+            <label for="volunteer_city" class="form-label">City</label>
+            <input 
+                type="text" 
+                id="volunteer_city" 
+                name="volunteer_city" 
+                class="form-input" 
+                required
+            >
+        </div>
+
+        <!-- VOLUNTEER STATE -->
+        <div class="form-group">
+            <label for="volunteer_state" class="form-label">State</label>
+            <select id="volunteer_state" name="volunteer_state" class="form-select" required>
+                <option value="" disabled selected>Select a state</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+            </select>
+        </div>
+        
+
+        <!-- VOLUNTEER ZIP -->
+        <div class="form-group">
+            <label for="volunteer_zip" class="form-label">Zip Code</label>
+            <input 
+                type="number" 
+                id="volunteer_zip" 
+                name="volunteer_zip" 
+                class="form-input" 
+                required
+            >
+        </div>
+
+        <!-- SEWING LEVEL DESCRIPTION -->
+        <div class="form-group">
+            <label for="sewing_level_id" class="form-label">Sewing Level</label>
+            <select id="sewing_level_id" name="sewing_level_id" class="form-select" required>
+                <% sewingLevels.forEach(type => { %>
+                    <option value="<%= type.sewing_level_id %>">
+                        <%= type.sewing_level_description %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- REFERRED BY -->
+        <div class="form-group">
+            <label for="volunteer_source_id" class="form-label">Referred by</label>
+            <select id="volunteer_source_id" name="volunteer_source_id" class="form-select" required>
+                <% volunteerSources.forEach(type => { %>
+                    <option value="<%= type.volunteer_source_id %>">
+                        <%= type.source_description %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- VOLUNTEER TRAVEL DESCRIPTION -->
+        <div class="form-group">
+            <label for="volunteer_travel_range_id" class="form-label">Travel Range Description</label>
+            <select id="volunteer_travel_range_id" name="volunteer_travel_range_id" class="form-select" required>
+                <% travelRanges.forEach(type => { %>
+                    <option value="<%= type.volunteer_travel_range_id %>">
+                        <%= type.volunteer_travel_range_description %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <!-- WILLING TO SEW -->
+        <div class="form-group">
+            <label class="form-label">Willing to Sew</label>
+            <div class="radio-group">
+                <label><input type="radio" name="willing_to_sew" value="Y" checked> Yes</label>
+                <label><input type="radio" name="willing_to_sew" value="N"> No</label>
+            </div>
+        </div>
+
+        <!-- WILLING TO LEAD -->
+        <div class="form-group">
+            <label class="form-label">Willing to Lead</label>
+            <div class="radio-group">
+                <label><input type="radio" name="willing_to_lead" value="Y" checked> Yes</label>
+                <label><input type="radio" name="willing_to_lead" value="N"> No</label>
+            </div>
+        </div>
+
+        <!-- MONTHLY HOURS -->
+        <div class="form-group">
+            <label for="volunteer_hours_per_month" class="form-label">Monthly Hours</label>
+            <input 
+                type="number" 
+                id="volunteer_hours_per_month" 
+                name="volunteer_hours_per_month" 
+                class="form-input" 
+                required
+            >
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit" class="form-button">Add Volunteers</button>
+        </div>
+    </form>
+<br>
+     <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+    <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

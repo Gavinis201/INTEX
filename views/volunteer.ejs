@@ -56,7 +56,46 @@
         </nav>
       </header><br><br>
 <section class="height">
-    <label for="" class="volunteer-info"><b>Volunteer Information</b></label>
+    <label for="" class="volunteer-info"><b>Volunteer Information</b></label><br>
+      
+    <!-- Volunteer Search Input Field -->
+     <div class="container10">
+      <div class="search-form" >
+        <form action="/searchVolunteer" method="GET">
+          <button type="submit" class="login1-btn">Search Volunteer</button> <!-- Button to add a new country -->
+          <input type="search" placeholder="Search Name" oninput="capitalizeFirstLetter(this)">
+        </form>
+      </div>
+      <div>
+        <form action="/addVolunteer" class="form-group1" method="GET">
+          <button type="submit" class="login1-btn" >+ Add Volunteer</button> <!-- Button to add a new country -->
+        </form>
+      </div>
+
+        <script>
+          // Function to capitalize the first letter of each word
+          function capitalizeFirstLetter(input) {
+              // Get the current value of the input
+              let value = input.value;
+              
+              // Split the value by space to handle multiple words
+              let words = value.split(' ');
+        
+              // Capitalize the first letter of each word and ensure the rest is lowercase
+              for (let i = 0; i < words.length; i++) {
+                  words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+              }
+        
+              // Join the words back together and set the input value
+              input.value = words.join(' ');
+          }
+        </script>
+    </div>
+  <br>
+    
+<div class="form-group1">
+
+
     <br><br>
 
     <!-- Table to display the list of countries with details such as name, popular site, capital, population, visited, and Covid level -->
@@ -124,9 +163,7 @@
     <br><br>
 
     <!-- Form to navigate to the 'Add Country' page -->
-    <form action="/addCountry" method="GET">
-        <button type="submit" class="login1-btn">Add Volunteer</button> <!-- Button to add a new country -->
-    </form>
+    
 
 </section><br><br>
     <!-- Label for the section, indicating that it displays country information -->
