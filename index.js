@@ -20,6 +20,7 @@ const knex = require("knex")({
       database: "TSP2024", 
       port: 5432,
       ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
+
     }
 });
 
@@ -514,46 +515,42 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
 
     
 app.get('/searchVolunteers', (req, res) => {
-    const { searchFirstName, searchLastName } = req.query;
+  const { searchFirstName } = req.query; // Match the frontend's parameter name
 
-    // Build the query based on search parameters
-    let query = knex('volunteers')
-        .join('sewing_level', 'volunteers.sewing_level_id', '=', 'sewing_level.sewing_level_id')
-        .join('volunteer_source', 'volunteers.volunteer_source_id', '=', 'volunteer_source.volunteer_source_id')
-        .join('volunteer_travel_range_id', 'volunteers.volunteer_travel_range_id', '=', 'volunteer_travel_range_id.volunteer_travel_range_id')
-        .select(
-            'volunteers.volunteer_id',
-            'volunteers.volunteer_first_name',
-            'volunteers.volunteer_last_name',
-            'volunteers.volunteer_phone',
-            'volunteers.volunteer_email',
-            'volunteers.volunteer_city',
-            'volunteers.volunteer_state',
-            'volunteers.volunteer_zip',
-            'sewing_level.sewing_level_description',
-            'volunteer_source.source_description',
-            'volunteer_travel_range_id.volunteer_travel_range_description',
-            'volunteers.willing_to_lead',
-            'volunteers.willing_to_sew',
-            'volunteers.volunteer_hours_per_month'
-        );
-    
-    if (searchFirstName) {
-        query.where('volunteers.volunteer_first_name', 'like', `%${searchFirstName}%`);
-    }
-    
-    if (searchLastName) {
-        query.where('volunteers.volunteer_last_name', 'like', `%${searchLastName}%`);
-    }
+  // Build the query based on search parameters
+  let query = knex('volunteers')
+      .join('sewing_level', 'volunteers.sewing_level_id', '=', 'sewing_level.sewing_level_id')
+      .join('volunteer_source', 'volunteers.volunteer_source_id', '=', 'volunteer_source.volunteer_source_id')
+      .join('volunteer_travel_range_id', 'volunteers.volunteer_travel_range_id', '=', 'volunteer_travel_range_id.volunteer_travel_range_id')
+      .select(
+          'volunteers.volunteer_id',
+          'volunteers.volunteer_first_name',
+          'volunteers.volunteer_last_name',
+          'volunteers.volunteer_phone',
+          'volunteers.volunteer_email',
+          'volunteers.volunteer_city',
+          'volunteers.volunteer_state',
+          'volunteers.volunteer_zip',
+          'sewing_level.sewing_level_description',
+          'volunteer_source.source_description',
+          'volunteer_travel_range_id.volunteer_travel_range_description',
+          'volunteers.willing_to_lead',
+          'volunteers.willing_to_sew',
+          'volunteers.volunteer_hours_per_month'
+      );
 
-    query.then(volunteers => {
-        res.render("volunteers", {
-            volunteers: volunteers
-        });
-    }).catch(err => {
-        console.error("Database error:", err);
-        res.status(500).send("Internal Server Error");
-    });
+  if (searchFirstName) {
+      query.where('volunteers.volunteer_first_name', 'like', `%${searchFirstName}%`);
+  }
+
+  query
+      .then(volunteers => {
+          res.render("searchVolunteer", { volunteers: volunteers });
+      })
+      .catch(err => {
+          console.error("Database error:", err);
+          res.status(500).send("Internal Server Error");
+      });
 });
 
 app.get('/eventRequest', (req, res) => {
