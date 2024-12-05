@@ -652,6 +652,18 @@ app.post('/completeEvent/:id', (req,res) => {
   })
 })
 
+app.get('/declineEvent/:id', (req,res) => {
+  const id = req.params.id;
+
+  knex('event_requests')
+  .where('event_id',id)
+  .update({
+    event_status_id: 2
+  }).then(() => {
+    res.redirect('/view_events')
+  })
+});
+
 
 app.get("/volunteer", (req, res) => {
   knex('volunteers')
