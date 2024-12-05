@@ -104,7 +104,11 @@ app.post('/login', async (req, res) => {
 
 // Route to serve the login landing page
 app.get('/loginHomePage', (req, res) => {
-  res.render('loginHomePage')
+  if (security == false) {
+    // Return to Login screen
+    return res.redirect('/loginPage');
+  }
+    res.render('loginHomePage')
 });
 
 // Route to Volunteer Sign Up Page
@@ -180,8 +184,8 @@ app.post('/volunteerSignUpPage', (req, res) => {
 // view_events page code
 app.get('/view_events', (req, res) => {
     if (security == false) {
-    // Return to Home screen
-    return res.redirect('/');
+    // Return to login screen
+    return res.redirect('/loginPage');
   }
     
   knex.select(
@@ -263,8 +267,8 @@ app.get('/view_events', (req, res) => {
 //
 app.get('/editEventDetails/:id/:status', (req, res) => {
   if (security == false) {
-    // Return to Home screen
-    return res.redirect('/');
+    // Return to login screen
+    return res.redirect('/loginPage');
   }
   let id = req.params.id;
   let status = req.params.status
@@ -514,9 +518,9 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
 
 app.get("/volunteer", (req, res) => {
     if (security == false) {
-        // Return to Home screen
-        return res.redirect('/');
-      }
+    // Return to login screen
+    return res.redirect('/loginPage');
+  }
     
     knex('volunteers')
       .join('sewing_level', 'volunteers.sewing_level_id',"=",'sewing_level.sewing_level_id')
@@ -660,8 +664,8 @@ app.post("/addVolunteer", (req, res) => {
 // GET route to display the volunteer details in the edit form
 app.get("/editVolunteer/:volunteer_id", (req, res) => {
     if (security == false) {
-    // Return to Home screen
-    return res.redirect('/');
+    // Return to login screen
+    return res.redirect('/loginPage');
   }
     
     // Fetching volunteer data
@@ -797,8 +801,8 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
 app.get('/searchVolunteer', (req, res) => {
     const { searchFirstName, searchLastName } = req.query;
     if (security == false) {
-    // Return to Home screen
-    return res.redirect('/');
+    // Return to login screen
+    return res.redirect('/loginPage');
   }
     // Build the query based on search parameters
     let query = knex('volunteers')
@@ -857,6 +861,11 @@ app.get('/eventRequest', (req, res) => {
   });
 
 app.get('/displayUsers', (req, res) => {
+   if (security == false) {
+    // Return to login screen
+    return res.redirect('/loginPage');
+  }
+    
     knex('users').select('volunteer_id', 'username', 'admin_email', 'password').then(users => {
       res.render("displayUsers", { users: users })
   }).catch(error => {
@@ -867,10 +876,19 @@ app.get('/displayUsers', (req, res) => {
 
 app.get('/newUser', (req, res) => {
   res.render('newUser', {error: "Passwords do not match. Please try again.", formSubmitted: false});
+    if (security == false) {
+    // Return to login screen
+    return res.redirect('/loginPage');
+  }
 });
 
 app.get('/editUsers/:id', (req, res) => {
-  knex('users').where( 'volunteer_id', req.params.id ).first()
+  if (security == false) {
+    // Return to login screen
+    return res.redirect('/loginPage');
+  }
+    
+    knex('users').where( 'volunteer_id', req.params.id ).first()
   .then(user => {
   if (!user) return res.status(404).send("User not found");
     res.render('editUsers', { user });
@@ -882,8 +900,8 @@ app.get('/editUsers/:id', (req, res) => {
 
 app.post('/newUser', async (req, res) => {
     if (security == false) {
-    // Return to Home screen
-    return res.redirect('/');
+    // Return to login screen
+    return res.redirect('/loginPage');
   }
     const username = req.body.username;
     const admin_email = req.body.admin_email;
@@ -925,8 +943,8 @@ app.post('/newUser', async (req, res) => {
 
 app.post('/editUsers/:volunteer_id', async (req, res) => {
   if (security == false) {
-    // Return to Home screen
-    return res.redirect('/');
+    // Return to login screen
+    return res.redirect('/loginPage');
   }
     
     const id = req.params.volunteer_id;
