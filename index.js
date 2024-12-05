@@ -63,6 +63,7 @@ app.get('/', (req, res) => {
 // Route to serve the login page
 app.get('/loginPage', (req, res) => {
   const error = req.query.error;
+  security = false;
   res.render("loginPage", { error });
 });
 
