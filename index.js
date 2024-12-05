@@ -567,7 +567,6 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
     knex('completed_event_products')
     .where('event_id',id)
     .then(event_existing_prods => {
-      console.log(event_existing_prods);
       for (let oCount = 1; oCount <= 5; oCount++) {
         for (let iCount = 0; iCount < event_existing_prods.length; iCount++) {
           if (oCount == event_existing_prods[iCount].product_id) {
@@ -584,7 +583,7 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
               knex('completed_event_products')
               .where('event_id',id)
               .andWhere('product_id',event_existing_prods[iCount].product_id)
-              .del().then(() => console.log('Deleted'))
+              .del().then(() => console.log())
             }
           }
         }
@@ -595,7 +594,7 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
               event_id: id,
               product_id: oCount,
               quantity_produced: products[oCount]
-            }).then(() => console.log('Added'))
+            }).then(() => console.log())
           }
         }
       }
