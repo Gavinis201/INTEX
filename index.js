@@ -666,7 +666,55 @@ app.get('/declineEvent/:id', (req,res) => {
 
 app.get('/approveEvent/:id', (req,res) => {
   const id = req.params.id;
-  res.render('approveEvent', {id})
+
+  knex('event_requests')
+  .where('event_id',id)
+  .first()
+  .then(event_details => {
+    res.render('approveEvent', {id, event_details});
+  });
+});
+
+app.post('/approveEvent/:id', (req,res) => {
+  const id = req.params.id;
+  const approved_event_date = req.body.approved_event_date ? new Date(req.body.approved_event_date).toISOString().slice(0, 10) : null;
+  const approved_event_start_time = req.body.approved_event_start_time ? req.body.approved_event_start_time : null;
+  const approved_event_duration_hours = parseFloat(req.body.approved_event_duration_hours);
+  const event_address = req.body.event_address;
+  const event_city = req.body.event_city;
+  const event_state = req.body.event_state;
+  const event_zip = req.body.event_zip;
+  const estimated_team_members_needed = req.body.estimated_team_members_needed;
+  const number_of_sewers = req.body.number_of_sewers;
+  const sewing_machines_to_bring = req.body.sewing_machines_to_bring;
+  const sergers_to_bring = req.body.sergers_to_bring;
+
+  knex('event_requests')
+  .where('event_id',id)
+  .update({
+    event_city: event_city,
+    event_state: event_state,
+    event_zip: event_zip,
+    event_status_id: 1
+  }).then(() =>{
+
+    knex('approved_event_details')
+    .where('event_id',id)
+    .del().then(console.log())
+
+    knex('approved_event_details')
+    .insert({
+      event_id: id,
+      approved_event_date: approved_event_date,
+      approved_event_start_time: approved_event_start_time,
+      approved_event_duration_hours: approved_event_duration_hours,
+      event_address: event_address,
+      estimated_team_members_needed: estimated_team_members_needed,
+      number_of_sewers: number_of_sewers,
+      sewing_machines_to_bring: sewing_machines_to_bring,
+      sergers_to_bring: sergers_to_bring
+    }).then(() => res.redirect('/view_events'))
+  })
 })
 
 
