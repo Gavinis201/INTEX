@@ -211,7 +211,7 @@
                     
                             <div style="margin-bottom: 15px;">
                                 <label for="estimated_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Duration (Hours)</strong></label>
-                                <input type="number" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                                <input type="number" step="0.01" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;">
                             </div>
 
                             <div style="flex: 1; margin-bottom: 15px;">
@@ -316,7 +316,7 @@
                                 <!-- Event Duration -->
                                 <div style="margin-bottom: 15px;">
                                     <label for="estimated_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Duration (hours)</strong></label>
-                                    <input type="number" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                                    <input type="number" step="0.01" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
                                 </div>
                         
                                 <!-- Location City -->
@@ -361,7 +361,7 @@
                                     <label for="event_type_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Type</strong></label>
                                     <select id="event_type_id" name="event_type_id" required style="width: 100%; padding: 8px; font-size: 1em;">
                                         <option value="1" <%= event.event_type_id === 1 ? 'selected' : '' %>>Sewing</option>
-                                        <option value="2" <%= event.event_type_id === 2 ? 'selected' : '' %>>Crafting</option>
+                                        <option value="2" <%= event.event_type_id === 2 ? 'selected' : '' %>>Non-Sewing</option>
                                         <option value="3" <%= event.event_type_id === 3 ? 'selected' : '' %>>Both</option>
                                     </select>
                                 </div>
@@ -451,7 +451,7 @@
                             <!-- Event Duration -->
                             <div style="margin-bottom: 15px;">
                                 <label for="approved_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Duration (hours)</strong></label>
-                                <input type="number" id="approved_event_duration_hours" name="approved_event_duration_hours" value="<%= event.approved_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
+                                <input type="number" step="0.01" id="approved_event_duration_hours" name="approved_event_duration_hours" value="<%= event.approved_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
                             </div>
                     
                         <!-- Location Split -->
