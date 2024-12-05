@@ -29,9 +29,11 @@ app.use(express.static(path.join(__dirname, "public") ));
 const formattedTime = (time) => {
   // Convert "09:00:00" to a Date object
   const date = new Date(`1970-01-01T${time}Z`);  // Use a dummy date
+  let output = '';
 
   // Get the hour in 24-hour format
   let hour = date.getUTCHours();
+  let min = date.getUTCMinutes();
 
   // Determine AM or PM
   const period = hour >= 12 ? 'PM' : 'AM';
@@ -42,9 +44,14 @@ const formattedTime = (time) => {
   } else if (hour === 0) {
     hour = 12; // Midnight case
   }
-
+  if (min>=10) {
+    output = `${hour}:${min} ${period}`
+  }
+  else if (min<10) {
+    output = `${hour}:0${min} ${period}`
+  }
   // Return formatted time like "9 AM"
-  return `${hour} ${period}`;
+  return output;
 };
 
 // Route to serve the landing page
@@ -307,6 +314,82 @@ app.get('/editEventDetails/:id/:status', (req, res) => {
     res.status(500).json({err})
   });
 });
+
+app.post('/editEventDetails/:id/:status', (req,res) => {
+  console.log(req.body)
+  const id = req.params.id;
+  const status = req.params.status
+  if (status === 'Approved') {
+    // Assign data from req.body to variables and ensure correct type conversion
+    const event_contact_first_name = req.body.event_contact_first_name;
+    const event_contact_last_name = req.body.event_contact_last_name;
+    const event_address = req.body.event_address;
+    const event_city = req.body.event_city;
+    const event_state = req.body.event_state;
+    const event_zip = req.body.event_zip;
+
+    // Convert number fields to integers
+    const estimated_team_members_needed = parseInt(req.body.estimated_team_members_needed);
+    const sewing_machines_to_bring = parseInt(req.body.sewing_machines_to_bring);
+    const sergers_to_bring = parseInt(req.body.sergers_to_bring);
+    const estimated_participant_count = parseInt(req.body.estimated_participant_count);
+    const approved_event_duration_hours = parseInt(req.body.approved_event_duration_hours);
+    const number_of_sewers = parseInt(req.body.number_of_sewers);
+
+    // Convert space size and event type to integers
+    const space_size_id = parseInt(req.body.space_size_id);
+    const event_type_id = parseInt(req.body.event_type_id);
+
+    // Convert checkbox field to boolean
+    const jen_story = req.body.jen_story === 'true'; // true if checked, false if not
+
+    // Convert date and time fields to the correct formats for PostgreSQL
+    const approved_event_date = req.body.approved_event_date ? new Date(req.body.approved_event_date).toISOString().slice(0, 10) : null;
+    const approved_event_start_time = req.body.approved_event_start_time ? req.body.approved_event_start_time : null;
+
+    // Contact Information
+    const event_contact_phone = req.body.event_contact_phone;
+    const event_contact_email = req.body.event_contact_email;
+
+    knex('event_requests')
+    .where('event_id', id)
+    .update({
+      event_contact_first_name: event_contact_first_name,
+      event_contact_last_name: event_contact_last_name,
+      event_city: event_city,
+      event_state: event_state,
+      event_zip: event_zip,
+      estimated_participant_count: estimated_participant_count,
+      space_size_id: space_size_id,
+      event_type_id: event_type_id,
+      jen_story: jen_story,
+      event_contact_phone: event_contact_phone,
+      event_contact_email: event_contact_email
+    })
+    .then(() => {
+      knex('approved_event_details')
+      .where('event_id', id)
+      .update({
+        event_address: event_address, 
+        estimated_team_members_needed: estimated_team_members_needed, 
+        sewing_machines_to_bring: sewing_machines_to_bring, 
+        sergers_to_bring: sergers_to_bring, 
+        approved_event_duration_hours: approved_event_duration_hours, 
+        number_of_sewers: number_of_sewers, 
+        approved_event_date: approved_event_date, 
+        approved_event_start_time: approved_event_start_time
+      })
+      .then(() => {
+        res.redirect('/view_events');
+      });
+      
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({err})
+  });
+  }
+})
 
 
 app.get("/volunteer", (req, res) => {
