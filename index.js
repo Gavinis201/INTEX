@@ -14,12 +14,12 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg", 
     connection: {
-      host: process.env.RDS_HOSTNAME || "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
-      user: process.env.RDS_USERNAME || "ebroot", 
-      password: process.env.RDS_PASSWORD || "Intex2024", 
-      database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
+      host: process.env.RDS_HOSTNAME || "localhost", 
+      user: process.env.RDS_USERNAME || "intex", 
+      password: process.env.RDS_PASSWORD || "password", 
+      database: process.env.RDS_DB_NAME || "intex_test20", 
       port: process.env.RDS_PORT || 5432,
-      ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
+      // ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
     }
 });
 
@@ -246,8 +246,33 @@ app.get('/view_events', (req, res) => {
 
 //
 app.get('/editEventDetails/:id', (req, res) => {
-  const eventId = req.params.id;
-  res.render('editEventDetails', { eventId });
+  let id = req.params.id;
+
+  knex('event_requests')
+  .where('event_id', id)
+  .first()
+  .then(event => {
+      if (!event) {
+          return res.status(404).send('Event not found');
+      }
+
+      res.render('editEventDetails', {event})
+      // // Query all planets after fetching the character
+      // knex('planets')
+      // .select('id', 'planet_name')
+      // .then(planets => {
+      //     // Render the edit form and pass both characters and planets
+      //     res.render('editCharacter', { character, planets });
+      // })
+      // .catch(error => {
+      //     console.error('Error fetching planets:', error);
+      //     res.status(500).send('Internal Server Error');
+      // });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({err})
+  });
 });
 
 
