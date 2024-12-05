@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turtle Shelter Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .form-container {
+    width: 55%;
+    max-width: 600px;
+    min-width: 50%;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    }
+    .volunteer-header {
+      display: flex;
+      align-items: center;
+      /* justify-content: space-between; */
+      justify-content: center; /* Horizontally center the content */
+      margin-top: 20px;
+      width: 55%;
+    }
+
+    .volunteer-header .text-content {
+      flex: 1;
+      text-align: center;
+    }
+    
+    @media (max-width: 1024px) {
+        .form-container {
+            width: 70%;
+        }
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+    .form-group {
+        flex-direction: column;
+        }
+    .volunteer-header {
+        flex-direction: column;
+        margin: auto;
+    }
+    }
+
+    .form-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-field {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+    /* Adjusting checkbox alignment */
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        margin: 0;
+        width: auto;
+    }
+
+    /* Styling for checkboxes */
+    .checkboxes {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+    }
+
+    .checkboxes .form-field {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-submit {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    margin-top: 5rem auto; /* Add spacing above the button */
+    }
+
+    </style>
+</head>
+<body>
+  <header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Turtle Shelter Project on the far left -->
+        <a class="navbar-brand" href="/">TURTLE SHELTER PROJECT</a>
+  
+        <!-- Navbar Toggle Button for Small Screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Navbar links, centered (This is the collapsible part) -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
+            <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+            <li class="nav-item"><a class="nav-link" href="#volunteer">Volunteer</a></li>
+            <li class="nav-item"><a class="nav-link" href="#volunteer">Jen's Story</a></li>
+          </ul>
+        </div>
+  
+        <!-- Social Media Icons and Login Button on the right -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <form action="/loginPage" method="GET">
+              <button class="login1-btn">LOG IN</button>
+            </form>
+            <div class="social-media">
+              <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                <i class="fa fa-facebook-square"></i>
+              </a>
+            </div>
+            <div class="social-media">
+              <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                <i class="fa fa-instagram"></i>
+              </a>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+   <!-- Volunteer Signup Section -->
+   <div class="container volunteer-header">
+    <div class="text-content">
+      <h1>Volunteer Signup</h1>
+      <p>Turtle Shelter Vest Projects are perfect for groups of all sizes, ages, and abilities. Whether you're an individual or part of a team, your contribution makes a meaningful impact. Thank you for signing up as a volunteer! We look forward to partnering with you and making a difference together in the future.</p>
+    </div>
+  </div>
+  
+  <!-- No need for the additional collapsible section anymore -->
+  
+  <div class="form-container">
+
+    <p style="color: green; text-align: center; " class="text-success mt-3">
+        <% if (success === 'true') { %>
+            Sign-up successful!
+        <% } %>
+    </p>
+
+    <form class="form1" action="/volunteerSignUpPage" method="POST">
+        <!-- First Name and Last Name -->
+        <div class="form-group">
+            <div class="form-field">
+                <label for="volunteer_first_name">First Name</label>
+                <input 
+                    type="text" 
+                    id="volunteer_first_name" 
+                    name="volunteer_first_name" 
+                    required 
+                >
+            </div>
+            <div class="form-field">
+                <label for="volunteer_last_name">Last Name</label>
+                <input 
+                    type="text" 
+                    id="volunteer_last_name" 
+                    name="volunteer_last_name" 
+                    required 
+                >
+            </div>
+        </div>
+
+        <!-- Email and Phone -->
+        <div class="form-group">
+            <div class="form-field">
+                <label for="volunteer_phone">Phone Number</label>
+                <input type="number" id="volunteer_phone" name="volunteer_phone" required>
+            </div>
+            <div class="form-field">
+                <label for="volunteer_email">Email</label>
+                <input type="text" id="volunteer_email" name="volunteer_email" required>
+            </div>
+        </div>
+
+        <!-- City, State, and Zip -->
+        <div class="form-group">
+            <div class="form-field">
+                <label for="volunteer_city">City</label>
+                <input 
+                    type="text" 
+                    id="volunteer_city" 
+                    name="volunteer_city" 
+                    required 
+                    style="text-transform: uppercase;" 
+                    oninput="this.value = this.value.toUpperCase()"
+                >
+            </div>
+            <div class="form-field">
+                <label for="volunteer_state">State</label>
+                <select name="volunteer_city" size="1">
+                    <option value="AK">AK</option>
+                    <option value="AL">AL</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DC">DC</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="IA">IA</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MD">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VA">VA</option>
+                    <option value="VT">VT</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                  </select>
+            </div>
+            <div class="form-field">
+            <div class="form-field">
+                <label for="volunteer_zip">Zip</label>
+                <input type="number" id="volunteer_zip" name="volunteer_zip" required>
+            </div>
+            </div>
+        </div>
+
+        <!-- Other Fields -->
+        <div class="form-group">
+            <div class="form-field">
+                <label for="sewing_level_id">Sewing Level</label>
+                <select id="sewing_level_id" name="sewing_level_id" required>
+                    <% sewing_types.forEach(type => { %>
+                        <option value="<%= type.sewing_level_id %>"><%= type.sewing_level_description %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <!-- <div class="form-field">
+                <div class="form-field">
+                <label for="willing_to_sew">
+                    Willing to Sew?
+                    <input type="checkbox" id="willing_to_sew" name="willing_to_sew" value="true">
+                </label>
+                </div>
+                <div class="form-field">
+                <label for="willing_to_lead">
+                    Willing to Lead?
+                    <input type="checkbox" id="willing_to_lead" name="willing_to_lead" value="true">
+                </label>
+                </div>
+            </div> -->
+            <!-- Checkboxes section -->
+        <div class="form-group checkboxes">
+            <div class="form-field">
+                <label for="willing_to_sew">Are you willing to Sew?</label>
+                <input type="checkbox" id="willing_to_sew" name="willing_to_sew" value="true">
+            </div>
+            <div class="form-field">
+                <label for="willing_to_lead">Are you willing to Lead?</label>
+                <input type="checkbox" id="willing_to_lead" name="willing_to_lead" value="true">
+            </div>
+        </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="form-field">
+                <label for="volunteer_travel_range_id">Event travel range preference:</label>
+                <select id="volunteer_travel_range_id" name="volunteer_travel_range_id" required>
+                    <% volunteer_travel_range_types.forEach(type => { %>
+                        <option value="<%= type.volunteer_travel_range_id %>"><%= type.volunteer_travel_range_description %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="volunteer_hours_per_month">Number of Hours willing to Volunteer per Month</label>
+                <input type="number" id="volunteer_hours_per_month" name="volunteer_hours_per_month" required>
+            </div>
+            
+        </div>
+
+        <!-- Volunteeer Source -->
+        <div class="form-group">
+            <div class="form-field">
+                <label for="volunteer_source_id">How did you hear about us?</label>
+                <select id="volunteer_source_id" name="volunteer_source_id" required>
+                    <% volunteer_source_types.forEach(type => { %>
+                        <option value="<%= type.volunteer_source_id %>"><%= type.source_description %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-submit"></div>
+            <button class="login1-btn" type="submit" style="display: block; margin: 0 auto;">Submit</button>
+        </div>
+        
+    </form>
+</div>
+
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+    <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  
+</body>
+</html>

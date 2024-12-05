@@ -332,6 +332,21 @@ header li{
     height: 73vh;
   }
 
+  .status-pending {
+    color: grey;
+}
+
+.status-declined {
+    color: red;
+}
+
+.status-approved {
+    color: green;
+}
+
+.status-completed {
+    color: black;
+}
   .height{
     position: static; 
     bottom: 0;
@@ -387,6 +402,7 @@ header li{
     text-transform: uppercase;
 
   }
+
 
   /* General Form Styles */
 .volunteer-form {
@@ -539,3 +555,5 @@ header li{
     font-size: 1em;
   }
 }
+
+
