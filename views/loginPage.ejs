@@ -7,79 +7,91 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Make the body a flex container */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* Ensure main content takes all remaining space */
+    .content-wrapper {
+      flex: 1;
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: #008080;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <header>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container d-flex justify-content-between align-items-center">
-        <!-- Turtle Shelter Project on the far left -->
         <a class="navbar-brand" href="/">TURTLE SHELTER PROJECT</a>
-  
-        <!-- Navbar Toggle Button for Small Screens -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-  
-        <!-- Navbar links, centered (This is the collapsible part) -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
             <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
-            <li class="nav-item"><a class="nav-link" href="/volunteerSignUpPage">Volunteer</a></li>
+            <li class="nav-item"><a class="nav-link" href="/volunteerSignUpPage">Volunteer Sign Up</a></li>
             <li class="nav-item"><a class="nav-link" href="/eventRequest">Request An Event</a></li>
             <li class="nav-item"><a class="nav-link" href="#volunteer">Jen's Story</a></li>
           </ul>
         </div>
-  
-        <!-- Social Media Icons and Login Button on the right -->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <form action="/loginPage" method="GET">
               <button class="login1-btn">LOG IN</button>
             </form>
             <div class="social-media">
-              <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
-                <i class="fa fa-facebook-square"></i>
-              </a>
+              <a href="https://www.facebook.com/turtleshelterproject/" target="_blank"><i class="fa fa-facebook-square"></i></a>
             </div>
             <div class="social-media">
-              <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
-                <i class="fa fa-instagram"></i>
-              </a>
+              <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a>
             </div>
           </li>
-          
         </ul>
       </div>
     </nav>
   </header>
-  
-  <!-- No need for the additional collapsible section anymore -->
-  <div class="container" style="max-width: 360px; background-color: #008080; padding: 20px; border-radius: 8px; text-align: center; color: white; margin: 40px auto;">
-    <h1 class="m-0" style="font-size: 1.5rem;">Login to the Turtle Shelter Project Manager</h1>
-  </div>
-  
-  <!-- <h1 class="navbar-brand" style="font-size: 200%; padding: 8px; margin-bottom: 5px; margin: auto; text-align: center; border: 1px solid #ccc; fill: #008080; border-radius: 4px;">Login to the Turtle Shelter Project Manager</h1> -->
 
- 
-
-  <div style="width: 300px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #F9F9F9; margin-top: 20px; margin-bottom: 40px">
-    <% if (error) { %>
-      <p style="color: red;" class="text-danger mt-3"><%= error === 'invalid_credentials' ? 'Invalid username or password' : '' %></p>
-    <% } %>
-    <form action="/login" method="post" >
-        <!-- User Name -->
+  <!-- Main Content Wrapper -->
+  <div class="content-wrapper">
+    <div class="container" style="max-width: 360px; background-color: #008080; padding: 20px; border-radius: 8px; text-align: center; color: white; margin: 40px auto;">
+      <h1 class="m-0" style="font-size: 1.5rem;">Login to the Turtle Shelter Project Manager</h1>
+    </div>
+    <div style="width: 300px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #F9F9F9; margin-top: 20px; margin-bottom: 40px">
+      <% if (error) { %>
+        <p style="color: red;" class="text-danger mt-3"><%= error === 'invalid_credentials' ? 'Invalid username or password' : '' %></p>
+      <% } %>
+      <form action="/login" method="post">
         <label for="username" style="display: block; margin-bottom: 5px;">User Name:</label>
         <input type="text" id="username" name="username" placeholder="Enter your username" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;" required>
-        <!-- Password -->
         <label for="password" style="display: block; margin-bottom: 5px;">Password:</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;" required>
-        <!-- Submit Button -->
-        <button  type="submit" class="login1-btn" style="width: 100%; padding: 10px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">
-          Submit
-        </button>
-    </form>
+        <button type="submit" class="login1-btn" style="width: 100%; padding: 10px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">Submit</button>
+      </form>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -90,3 +102,5 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

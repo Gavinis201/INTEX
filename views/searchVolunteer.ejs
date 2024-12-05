@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
-                <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteer Info</a></li>
                 <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
               </ul>
             </div>
@@ -152,8 +152,8 @@
                     <td style="text-align: center;">
                         <!-- Form to delete a country, sending a POST request to the deleteCountry route with the country's ID -->
                         <form action="/deleteVolunteer/<%= volunteers[icount].volunteer_id %>" method="POST">
-                            <button type="submit" class="button-table">Delete</button> <!-- Delete button -->
-                        </form>
+                          <button type="submit"onclick="return confirm('Are you sure you want to delete?')" class="button-table">Delete</button> <!-- Delete button -->
+                      </form>
                     </td>
                 </tr>
             <%} %> <!-- End of loop to display countries -->

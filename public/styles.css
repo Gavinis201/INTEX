@@ -120,9 +120,34 @@ body {
   border: 1px solid teal; /* Add a border on hover */
 }
 
-
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Prevent layout shift on hover by keeping button size consistent */
 .login1-btn {
+ 
+  background-color: teal;
+  color: white;
+  padding: 10px 24px; /* Maintain consistent padding */
+  font-size: 1rem; /* Large text size */
+  font-weight: 700; /* Bold text */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box; /* Ensure padding is included in total width/height */
+}
+
+.login2-btn:hover {
+  background-color: white;
+  color: teal;
+  box-shadow: 0 0 0 1px teal;
+  /* Don't change padding on hover to prevent shifting */
+}
+
+.login2-btn {
   background-color: teal;
   color: white;
   padding: 10px 24px; /* Maintain consistent padding */
@@ -358,11 +383,11 @@ header li{
 
   .table {
     border: 1px solid teal;
-    width: 80%;
-    border-collapse: separate; /* Ensures the border-radius works */
+    width: 70%;
+    /* border-collapse: separate; Ensures the border-radius works */
     border-spacing: .5px; /* Removes spacing between cells */
     border-radius: 10px; /* Rounds the table corners */
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 0 0 8px rgba(0, 128, 128, 0.402); ;
   }
 
@@ -377,7 +402,6 @@ header li{
   }
   .table td{
     border: 1px solid teal ;
-    padding: 10px;
   }
 
   .button-table{
