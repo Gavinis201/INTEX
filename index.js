@@ -245,18 +245,41 @@ app.get('/view_events', (req, res) => {
 });
 
 //
-app.get('/editEventDetails/:id', (req, res) => {
+app.get('/editEventDetails/:id/:status', (req, res) => {
   let id = req.params.id;
+  let status = req.params.status
 
-  knex('event_requests')
-  .where('event_id', id)
+  knex.select(
+    'event_requests.*',
+    'event_status.*',
+    'space_size.*',
+    'event_type.*',
+    'approved_event_date',
+    'approved_event_start_time',
+    'approved_event_duration_hours',
+    'event_address',
+    'estimated_team_members_needed',
+    'number_of_sewers',
+    'sewing_machines_to_bring',
+    'sergers_to_bring',
+    'approved_event_notes',
+    'completed_participants_count',
+    'completed_event_notes'
+  )
+  .from('event_requests')
+  .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
+  .join('space_size', 'event_requests.space_size_id','=','space_size.space_size_id' )
+  .join('event_type', 'event_requests.event_type_id','=','event_type.event_type_id' )
+  .leftJoin('approved_event_details', 'event_requests.event_id','=','approved_event_details.event_id' )
+  .leftJoin('completed_event_details', 'event_requests.event_id','=','completed_event_details.event_id' )
+  .where('event_requests.event_id',id)
   .first()
   .then(event => {
       if (!event) {
           return res.status(404).send('Event not found');
       }
 
-      res.render('editEventDetails', {event})
+      res.render('editEventDetails', {event, status})
       // // Query all planets after fetching the character
       // knex('planets')
       // .select('id', 'planet_name')
