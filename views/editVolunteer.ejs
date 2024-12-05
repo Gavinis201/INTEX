@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-
     <header>
         <!-- Navigation Bar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -221,6 +220,19 @@
             </div>
         </div>
 
+         <!-- MONTHLY HOURS -->
+        <div class="form-group">
+            <label for="volunteer_hours_per_month" class="form-label">Monthly Hours</label>
+            <input
+                type="text" 
+                id="volunteer_hours_per_month" 
+                name="volunteer_hours_per_month" 
+                class="form-input"
+                value="<%= volunteer.volunteer_hours_per_month %>"
+                required 
+                oninput="this.value = this.value.toUpperCase()" 
+            >
+        </div>
         <!-- Submit Button -->
         <button type="submit" class="form-button">Update Volunteer</button>
     </form>
