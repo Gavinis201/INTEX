@@ -1,4 +1,3 @@
-// Create a view that shows all volunteers and their information. Allow the maintenance of the volunteer records
 const express = require("express");
 
 let app = express();
