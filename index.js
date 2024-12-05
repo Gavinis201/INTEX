@@ -664,6 +664,11 @@ app.get('/declineEvent/:id', (req,res) => {
   })
 });
 
+app.get('/approveEvent/:id', (req,res) => {
+  const id = req.params.id;
+  res.render('approveEvent', {id})
+})
+
 
 app.get("/volunteer", (req, res) => {
   knex('volunteers')
