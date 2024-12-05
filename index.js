@@ -600,26 +600,7 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
       }
     })
   })).then(() => res.redirect('/view_events'))
-
-  // knex('completed_event_products')
-  // .where('event_id',id)
-  // .then(event_existing_prods => {
-  //   for (let iCount = 0; iCount < event_existing_prods.length; iCount++ ) {
-  //     if (event_existing_prods[iCount].product_id in products){
-  //       console.log(event_existing_prods[iCount]);
-  //       knex('completed_event_products')
-  //       .where('event_id',id)
-  //       .andWhere('product_id',event_existing_prods[iCount].product_id)
-  //       .update({
-  //         quantity_produced: products[event_existing_prods[iCount].product_id]
-  //       })
-  //     }
-  //   }
-  // })
-
-
   }
-
 });
 
 
