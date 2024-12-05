@@ -525,7 +525,7 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
   const vests = parseInt(req.body.product_4);
   const completed_products = parseInt(req.body.product_5);
 
-  prod_array = [pockets,collars,envelopes,vests,completed_products];
+  let prod_array = [pockets,collars,envelopes,vests,completed_products];
 
   let products = {};
 
@@ -602,6 +602,55 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
   })).then(() => res.redirect('/view_events'))
   }
 });
+
+app.get('/completeEvent/:id', (req,res) => {
+  const id = req.params.id;
+  res.render('completeEvent', {id});
+})
+
+app.post('/completeEvent/:id', (req,res) => {
+  const id = req.params.id
+
+  const pockets = parseInt(req.body.pockets);
+  const collars = parseInt(req.body.collars);
+  const envelopes = parseInt(req.body.envelopes);
+  const vests = parseInt(req.body.vests);
+  const completed_products = parseInt(req.body.completed_products);
+  const completed_participants_count = parseInt(req.body.completed_participants_count);
+
+  let prod_array = [pockets,collars,envelopes,vests,completed_products];
+
+  let products = {};
+
+  for (let iCount = 0; iCount < prod_array.length; iCount++) {
+    products[iCount+1]=prod_array[iCount];
+  }
+
+  knex('event_requests')
+  .where('event_id',id)
+  .update({
+    event_status_id: 4
+  }).then(() => {
+
+    knex('completed_event_details')
+    .insert({
+      event_id: id,
+      completed_participants_count: completed_participants_count
+    }).then(() => {
+
+      for (let iCount = 1; iCount <= 5; iCount++) {
+          if (products[iCount] > 0) {
+            knex('completed_event_products')
+            .insert({
+              event_id: id,
+              product_id: iCount,
+              quantity_produced: products[iCount]
+            }).then(() => console.log())
+          }
+        }
+    }).then(res.redirect('/view_events'))
+  })
+})
 
 
 app.get("/volunteer", (req, res) => {
