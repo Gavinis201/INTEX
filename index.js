@@ -1,4 +1,3 @@
-// Create a view that shows all volunteers and their information. Allow the maintenance of the volunteer records
 const express = require("express");
 
 let app = express();
@@ -14,12 +13,12 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg", 
     connection: {
-      host: process.env.RDS_HOSTNAME || "localhost", 
-      user: process.env.RDS_USERNAME || "postgres", 
-      password: process.env.RDS_PASSWORD || "Gavin12", 
-      database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
-      port: process.env.RDS_PORT || 5432,
-
+      host: "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
+      user: "ebroot", 
+      password: "Intex2024", 
+      database: "TSP2024", 
+      port: 5432,
+      ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
     }
 });
 
@@ -514,42 +513,46 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
 
     
 app.get('/searchVolunteers', (req, res) => {
-  const { searchFirstName } = req.query; // Match the frontend's parameter name
+    const { searchFirstName, searchLastName } = req.query;
 
-  // Build the query based on search parameters
-  let query = knex('volunteers')
-      .join('sewing_level', 'volunteers.sewing_level_id', '=', 'sewing_level.sewing_level_id')
-      .join('volunteer_source', 'volunteers.volunteer_source_id', '=', 'volunteer_source.volunteer_source_id')
-      .join('volunteer_travel_range_id', 'volunteers.volunteer_travel_range_id', '=', 'volunteer_travel_range_id.volunteer_travel_range_id')
-      .select(
-          'volunteers.volunteer_id',
-          'volunteers.volunteer_first_name',
-          'volunteers.volunteer_last_name',
-          'volunteers.volunteer_phone',
-          'volunteers.volunteer_email',
-          'volunteers.volunteer_city',
-          'volunteers.volunteer_state',
-          'volunteers.volunteer_zip',
-          'sewing_level.sewing_level_description',
-          'volunteer_source.source_description',
-          'volunteer_travel_range_id.volunteer_travel_range_description',
-          'volunteers.willing_to_lead',
-          'volunteers.willing_to_sew',
-          'volunteers.volunteer_hours_per_month'
-      );
+    // Build the query based on search parameters
+    let query = knex('volunteers')
+        .join('sewing_level', 'volunteers.sewing_level_id', '=', 'sewing_level.sewing_level_id')
+        .join('volunteer_source', 'volunteers.volunteer_source_id', '=', 'volunteer_source.volunteer_source_id')
+        .join('volunteer_travel_range_id', 'volunteers.volunteer_travel_range_id', '=', 'volunteer_travel_range_id.volunteer_travel_range_id')
+        .select(
+            'volunteers.volunteer_id',
+            'volunteers.volunteer_first_name',
+            'volunteers.volunteer_last_name',
+            'volunteers.volunteer_phone',
+            'volunteers.volunteer_email',
+            'volunteers.volunteer_city',
+            'volunteers.volunteer_state',
+            'volunteers.volunteer_zip',
+            'sewing_level.sewing_level_description',
+            'volunteer_source.source_description',
+            'volunteer_travel_range_id.volunteer_travel_range_description',
+            'volunteers.willing_to_lead',
+            'volunteers.willing_to_sew',
+            'volunteers.volunteer_hours_per_month'
+        );
+    
+    if (searchFirstName) {
+        query.where('volunteers.volunteer_first_name', 'like', `%${searchFirstName}%`);
+    }
+    
+    if (searchLastName) {
+        query.where('volunteers.volunteer_last_name', 'like', `%${searchLastName}%`);
+    }
 
-  if (searchFirstName) {
-      query.where('volunteers.volunteer_first_name', 'like', `%${searchFirstName}%`);
-  }
-
-  query
-      .then(volunteers => {
-          res.render("searchVolunteer", { volunteers: volunteers });
-      })
-      .catch(err => {
-          console.error("Database error:", err);
-          res.status(500).send("Internal Server Error");
-      });
+    query.then(volunteers => {
+        res.render("volunteers", {
+            volunteers: volunteers
+        });
+    }).catch(err => {
+        console.error("Database error:", err);
+        res.status(500).send("Internal Server Error");
+    });
 });
 
 app.get('/eventRequest', (req, res) => {
@@ -593,7 +596,10 @@ app.get('/editUsers/:id', (req, res) => {
 });
 
 app.post('/newUser', async (req, res) => {
-    const { username, admin_email, password } = req.body;
+    const username = req.body.username;
+    const admin_email = req.body.admin_email;
+    const password = req.body.password
+    const confirm_password = req.body.confirm_password
 
     // checks to see if passwords match
     if (password !== confirm_password) {
@@ -608,8 +614,13 @@ app.post('/newUser', async (req, res) => {
     }
 
     // adds the new user record to the database
-    await knex('users').insert({ username, admin_email, password });
+    await knex('users').insert({ 
+      username: username, 
+      admin_email: admin_email,
+      password: password })
+      .then(() => {
     res.redirect('/displayUsers')
+    })
     .catch (error => {
     console.error("Error adding user:", error);
     res.status(500).render('editUsers', { 
@@ -623,44 +634,41 @@ app.post('/newUser', async (req, res) => {
   })
 });
 
-app.post('/editUsers/:id', async (req, res) => {
-  const userId = req.params.id;
-  const { username, email, password } = req.body;
+app.post('/editUsers/:volunteer_id', async (req, res) => {
+  const id = req.params.volunteer_id;
+  const username = req.body.username;
+  const admin_email = req.body.admin_email;
+  const password = req.body.password
 
-  try {
-    const user = await User.findById(userId); // Fetch the user from the database
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-
-    // Update user details
-    user.username = username;
-    user.admin_email = email;
-
-    // Update password only if provided
-    if (password && password.trim() !== '') {
-      user.password = password; // Hash the password if required
-    }
-
-    await user.save(); // Save the updated user to the database
-    res.redirect('/users'); // Redirect to the user list or another relevant page
-  } catch (error) {
-    console.error(error);
-    res.render('editUser', {
-      user: { _id: userId, username, admin_email: email },
-      formSubmitted: true,
-      error: 'Failed to update user. Please try again.',
+  knex('users')
+    .where('volunteer_id', id)
+    .update({
+      username: username,
+      admin_email: admin_email,
+      password: password
+    })
+    .then(() => {
+      res.redirect('/displayUsers'); // Redirect to the user list or another relevant page
+    }) 
+    .catch (error => {
+        console.error('Error updating User:', error);
+        res.status(500).send('Internal Server Error');
     });
-  }
 });
 
-app.post('/deleteUsers/:id', async (req, res) => {
-    knex('users').where({ volunteer_id: req.params.id }).del().then(users => {
-      res.redirect('/users');
-    }).catch (error => {
-    console.error("Error deleting user:", error);
-    res.status(500).send("Error deleting user.");
-  })
+app.post('/deleteUsers/:volunteer_id', async (req, res) => {
+    const id = req.params.volunteer_id;
+
+    knex('users')
+      .where('volunteer_id', id)
+      .del()
+      .then(() => {
+        res.redirect('/displayUsers');
+      })
+      .catch (error => {
+        console.error("Error deleting user:", error);
+        res.status(500).send("Error deleting user");
+    })
 });
 
 

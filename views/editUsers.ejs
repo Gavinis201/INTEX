@@ -49,15 +49,15 @@
           <span class="navbar-toggler-icon"></span>
         </button>
   
-        <!-- Navbar links, centered -->
+        <!-- Navbar links, centered (This is the collapsible part) -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
-          <li class="nav-item"><a class="nav-link" href="/loginHomePage">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
-          <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
-          <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="/completed-events">Completed Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+            <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
           </ul>
-      </div>
+        </div>
   
         <!-- Social Media Icons and Login Button on the right -->
         <ul class="navbar-nav ms-auto">
@@ -83,32 +83,24 @@
 
   <!-- Main Content -->
   <div class="container mt-5">
-    <h1>Edit User</h1>
-    <!-- Show error message
-    < if (formSubmitted && error) { >
-        <div class="alert alert-danger" role="alert">
-          < error >
-        </div>
-    < } > -->
-    <form action="/users/<%= user.volunteer_id %>" method="POST">
+    <h1 class="mb-4">Edit User</h1>
+    <form action="/editUsers/<%= user.volunteer_id %>" method="POST">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input type="text" id="username" name="username" value="<%= user.username %>" class="form-control" required>
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" value="<%= user.admin_email %>" class="form-control" required>
+        <label for="admin_email" class="form-label">Email</label>
+        <input type="email" id="admin_email" name="admin_email" value="<%= user.admin_email %>" class="form-control" required>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" id="password" name="password" value="<%= user.password %>" class="form-control" required>
       </div>
-      <!-- <div class="mb-3">
-        <label for="confirm_password" class="form-label">Confirm Password</label>
-        <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
-      </div>       -->
-      <br>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="/displayUsers" class="btn btn-secondary">Cancel</a>
+      </div>      
     </form>
   </div>
 
