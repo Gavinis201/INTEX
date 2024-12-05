@@ -60,17 +60,17 @@
                 <legend style="font-weight: bold; padding-bottom: 20px;">Event Logistics</legend>
                 <div style="margin-bottom: 15px;">
                     <label for="approved_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Event Date</strong></label>
-                    <input type="date" id="approved_event_date" name="approved_event_date" style="width: 100%; padding: 8px; font-size: 1em;">
+                    <input type="date" id="approved_event_date" name="approved_event_date" value="<%= new Date(event_details.first_choice_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;">
                 </div>
 
                 <div style="margin-top: 20px; margin-bottom: 15px;">
                     <label for="approved_event_start_time" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Start Time</strong></label>
-                    <input type="time" id="approved_event_start_time" name="approved_event_start_time" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    <input type="time" id="approved_event_start_time" name="approved_event_start_time" value="<%= event_details.estimated_event_start_time %>" required style="width: 100%; padding: 8px; font-size: 1em;">
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label for="approved_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Event Duration (hours)</strong></label>
-                    <input type="number" step="0.01" id="approved_event_duration_hours" name="approved_event_duration_hours" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    <input type="number" step="0.01" id="approved_event_duration_hours" name="approved_event_duration_hours" value="<%= event_details.estimated_event_duration_hours %>" required style="width: 100%; padding: 8px; font-size: 1em;">
                 </div>
 
                 </fieldset>
@@ -84,17 +84,17 @@
 
                 <div style="flex: 1; margin-bottom: 15px;">
                     <label for="event_city" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event City</strong></label>
-                    <input type="text" id="event_city" name="event_city" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    <input type="text" id="event_city" name="event_city" value="<%= event_details.event_city %>" required style="width: 100%; padding: 8px; font-size: 1em;">
                 </div>
 
                 <div style="flex: 1;">
                     <label for="event_state" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event State</strong></label>
-                    <input type="text" id="event_state" name="event_state" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    <input type="text" id="event_state" name="event_state" value="<%= event_details.event_state %>" required style="width: 100%; padding: 8px; font-size: 1em;">
                 </div>
 
                 <div style="flex: 1;">
                     <label for="event_zip" style="display: block; margin-bottom: 5px; font-size: 1.2em; margin-top: 20px;"><strong>Event Zip Code</strong></label>
-                    <input type="text" id="event_zip" name="event_zip" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    <input type="text" id="event_zip" name="event_zip" value="<%= event_details.event_zip %>" required style="width: 100%; padding: 8px; font-size: 1em;">
                 </div>
 
                 </fieldset>
