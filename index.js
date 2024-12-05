@@ -179,6 +179,11 @@ app.post('/volunteerSignUpPage', (req, res) => {
 
 // view_events page code
 app.get('/view_events', (req, res) => {
+    if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
+    
   knex.select(
     'event_requests.*',
     'event_status.*',
@@ -257,6 +262,10 @@ app.get('/view_events', (req, res) => {
 
 //
 app.get('/editEventDetails/:id/:status', (req, res) => {
+  if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
   let id = req.params.id;
   let status = req.params.status
 
@@ -320,6 +329,11 @@ app.get('/editEventDetails/:id/:status', (req, res) => {
 });
 
 app.post('/editEventDetails/:id/:status', (req,res) => {
+  if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
+    
   const id = req.params.id;
   const status = req.params.status
   if (status === 'Approved') {
@@ -499,7 +513,12 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
 
 
 app.get("/volunteer", (req, res) => {
-  knex('volunteers')
+    if (security == false) {
+        // Return to Home screen
+        return res.redirect('/');
+      }
+    
+    knex('volunteers')
       .join('sewing_level', 'volunteers.sewing_level_id',"=",'sewing_level.sewing_level_id')
       .join('volunteer_source', 'volunteers.volunteer_source_id',"=", 'volunteer_source.volunteer_source_id')
       .join('volunteer_travel_range_id', 'volunteers.volunteer_travel_range_id',"=", 'volunteer_travel_range_id.volunteer_travel_range_id')
@@ -640,6 +659,11 @@ app.post("/addVolunteer", (req, res) => {
 // Route for editing a specific Volunteer
 // GET route to display the volunteer details in the edit form
 app.get("/editVolunteer/:volunteer_id", (req, res) => {
+    if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
+    
     // Fetching volunteer data
     knex('volunteers')
       .join('sewing_level', 'volunteers.sewing_level_id',"=",'sewing_level.sewing_level_id')
@@ -772,7 +796,10 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
     
 app.get('/searchVolunteer', (req, res) => {
     const { searchFirstName, searchLastName } = req.query;
-
+    if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
     // Build the query based on search parameters
     let query = knex('volunteers')
         .join('sewing_level', 'volunteers.sewing_level_id', '=', 'sewing_level.sewing_level_id')
@@ -854,6 +881,10 @@ app.get('/editUsers/:id', (req, res) => {
 });
 
 app.post('/newUser', async (req, res) => {
+    if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
     const username = req.body.username;
     const admin_email = req.body.admin_email;
     const password = req.body.password
@@ -893,7 +924,12 @@ app.post('/newUser', async (req, res) => {
 });
 
 app.post('/editUsers/:volunteer_id', async (req, res) => {
-  const id = req.params.volunteer_id;
+  if (security == false) {
+    // Return to Home screen
+    return res.redirect('/');
+  }
+    
+    const id = req.params.volunteer_id;
   const username = req.body.username;
   const admin_email = req.body.admin_email;
   const password = req.body.password
