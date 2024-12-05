@@ -1,4 +1,3 @@
-// Create a view that shows all volunteers and their information. Allow the maintenance of the volunteer records
 const express = require("express");
 
 let app = express();
@@ -799,6 +798,176 @@ app.get('/searchVolunteers', (req, res) => {
     });
 });
 
+app.get('/eventRequest', (req, res) => {
+  knex('space_size')
+  .select()
+  .then(space_sizes => {
+
+    knex('event_type')
+    .select()
+    .then(event_types => {
+      res.render('eventRequest', { event_types, space_sizes })
+    })
+  }).catch(error => {
+    console.error('Error fetching event_type or space_size', error);
+    res.status(500).send('Internal Server Error');
+  });
+  });
+
+app.get('/displayUsers', (req, res) => {
+    knex('users').select('volunteer_id', 'username', 'admin_email', 'password').then(users => {
+      res.render("displayUsers", { users: users })
+  }).catch(error => {
+    console.error("Error fetching users:", error);
+    res.status(500).send("Error fetching users.");
+  })
+});
+
+app.get('/newUser', (req, res) => {
+  res.render('newUser', {error: "Passwords do not match. Please try again.", formSubmitted: false});
+});
+
+app.get('/editUsers/:id', (req, res) => {
+  knex('users').where( 'volunteer_id', req.params.id ).first()
+  .then(user => {
+  if (!user) return res.status(404).send("User not found");
+    res.render('editUsers', { user });
+    }).catch(err => {
+      console.log(err)
+      res.status(500).json(err)
+  })
+});
+
+app.post('/newUser', async (req, res) => {
+    const username = req.body.username;
+    const admin_email = req.body.admin_email;
+    const password = req.body.password
+    const confirm_password = req.body.confirm_password
+
+    // checks to see if passwords match
+    if (password !== confirm_password) {
+      return res.status(400).render('newUser', { 
+        user: {  
+          username, 
+          admin_email,
+        },
+        error: "Passwords do not match. Please try again.",
+        formSubmitted: true
+      });
+    }
+
+    // adds the new user record to the database
+    await knex('users').insert({ 
+      username: username, 
+      admin_email: admin_email,
+      password: password })
+      .then(() => {
+    res.redirect('/displayUsers')
+    })
+    .catch (error => {
+    console.error("Error adding user:", error);
+    res.status(500).render('editUsers', { 
+      user: {
+        username, 
+        admin_email 
+      },
+      error: "An error occurred adding updating the user. Please try again later.",
+      formSubmitted: true
+    });
+  })
+});
+
+app.post('/editUsers/:volunteer_id', async (req, res) => {
+  const id = req.params.volunteer_id;
+  const username = req.body.username;
+  const admin_email = req.body.admin_email;
+  const password = req.body.password
+
+  knex('users')
+    .where('volunteer_id', id)
+    .update({
+      username: username,
+      admin_email: admin_email,
+      password: password
+    })
+    .then(() => {
+      res.redirect('/displayUsers'); // Redirect to the user list or another relevant page
+    }) 
+    .catch (error => {
+        console.error('Error updating User:', error);
+        res.status(500).send('Internal Server Error');
+    });
+});
+
+app.post('/deleteUsers/:volunteer_id', async (req, res) => {
+    const id = req.params.volunteer_id;
+
+    knex('users')
+      .where('volunteer_id', id)
+      .del()
+      .then(() => {
+        res.redirect('/displayUsers');
+      })
+      .catch (error => {
+        console.error("Error deleting user:", error);
+        res.status(500).send("Error deleting user");
+    })
+});
+
+
+app.post('/eventRequest', async (req, res) => {
+  try {
+    // Destructure the request body for cleaner code
+    const {
+      estimated_participant_count,
+      space_size_id,
+      event_type_id,
+      first_choice_event_date,
+      second_choice_event_date,
+      third_choice_event_date,
+      event_city,
+      event_state,
+      event_zip,
+      estimated_event_start_time,
+      estimated_even_duration_hours,
+      event_contact_first_name,
+      event_contact_last_name,
+      event_contact_phone,
+      jen_story,
+      multi_day_event,
+      event_status_id
+    } = req.body;
+
+    // Insert data into the database
+    await knex("event_requests").insert({
+      estimated_participant_count,
+      space_size_id,
+      event_type_id,
+      first_choice_event_date,
+      second_choice_event_date: second_choice_event_date || null,
+      third_choice_event_date: third_choice_event_date || null,
+      event_city,
+      event_state,
+      event_zip,
+      estimated_event_start_time,
+      estimated_even_duration_hours,
+      event_contact_first_name,
+      event_contact_last_name,
+      event_contact_phone,
+      jen_story,
+      multi_day_event: multi_day_event === "false", // Ensure proper boolean conversion if needed
+      event_status_id: 3 // Default value for event_status
+    });
+
+    // Redirect or send a success response
+    res.redirect('/eventRequest');
+  } catch (error) {
+    console.error("Error inserting event request:", error);
+
+    // Provide an informative error message to the user
+    res.status(500).send("An error occurred while processing your request. Please try again later.");
+  }
+});
 
 
 

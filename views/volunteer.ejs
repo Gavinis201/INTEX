@@ -16,7 +16,9 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container d-flex justify-content-between align-items-center">
             <!-- Turtle Shelter Project on the far left -->
-            <a class="navbar-brand" href="#">TURTLE SHELTER PROJECT</a>
+
+            <a class="navbar-brand" href="/loginHomePage">TURTLE SHELTER PROJECT</a>
+
       
             <!-- Navbar Toggle Button for Small Screens -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,18 +28,18 @@
             <!-- Navbar links, centered (This is the collapsible part) -->
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
-                <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
-                <li class="nav-item"><a class="nav-link" href="#volunteer">Volunteer</a></li>
-                <li class="nav-item"><a class="nav-link" href="#volunteer">Jen's Story</a></li>
+                <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="/completed-events">Completed Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
               </ul>
             </div>
       
             <!-- Social Media Icons and Login Button on the right -->
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <form action="/loginPage" method="GET">
-                  <button class="login1-btn">LOG IN</button>
+                <form action="/" method="GET">
+                  <button class="login1-btn">LOG OUT</button>
                 </form>
                 <div class="social-media">
                   <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
@@ -55,16 +57,57 @@
           </div>
         </nav>
       </header><br><br>
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+          <!-- Turtle Shelter Project on the far left -->
+          <a class="navbar-brand" href="/">TURTLE SHELTER PROJECT</a>
+    
+          <!-- Navbar Toggle Button for Small Screens -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <!-- Navbar links, centered (This is the collapsible part) -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+              <li class="nav-item"><a class="nav-link" href="/completed-events">Completed Events</a></li>
+              <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+              <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
+            </ul>
+          </div>
+    
+          <!-- Social Media Icons and Login Button on the right -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <div class="social-media">
+                <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                  <i class="fa fa-facebook-square"></i>
+                </a>
+              </div>
+              <div class="social-media">
+                <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                  <i class="fa fa-instagram"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    ><br><br>
 <section class="height">
     <label for="" class="volunteer-info"><b>Volunteer Information</b></label><br>
       
     <!-- Volunteer Search Input Field -->
      <div class="container10">
       <div class="search-form" >
-        <form action="/searchVolunteer" method="GET">
-          <button type="submit" class="login1-btn">Search Volunteer</button> <!-- Button to add a new country -->
-          <input type="search" placeholder="Search Name" oninput="capitalizeFirstLetter(this)">
+        <form action="/searchVolunteers" method="GET">
+          <button type="submit" class="login1-btn">Search First Name</button>
+          <input type="text" id="searchFirstName" name="searchFirstName" oninput="capitalizeFirstLetter(this)" placeholder="John">
         </form>
+        
       </div>
       <div>
         <form action="/addVolunteer" class="form-group1" method="GET">
