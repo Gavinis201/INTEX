@@ -14,9 +14,9 @@ const knex = require("knex")({
     client: "pg", 
     connection: {
         host: process.env.RDS_HOSTNAME || "localhost", 
-        user: process.env.RDS_USERNAME || "postgres", 
-        password: process.env.RDS_PASSWORD || "Gavin12", 
-        database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
+        user: process.env.RDS_USERNAME || "intex", 
+        password: process.env.RDS_PASSWORD || "password", 
+        database: process.env.RDS_DB_NAME || "intex_test20", 
         port: process.env.RDS_PORT || 5432,
     }
 });
@@ -486,6 +486,138 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
     .then(() => {
       res.redirect('/view_events')
     });
+
+  } else if (status === 'Completed') {
+
+  // Assign data from req.body to variables and ensure correct type conversion
+  const event_contact_first_name = req.body.event_contact_first_name;
+  const event_contact_last_name = req.body.event_contact_last_name;
+  const event_address = req.body.event_address;
+  const event_city = req.body.event_city;
+  const event_state = req.body.event_state;
+  const event_zip = req.body.event_zip;
+
+  // Convert number fields to integers
+  const estimated_team_members_needed = parseInt(req.body.estimated_team_members_needed);
+  const completed_participants_count = parseInt(req.body.completed_participants_count);
+  const approved_event_duration_hours = parseFloat(req.body.approved_event_duration_hours);
+  const number_of_sewers = parseInt(req.body.number_of_sewers);
+
+  // Convert space size and event type to integers
+  const space_size_id = parseInt(req.body.space_size_id);
+  const event_type_id = parseInt(req.body.event_type_id);
+
+  // Convert checkbox field to boolean
+  const jen_story = req.body.jen_story === 'true'; // true if checked, false if not
+
+  // Convert date and time fields to the correct formats for PostgreSQL
+  const approved_event_date = req.body.approved_event_date ? new Date(req.body.approved_event_date).toISOString().slice(0, 10) : null;
+  const approved_event_start_time = req.body.approved_event_start_time ? req.body.approved_event_start_time : null;
+
+  // Contact Information
+  const event_contact_phone = req.body.event_contact_phone;
+  const event_contact_email = req.body.event_contact_email;
+
+  // Products
+  const pockets = parseInt(req.body.product_1);
+  const collars = parseInt(req.body.product_2);
+  const envelopes = parseInt(req.body.product_3);
+  const vests = parseInt(req.body.product_4);
+  const completed_products = parseInt(req.body.product_5);
+
+  prod_array = [pockets,collars,envelopes,vests,completed_products];
+
+  let products = {};
+
+  for (let iCount = 0; iCount < prod_array.length; iCount++) {
+    products[iCount+1]=prod_array[iCount];
+  }
+
+  knex('event_requests')
+    .where('event_id', id)
+    .update({
+      event_contact_first_name: event_contact_first_name,
+      event_contact_last_name: event_contact_last_name,
+      event_city: event_city,
+      event_state: event_state,
+      event_zip: event_zip,
+      space_size_id: space_size_id,
+      event_type_id: event_type_id,
+      jen_story: jen_story,
+      event_contact_phone: event_contact_phone,
+      event_contact_email: event_contact_email
+    })
+
+  knex('approved_event_details')
+  .where('event_id', id)
+  .update({
+    event_address: event_address, 
+    estimated_team_members_needed: estimated_team_members_needed, 
+    approved_event_duration_hours: approved_event_duration_hours, 
+    number_of_sewers: number_of_sewers, 
+    approved_event_date: approved_event_date, 
+    approved_event_start_time: approved_event_start_time
+  }).then(() => 
+  knex('completed_event_details')
+  .where('event_id',id)
+  .update({
+    completed_participants_count: completed_participants_count
+  }).then(() => {
+
+    knex('completed_event_products')
+    .where('event_id',id)
+    .then(event_existing_prods => {
+      console.log(event_existing_prods);
+      for (let oCount = 1; oCount <= 5; oCount++) {
+        for (let iCount = 0; iCount < event_existing_prods.length; iCount++) {
+          if (oCount == event_existing_prods[iCount].product_id) {
+            if (products[event_existing_prods[iCount].product_id] > 0) {
+              knex('completed_event_products')
+              .where('event_id',id)
+              .andWhere('product_id',event_existing_prods[iCount].product_id)
+              .update({
+                quantity_produced: products[event_existing_prods[iCount].product_id]
+              }).then(() => delete products[event_existing_prods[iCount].product_id])
+              delete products[event_existing_prods[iCount].product_id]
+            }
+            else {
+              knex('completed_event_products')
+              .where('event_id',id)
+              .andWhere('product_id',event_existing_prods[iCount].product_id)
+              .del().then(() => console.log('Deleted'))
+            }
+          }
+        }
+        if (oCount in products) {
+          if (products[oCount] > 0) {
+            knex('completed_event_products')
+            .insert({
+              event_id: id,
+              product_id: oCount,
+              quantity_produced: products[oCount]
+            }).then(() => console.log('Added'))
+          }
+        }
+      }
+    })
+  })).then(() => res.redirect('/view_events'))
+
+  // knex('completed_event_products')
+  // .where('event_id',id)
+  // .then(event_existing_prods => {
+  //   for (let iCount = 0; iCount < event_existing_prods.length; iCount++ ) {
+  //     if (event_existing_prods[iCount].product_id in products){
+  //       console.log(event_existing_prods[iCount]);
+  //       knex('completed_event_products')
+  //       .where('event_id',id)
+  //       .andWhere('product_id',event_existing_prods[iCount].product_id)
+  //       .update({
+  //         quantity_produced: products[event_existing_prods[iCount].product_id]
+  //       })
+  //     }
+  //   }
+  // })
+
 
   }
 
