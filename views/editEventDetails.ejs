@@ -214,9 +214,19 @@
                                 <input type="number" id="estimated_event_duration_hours" name="estimated_event_duration_hours" value="<%= event.estimated_event_duration_hours %>" style="width: 100%; padding: 8px; font-size: 1em;">
                             </div>
 
-                            <div style="flex: 1;">
+                            <div style="flex: 1; margin-bottom: 15px;">
                                 <label for="event_city" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>City</strong></label>
                                 <input type="text" id="event_city" name="event_city" value="<%= event.event_city %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+
+                            <div style="flex: 1; margin-bottom: 15px;">
+                                <label for="event_state" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>State</strong></label>
+                                <input type="text" id="event_state" name="event_state" value="<%= event.event_state %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
+
+                            <div style="flex: 1;">
+                                <label for="event_zip" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Zip</strong></label>
+                                <input type="text" id="event_zip" name="event_zip" value="<%= event.event_zip %>" required style="width: 100%; padding: 8px; font-size: 1em;">
                             </div>
                         </fieldset>
                     
