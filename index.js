@@ -511,7 +511,7 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
 
 
     
-app.get('/searchVolunteers', (req, res) => {
+app.get('/searchVolunteer', (req, res) => {
     const { searchFirstName, searchLastName } = req.query;
 
     // Build the query based on search parameters
@@ -545,7 +545,7 @@ app.get('/searchVolunteers', (req, res) => {
     }
 
     query.then(volunteers => {
-        res.render("volunteers", {
+        res.render("searchVolunteer", {
             volunteers: volunteers
         });
     }).catch(err => {
