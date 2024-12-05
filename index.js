@@ -53,7 +53,8 @@ app.get('/', (req, res) => {
 
 // Route to serve the login page
 app.get('/loginPage', (req, res) => {
-  res.render('loginPage')
+  const error = req.query.error;
+  res.render("loginPage", { error });
 });
 
 // Route to login to administrator side
