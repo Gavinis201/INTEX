@@ -218,6 +218,7 @@ app.get('/view_events', (req, res) => {
       ELSE event_requests.first_choice_event_date
     END
   `)
+  
   .then( event_requests => {
       // Format the dates in the event_requests array
       event_requests = event_requests.map(event => {
@@ -774,6 +775,7 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
   });
   app.post("/deleteVolunteer/:volunteer_id", (req, res) => {
     const volunteerId = req.params.volunteer_id;
+    
 
     // Start by deleting the record in `users` referencing the volunteer
     knex("users")
@@ -788,8 +790,9 @@ app.post("/editVolunteer/:volunteer_id", (req, res) => {
             return knex("volunteers").where("volunteer_id", volunteerId).del();
         })
         .then(() => {
-            res.redirect("/volunteer");
+            res.redirect("/Volunteer");
         })
+
         .catch(err => {
             console.error("Error deleting volunteer:", err);
             res.status(500).json({ error: "Unable to delete the volunteer. Please try again." });
