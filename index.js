@@ -14,11 +14,12 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg", 
     connection: {
-        host: process.env.RDS_HOSTNAME || "localhost", 
-        user: process.env.RDS_USERNAME || "intex", 
-        password: process.env.RDS_PASSWORD || "password", 
-        database: process.env.RDS_DB_NAME || "intex_test20", 
-        port: process.env.RDS_PORT || 5432, 
+      host: process.env.RDS_HOSTNAME || "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
+      user: process.env.RDS_USERNAME || "ebroot", 
+      password: process.env.RDS_PASSWORD || "Intex2024", 
+      database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
+      port: process.env.RDS_PORT || 5432,
+      ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
     }
 });
 
