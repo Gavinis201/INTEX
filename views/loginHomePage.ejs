@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turtle Shelter Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Style for the Tableau container */
+    .tableau-container {
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Turtle Shelter Project on the far left -->
+        <a class="navbar-brand" href="/">TURTLE SHELTER PROJECT</a>
+  
+        <!-- Navbar Toggle Button for Small Screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Navbar links, centered (This is the collapsible part) -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="/completed-events">Completed Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+          </ul>
+        </div>
+  
+        <!-- Social Media Icons and Login Button on the right -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <div class="social-media">
+              <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                <i class="fa fa-facebook-square"></i>
+              </a>
+            </div>
+            <div class="social-media">
+              <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                <i class="fa fa-instagram"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Tableau Embed Code -->
+  <div class="tableau-container">
+    <div class='tableauPlaceholder' id='viz1733283610322' style='position: relative'>
+      <noscript>
+        <a href='#'>
+          <img alt='Renter&#39;s Guide ' src='https://public.tableau.com/static/images/Ai/AirbnbProject_17326680204770/RentersGuide/1_rss.png' style='border: none' />
+        </a>
+      </noscript>
+      <object class='tableauViz' style='display:none;'>
+        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+        <param name='embed_code_version' value='3' />
+        <param name='site_root' value='' />
+        <param name='name' value='AirbnbProject_17326680204770/RentersGuide' />
+        <param name='tabs' value='no' />
+        <param name='toolbar' value='yes' />
+        <param name='static_image' value='https://public.tableau.com/static/images/Ai/AirbnbProject_17326680204770/RentersGuide/1.png' />
+        <param name='animate_transition' value='yes' />
+        <param name='display_static_image' value='yes' />
+        <param name='display_spinner' value='yes' />
+        <param name='display_overlay' value='yes' />
+        <param name='display_count' value='yes' />
+        <param name='language' value='en-US' />
+        <param name='filter' value='publish=yes' />
+      </object>
+    </div>
+    <script type='text/javascript'>
+      var divElement = document.getElementById('viz1733283610322');
+      var vizElement = divElement.getElementsByTagName('object')[0];
+    //   if (divElement.offsetWidth > 800) {
+    //     vizElement.style.width = '1000px';
+    //     vizElement.style.height = '827px';
+    //   } else if (divElement.offsetWidth > 500) {
+    //     vizElement.style.width = '1000px';
+    //     vizElement.style.height = '827px';
+    //   } else {
+    //     vizElement.style.width = '100%';
+    //     vizElement.style.height = '1827px';
+    //   }
+    // Original width and height values
+        var originalWidth = 1000;
+        var originalHeight = 827;
+
+        // Scale factor for 25% shrinkage
+        var scaleFactor = 0.75;
+
+        // Calculate the new width and height
+        var newWidth = originalWidth * scaleFactor;
+        var newHeight = originalHeight * scaleFactor;
+
+        if (divElement.offsetWidth > 800) {
+            vizElement.style.width = newWidth + 'px';
+            vizElement.style.height = newHeight + 'px';
+        } else if (divElement.offsetWidth > 500) {
+            vizElement.style.width = newWidth + 'px';
+            vizElement.style.height = newHeight + 'px';
+        } else {
+            // For smaller screens, adjust the height proportionally to maintain the ratio
+            vizElement.style.width = '100%';
+            vizElement.style.height = (newHeight / originalHeight) * 1827 + 'px'; // Adjust height proportionally for 100% width
+        }
+      var scriptElement = document.createElement('script');
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    </script>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+    <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
