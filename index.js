@@ -58,7 +58,23 @@ app.get('/loginPage', (req, res) => {
 
 // view_events page code
 app.get('/view_events', (req, res) => {
-  knex.select('*')
+  knex.select(
+    'event_requests.*',
+    'event_status.*',
+    'space_size.*',
+    'event_type.*',
+    'approved_event_date',
+    'approved_event_start_time',
+    'approved_event_duration_hours',
+    'event_address',
+    'estimated_team_members_needed',
+    'number_of_sewers',
+    'sewing_machines_to_bring',
+    'sergers_to_bring',
+    'approved_event_notes',
+    'completed_participants_count',
+    'completed_event_notes'
+  )
   .from('event_requests')
   .join('event_status', 'event_requests.event_status_id','=','event_status.event_status_id' )
   .join('space_size', 'event_requests.space_size_id','=','space_size.space_size_id' )
@@ -117,6 +133,13 @@ app.get('/view_events', (req, res) => {
       res.status(500).json({err});
     })
 });
+
+//
+app.get('/editEventDetails/:id', (req, res) => {
+  const eventId = req.params.id;
+  res.render('editEventDetails', { eventId });
+});
+
 
 app.get("/volunteer", (req, res) => {
   knex('volunteers')
