@@ -333,7 +333,7 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
     const sewing_machines_to_bring = parseInt(req.body.sewing_machines_to_bring);
     const sergers_to_bring = parseInt(req.body.sergers_to_bring);
     const estimated_participant_count = parseInt(req.body.estimated_participant_count);
-    const approved_event_duration_hours = parseInt(req.body.approved_event_duration_hours);
+    const approved_event_duration_hours = parseFloat(req.body.approved_event_duration_hours);
     const number_of_sewers = parseInt(req.body.number_of_sewers);
 
     // Convert space size and event type to integers
