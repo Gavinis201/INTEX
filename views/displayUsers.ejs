@@ -49,10 +49,11 @@
           <span class="navbar-toggler-icon"></span>
         </button>
   
-        <!-- Navbar links, centered -->
+        <!-- Navbar links, centered (This is the collapsible part) -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
           <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="/completed-events">Completed Events</a></li>
           <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
           <li class="nav-item"><a class="nav-link" href="/displayUsers">Users</a></li>
           </ul>
@@ -100,7 +101,7 @@
             <td>******</td>
             <td>
               <a href="/editUsers/<%= user.volunteer_id %>" class="btn btn-warning btn-sm">Edit</a>
-              <form action="/deleteUsers/<%= user.volunteer_id %>/delete" method="POST" style="display:inline;">
+              <form action="/deleteUsers/<%= user.volunteer_id %>" method="POST" style="display:inline;">
                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
               </form>
             </td>
