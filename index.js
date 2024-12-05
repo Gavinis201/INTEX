@@ -316,7 +316,6 @@ app.get('/editEventDetails/:id/:status', (req, res) => {
 });
 
 app.post('/editEventDetails/:id/:status', (req,res) => {
-  console.log(req.body)
   const id = req.params.id;
   const status = req.params.status
   if (status === 'Approved') {
@@ -388,8 +387,62 @@ app.post('/editEventDetails/:id/:status', (req,res) => {
     console.log(err);
     res.status(500).json({err})
   });
+  } else if (status === 'Pending') {
+    // Assign data from req.body to variables and ensure correct type conversion
+    const event_contact_first_name = req.body.event_contact_first_name;
+    const event_contact_last_name = req.body.event_contact_last_name;
+    const event_city = req.body.event_city;
+    const event_state = req.body.event_state;
+    const event_zip = req.body.event_zip;
+
+    // Convert number fields to integers
+    const estimated_participant_count = parseInt(req.body.estimated_participant_count);
+    const estimated_event_duration_hours = parseFloat(req.body.estimated_event_duration_hours);
+
+    // Convert space size and event type to integers
+    const space_size_id = parseInt(req.body.space_size_id);
+    const event_type_id = parseInt(req.body.event_type_id);
+
+    // Convert checkbox field to boolean
+    const jen_story = req.body.jen_story === 'true'; // true if checked, false if not
+
+    // Convert date and time fields to the correct formats for PostgreSQL
+    const first_choice_event_date = req.body.first_choice_event_date ? new Date(req.body.first_choice_event_date).toISOString().slice(0, 10) : null;
+    const second_choice_event_date = req.body.second_choice_event_date ? new Date(req.body.second_choice_event_date).toISOString().slice(0, 10) : null;
+    const third_choice_event_date = req.body.third_choice_event_date ? new Date(req.body.third_choice_event_date).toISOString().slice(0, 10) : null;
+    const estimated_event_start_time = req.body.estimated_event_start_time ? req.body.estimated_event_start_time : null;
+
+    // Contact Information
+    const event_contact_phone = req.body.event_contact_phone;
+    const event_contact_email = req.body.event_contact_email;
+
+    knex('event_requests')
+    .where('event_id', id)
+    .update({
+      event_contact_first_name: event_contact_first_name,
+      event_contact_last_name: event_contact_last_name,
+      event_city: event_city,
+      event_state: event_state,
+      event_zip: event_zip,
+      estimated_participant_count: estimated_participant_count,
+      space_size_id: space_size_id,
+      event_type_id: event_type_id,
+      jen_story: jen_story,
+      event_contact_phone: event_contact_phone,
+      event_contact_email: event_contact_email,
+      first_choice_event_date:first_choice_event_date,
+      second_choice_event_date:second_choice_event_date,
+      third_choice_event_date:third_choice_event_date,
+      estimated_event_start_time:estimated_event_start_time
+    })
+    .then(() => {
+      res.redirect('/view_events')
+    });
+
+
   }
-})
+
+});
 
 
 app.get("/volunteer", (req, res) => {
