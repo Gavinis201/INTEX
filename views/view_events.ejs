@@ -100,7 +100,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -108,13 +108,13 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer;">Approve Event</button>
                                     </form>
-                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Decline Event</button>
                                     </form>
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -151,7 +151,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -159,13 +159,14 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #000000; color: white; border: none; border-radius: 4px; cursor: pointer;">Mark as Complete</button>
                                     </form>
-                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel Event</button>
                                     </form>
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <% console.log(event_requests[iCount]) %>
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -191,7 +192,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -199,10 +200,10 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer;">Approve Event</button>
                                     </form>
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -240,7 +241,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -248,7 +249,7 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -307,7 +308,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -315,13 +316,13 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer;">Approve Event</button>
                                     </form>
-                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Decline Event</button>
                                     </form>
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -358,7 +359,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -366,13 +367,13 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #000000; color: white; border: none; border-radius: 4px; cursor: pointer;">Mark as Complete</button>
                                     </form>
-                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/declineEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Cancel Event</button>
                                     </form>
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -398,7 +399,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -406,10 +407,10 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/approveEvent/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer;">Approve Event</button>
                                     </form>
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
@@ -447,7 +448,7 @@
                                     <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                                         <p style="margin-bottom: 5px;"><strong>Phone Number:</strong> <%= event_requests[iCount].event_contact_phone %></p>
                                         <p style="margin-bottom: 5px;"><strong>Email:</strong> <%= event_requests[iCount].event_contact_email %></p>
-                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="POST" style="width: 100%; display: flex; justify-content: center;">
+                                        <form action="/updatePoke/<%= event_requests[iCount].event_id %>" method="GET" style="width: 100%; display: flex; justify-content: center;">
                                             <button type="submit" style="padding: 5px 10px; background-color: #55ce6c; color: white; border: none; border-radius: 4px; cursor: pointer; display: block;">
                                             Contact
                                             </button>
@@ -455,7 +456,7 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center;">
-                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="POST">
+                                    <form action="/editEventDetails/<%= event_requests[iCount].event_id %>" method="GET">
                                         <button type="submit" style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Edit Details</button>
                                     </form>
                                 </div>
