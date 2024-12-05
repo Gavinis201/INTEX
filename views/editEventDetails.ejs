@@ -484,6 +484,11 @@
                                 <label for="completed_participants_count" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Total Participants</strong></label>
                                 <input type="number" id="completed_participants_count" name="completed_participants_count" value="<%= event.completed_participants_count %>" style="width: 100%; padding: 8px; font-size: 1em;" required>
                             </div>
+
+                            <div style="margin-top: 20px; margin-bottom: 15px;">
+                                <label for="estimated_team_members_needed" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Team Members Needed</strong></label>
+                                <input type="number" id="estimated_team_members_needed" name="estimated_team_members_needed" value="<%= event.estimated_team_members_needed %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                            </div>
                     
                             <!-- Space Size -->
                             <div style="margin-bottom: 15px;">
@@ -500,7 +505,7 @@
                                 <label for="event_type_id" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Type</strong></label>
                                 <select id="event_type_id" name="event_type_id" required style="width: 100%; padding: 8px; font-size: 1em;">
                                     <option value="1" <%= event.event_type_id === 1 ? 'selected' : '' %>>Sewing</option>
-                                    <option value="2" <%= event.event_type_id === 2 ? 'selected' : '' %>>Crafting</option>
+                                    <option value="2" <%= event.event_type_id === 2 ? 'selected' : '' %>>Non-Sewing</option>
                                     <option value="3" <%= event.event_type_id === 3 ? 'selected' : '' %>>Both</option>
                                 </select>
                             </div>
