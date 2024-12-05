@@ -185,7 +185,7 @@
                     <button type="submit" style="padding: 12px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Save Changes</button>
                 </form>
                 <% } else if (status === 'Pending') { %>
-                    <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                    <form action="/editEventDetails/<%= event.event_id %>/<%= status %>" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
                         <!-- Event Logistics -->
                         <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
                             <legend style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px;">Event Logistics</legend>
@@ -196,12 +196,12 @@
                             
                             <div style="margin-bottom: 15px;">
                                 <label for="second_choice_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Second Choice Event Date</strong></label>
-                                <input type="date" id="second_choice_event_date" name="second_choice_event_date" value="<% (!event.second_choice_event_date) ? new Date(event.second_choice_event_date).toISOString().slice(0, 10) : event.second_choice_event_date %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                                <input type="date" id="second_choice_event_date" name="second_choice_event_date" value="<%= (!event.second_choice_event_date) ? event.second_choice_event_date : new Date(event.second_choice_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;">
                             </div>
                             
                             <div style="margin-bottom: 15px;">
                                 <label for="third_choice_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Third Choice Event Date</strong></label>
-                                <input type="date" id="third_choice_event_date" name="third_choice_event_date" value="<% (!event.third_choice_event_date) ? new Date(event.third_choice_event_date).toISOString().slice(0, 10) : event.third_choice_event_date %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                                <input type="date" id="third_choice_event_date" name="third_choice_event_date" value="<%= (!event.third_choice_event_date) ? event.third_choice_event_date : new Date(event.third_choice_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;">
                             </div>
                     
                             <div style="margin-bottom: 15px;">
@@ -296,7 +296,7 @@
                         </div>
                     </form>                    
                     <% } else if (status === 'Declined') { %>
-                        <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                        <form action="/editEventDetails/<%= event.event_id %>/<%= status %>" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
                             <!-- Event Logistics Field Set -->
                             <fieldset style="margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
                                 <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Event Logistics</strong></legend>
@@ -398,7 +398,7 @@
                             </div>
                         </form>
                 <% } else if (status === 'Completed') { %>
-                    <form action="/editEventDetails" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                    <form action="/editEventDetails/<%= event.event_id %>/<%= status %>" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
                         <!-- Completed Work Field Set -->
                         <fieldset style="margin-bottom: 20px;">
                             <legend style="font-size: 1.5em; margin-bottom: 15px;"><strong>Completed Work</strong></legend>
