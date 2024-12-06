@@ -319,6 +319,7 @@ header li{
     text-align: center;
     padding: 30px 10px;
     position: relative;
+    bottom: 0;
     
   }
   
@@ -354,7 +355,8 @@ header li{
   }
 
   .footeruser{
-    height: 73vh;
+    height: 100vh;
+    z-index: -1;
   }
 
   .status-pending {
@@ -587,4 +589,85 @@ header li{
   align-items: center;
   padding: 20px;
 
+}
+.table-mobile{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table {
+    display: none;
+    
+    
+  }
+  .container10 {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    gap: 50px;
+  }
+  /* .height{
+    position: static; 
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+  } */
+
+  .login1-btn {
+    background-color: teal;
+    color: white;
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.round_input{
+  border-radius: 10px;
+}
+.volunteer-info b {
+  flex: display;
+  justify-content: center;
+  letter-spacing: 0px;
+  font-size: 15pt;
+  text-transform: uppercase;
+}
+.spacing{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.table-mobile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid teal;
+  padding: 70px;
+  border-radius: 10px;
+}
+.center_mobile_data{
+display: flex;
+flex-direction: column;
+justify-content: center;
+border: 1px solid teal ;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 10px;
+}
+.form-group1 {
+  display: flex
+;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0px;
+}
 }
