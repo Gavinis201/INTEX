@@ -60,9 +60,9 @@
     <!-- Volunteer Search Input Field -->
      <div class="container10">
       <div class="search-form" >
-        <form action="/searchVolunteer" method="GET">
+        <form action="/searchVolunteer" method="GET" class="spacing">
             <button type="submit" class="login1-btn">Search First Name</button>
-          <input type="text" id="searchFirstName" name="searchFirstName" oninput="capitalizeFirstLetter(this)" placeholder="John">
+          <input class="round_input" type="text" id="searchFirstName" name="searchFirstName" oninput="capitalizeFirstLetter(this)" placeholder="John">
         </form>
         
       </div>
@@ -160,7 +160,84 @@
         </tbody>
     </table>
     <div>
+      <table class="table-mobile" style="display: none;">
+        <!-- Table header with column names -->
+        <thead>
+            <tr>
+                <!-- Table headings for each column -->
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
 
+        <!-- Table body that will be populated dynamically with country data -->
+        <tbody >
+            <!-- Loop through each country object in the 'mycountry' array and display its details in rows -->
+            <% for (let icount = 0; icount < volunteers.length; icount++){ %>
+                    <!-- Display country information in respective table cells -->
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_first_name %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_last_name %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_phone %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_email %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_city %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_state %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_zip %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].sewing_level_description %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].source_description %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_travel_range_description %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].willing_to_lead ? 'Yes' : 'No' %></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].willing_to_sew ? 'Yes' : 'No'%></td>
+                     </tr>
+                     <tr>
+                       <td><%= volunteers[icount].volunteer_hours_per_month %></td>
+                     </tr>
+                    
+                    <!-- Action buttons for editing or deleting the country -->
+                     <tr>
+                       <td style="text-align: center;">
+                           <!-- Form to edit a country, sending a GET request to the editCountry route with the country's ID -->
+                           <form action="/editVolunteer/<%= volunteers[icount].volunteer_id %>" method="GET">
+                               <button type="submit" class="button-table">Edit</button> 
+                           </form>
+                       </td>
+                     </tr>
+                     <tr>
+                       <td style="text-align: center;">
+                           <!-- Form to delete a country, sending a POST request to the deleteCountry route with the country's ID -->
+                           <form action="/deleteVolunteer/<%= volunteers[icount].volunteer_id %>" method="POST">
+                               <button type="submit"onclick="return confirm('Are you sure you want to delete?')" class="button-table">Delete</button> <!-- Delete button -->
+                           </form>
+                       </td>
+                     </tr>
+                
+            <%} %> <!-- End of loop to display countries -->
+        </tbody>
+    </table>
     </div>
     <br><br>
     
@@ -169,7 +246,7 @@
     
 </section>
 <form action="/volunteer" method="GET" class="reset_button">
-    <button type="submit" class="login1-btn " onclick="return confirm('Are you sure you want to delete?')">Reset Search</button>
+    <button type="submit" class="login1-btn ">Reset Search</button>
 </form>
 <!-- Label for the section, indicating that it displays country information -->
    
