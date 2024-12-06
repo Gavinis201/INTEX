@@ -175,6 +175,11 @@
             </div>
 
             <div class="form-group ">
+                <label for="event_contact_email">Email:</label>
+                <input type="text" id="event_contact_email" name="event_contact_email" required>
+            </div>
+
+            <div class="form-group ">
                 <label for="event_contact_phone">Phone Number:</label>
                 <input type="tel" id="event_contact_phone" name="event_contact_phone" required>
             </div>
@@ -185,7 +190,7 @@
             </div>
 
             <div class="form-group">
-                <label for="event_state">What State is the event going to be in? (UT for Utah)</label>
+                <label for="event_state">What State is the event going to be in? (example: UT for Utah)</label>
                 <input type="text" id="event_state" name="event_state" required>
             </div>
 
@@ -250,11 +255,10 @@
             </div>
 
             <div class="form-group">
-                <label for="jen_story">Would you like Jen to share her story? (Long or short version)</label>
+                <label for="jen_story">Would you like Jen to share her story?</label>
                 <select id="jen_story" name="jen_story" required>
-                    <option value="long">Long</option>
-                    <option value="short">Short</option>
-                    <option value="no">No</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                 </select>
             </div>
 
