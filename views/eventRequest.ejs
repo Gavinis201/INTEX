@@ -101,6 +101,14 @@
         align-items: center;
         gap: 15px;
     }
+
+    .checkbox {
+        text-align: center; /* Center align text and elements */
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center elements horizontally */
+    }
+
   </style>
 </head>
 <body>
@@ -249,13 +257,9 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="jen_story">Would you like Jen to share her story? (Long or short version)</label>
-                <select id="jen_story" name="jen_story" required>
-                    <option value="long">Long</option>
-                    <option value="short">Short</option>
-                    <option value="no">No</option>
-                </select>
+           <div class="checkbox">
+                <label for="jen_story" style="font-weight: bold;">Would you like Jen to share her story?</label>
+                <input type="checkbox" id="jen_story" name="jen_story" value="true">
             </div>
 
             <div class="form-actions">
