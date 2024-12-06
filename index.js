@@ -15,12 +15,14 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg", 
     connection: {
+
       host: "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
       user: "ebroot", 
       password: "Intex2024", 
       database: "TSP2024", 
       port: 5432,
       ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
+
     }
 });
 
