@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Approve Event</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <!-- Header Section -->
+        <header>
+            <!-- Navigation Bar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <!-- Turtle Shelter Project on the far left -->
+                    <a class="navbar-brand" href="/loginHomePage">TURTLE SHELTER PROJECT</a>
+    
+                    <!-- Navbar Toggle Button for Small Screens -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <!-- Navbar links, centered (This is the collapsible part) -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/newUser">Users</a></li>
+                        </ul>
+                    </div>
+    
+                    <!-- Social Media Icons and Login Button on the right -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <form action="/" method="GET">
+                                <button class="login1-btn">LOG OUT</button>
+                            </form>
+                            <div class="social-media">
+                                <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                                    <i class="fa fa-facebook-square"></i>
+                                </a>
+                            </div>
+                            <div class="social-media">
+                                <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    
+        <!-- Main Content Section -->
+        <main style="padding: 20px;">
+            <form action="/approveEvent/<%= id %>" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                <legend style="font-weight: bold; padding-bottom: 20px;">Event Logistics</legend>
+                <div style="margin-bottom: 15px;">
+                    <label for="approved_event_date" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Event Date</strong></label>
+                    <input type="date" id="approved_event_date" name="approved_event_date" value="<%= new Date(event_details.first_choice_event_date).toISOString().slice(0, 10) %>" style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="margin-top: 20px; margin-bottom: 15px;">
+                    <label for="approved_event_start_time" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Start Time</strong></label>
+                    <input type="time" id="approved_event_start_time" name="approved_event_start_time" value="<%= event_details.estimated_event_start_time %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="approved_event_duration_hours" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Approved Event Duration (hours)</strong></label>
+                    <input type="number" step="0.01" id="approved_event_duration_hours" name="approved_event_duration_hours" value="<%= event_details.estimated_event_duration_hours %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                </fieldset>
+
+                <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    <legend style="font-weight: bold; padding-bottom: 20px;">Event Location</legend>
+                <div style="margin-bottom: 15px;">
+                    <label for="event_address" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event Address</strong></label>
+                    <input type="text" id="event_address" name="event_address" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="flex: 1; margin-bottom: 15px;">
+                    <label for="event_city" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event City</strong></label>
+                    <input type="text" id="event_city" name="event_city" value="<%= event_details.event_city %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="flex: 1;">
+                    <label for="event_state" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Event State</strong></label>
+                    <input type="text" id="event_state" name="event_state" value="<%= event_details.event_state %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="flex: 1;">
+                    <label for="event_zip" style="display: block; margin-bottom: 5px; font-size: 1.2em; margin-top: 20px;"><strong>Event Zip Code</strong></label>
+                    <input type="text" id="event_zip" name="event_zip" value="<%= event_details.event_zip %>" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                </fieldset>
+
+                <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                    <legend style="font-weight: bold; padding-bottom: 20px;">Event Information</legend>
+                <div style="margin-top: 20px; margin-bottom: 15px;">
+                    <label for="estimated_team_members_needed" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Team Members Needed</strong></label>
+                    <input type="number" id="estimated_team_members_needed" name="estimated_team_members_needed" required style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="number_of_sewers" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Number of Sewers</strong></label>
+                    <input type="number" id="number_of_sewers" name="number_of_sewers" style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="sewing_machines_to_bring" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Sewing Machines to Bring</strong></label>
+                    <input type="number" id="sewing_machines_to_bring" name="sewing_machines_to_bring" style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label for="sergers_to_bring" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Sergers to Bring</strong></label>
+                    <input type="number" id="sergers_to_bring" name="sergers_to_bring" style="width: 100%; padding: 8px; font-size: 1em;">
+                </div>
+
+                </fieldset>
+    
+                    <!-- Submit Button -->
+                    <div style="text-align: center;">
+                        <button type="submit" style="padding: 10px 20px; font-size: 1.2em; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+        </main>
+    
+        <!-- Footer Section -->
+        <footer class="footer" style="padding: 20px; text-align: center; background-color: #333; color: #fff; margin-top: 20px;">
+            <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+            <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+        </footer>
+    
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Complete Event</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <!-- Header Section -->
+        <header>
+            <!-- Navigation Bar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <!-- Turtle Shelter Project on the far left -->
+                    <a class="navbar-brand" href="/loginHomePage">TURTLE SHELTER PROJECT</a>
+    
+                    <!-- Navbar Toggle Button for Small Screens -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <!-- Navbar links, centered (This is the collapsible part) -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a class="nav-link" href="/view_events">Events</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/volunteer">Volunteers</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/newUser">Users</a></li>
+                        </ul>
+                    </div>
+    
+                    <!-- Social Media Icons and Login Button on the right -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <form action="/" method="GET">
+                                <button class="login1-btn">LOG OUT</button>
+                            </form>
+                            <div class="social-media">
+                                <a href="https://www.facebook.com/turtleshelterproject/" target="_blank">
+                                    <i class="fa fa-facebook-square"></i>
+                                </a>
+                            </div>
+                            <div class="social-media">
+                                <a href="https://www.instagram.com/turtleshelterproject/?hl=en" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    
+        <!-- Main Content Section -->
+        <main style="padding: 20px;">
+            <form action="/completeEvent/<%= id %>" method="POST" style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+                <!-- Completed Participant Count -->
+                <fieldset style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
+                    <legend style="font-size: 1.5em; font-weight: bold; margin-bottom: 10px; padding-bottom: 20px;">Completed Event Details</legend>
+    
+                    <!-- Completed Participant Count -->
+                    <div style="margin-bottom: 15px;">
+                        <label for="completed_participants_count" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Completed Participant Count</strong></label>
+                        <input type="number" id="completed_participants_count" name="completed_participants_count" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="pockets" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Pockets Made</strong></label>
+                        <input type="number" id="pockets" name="pockets" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="collars" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Collars Made</strong></label>
+                        <input type="number" id="collars" name="collars" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="envelopes" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Envelopes Made</strong></label>
+                        <input type="number" id="envelopes" name="envelopes" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="vests" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Vests Made</strong></label>
+                        <input type="number" id="vests" name="vests" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="completed_products" style="display: block; margin-bottom: 5px; font-size: 1.2em;"><strong>Completed Products Made</strong></label>
+                        <input type="number" id="completed_products" name="completed_products" required style="width: 100%; padding: 8px; font-size: 1em;">
+                    </div>
+    
+                    <!-- Submit Button -->
+                    <div style="text-align: center;">
+                        <button type="submit" style="padding: 10px 20px; font-size: 1.2em; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+        </main>
+    
+        <!-- Footer Section -->
+        <footer class="footer" style="padding: 20px; text-align: center; background-color: #333; color: #fff; margin-top: 20px;">
+            <p>&copy; 2024 Turtle Shelter Project. All rights reserved.</p>
+            <a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a>
+        </footer>
+    
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    
+</html>

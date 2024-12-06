@@ -1,4 +1,4 @@
-This is our readme
+DDL Statements to create and populate tables
 
 -----------------------------------CREATE DATABASE SCRIPT-----------------------------------
 -- Table: sewing_level
