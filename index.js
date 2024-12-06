@@ -15,10 +15,10 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg", 
     connection: {
-      host: "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
-      user: "ebroot", 
-      password: "Intex2024", 
-      database: "TSP2024", 
+      host: "localhost", 
+      user: "testuser", 
+      password: "test", 
+      database: "Intex", 
       port: 5432,
       ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
     }
@@ -1214,59 +1214,58 @@ app.post('/deleteUsers/:volunteer_id', async (req, res) => {
 });
 
 
-app.post('/eventRequest', async (req, res) => {
+app.post('/eventRequests', async (req, res) => {
   try {
-    // Destructure the request body for cleaner code
-    const {
-      estimated_participant_count,
-      space_size_id,
-      event_type_id,
-      first_choice_event_date,
-      second_choice_event_date,
-      third_choice_event_date,
-      event_city,
-      event_state,
-      event_zip,
-      estimated_event_start_time,
-      estimated_even_duration_hours,
-      event_contact_first_name,
-      event_contact_last_name,
-      event_contact_phone,
-      jen_story,
-      multi_day_event,
-      event_status_id
-    } = req.body;
 
-    // Insert data into the database
-    await knex("event_requests").insert({
-      estimated_participant_count,
-      space_size_id,
-      event_type_id,
-      first_choice_event_date,
-      second_choice_event_date: second_choice_event_date || null,
-      third_choice_event_date: third_choice_event_date || null,
-      event_city,
-      event_state,
-      event_zip,
-      estimated_event_start_time,
-      estimated_even_duration_hours,
-      event_contact_first_name,
-      event_contact_last_name,
-      event_contact_phone,
-      jen_story,
-      multi_day_event: multi_day_event === "false", // Ensure proper boolean conversion if needed
-      event_status_id: 3 // Default value for event_status
-    });
+      const {
+          estimated_participant_count,
+          space_size_id,
+          event_type_id,
+          first_choice_event_date,
+          second_choice_event_date,
+          third_choice_event_date,
+          event_city,
+          event_state,
+          event_zip,
+          estimated_event_start_time,
+          estimated_event_duration_hours,
+          event_contact_first_name,
+          event_contact_last_name,
+          event_contact_phone,
+          jen_story,
+          multi_day_event
+      } = req.body;
 
-    // Redirect or send a success response
-    res.redirect('/eventRequest');
-  } catch (error) {
-    console.error("Error inserting event request:", error);
+      // Insert into the database
+      await knex("event_requests").insert({
+          estimated_participant_count,
+          space_size_id,
+          event_type_id,
+          first_choice_event_date,
+          second_choice_event_date: second_choice_event_date || null,
+          third_choice_event_date: third_choice_event_date || null,
+          event_city,
+          event_state,
+          event_zip,
+          estimated_event_start_time,
+          estimated_event_duration_hours,
+          event_contact_first_name,
+          event_contact_last_name,
+          event_contact_phone,
+          jen_story,
+          multi_day_event,
+          event_status_id: 3 // Default event_status
+      });
 
-    // Provide an informative error message to the user
-    res.status(500).send("An error occurred while processing your request. Please try again later.");
+      res.redirect('/');
+  } catch (err) {
+      console.error("Error inserting into event_requests:", err);
+      res.status(500).json({ message: "Internal Server Error", error: err });
   }
 });
+
+
+
 
 
 
