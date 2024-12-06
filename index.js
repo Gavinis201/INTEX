@@ -1231,6 +1231,7 @@ app.post('/eventRequests', async (req, res) => {
           estimated_event_duration_hours,
           event_contact_first_name,
           event_contact_last_name,
+          event_contact_email,
           event_contact_phone,
           jen_story,
           multi_day_event
@@ -1239,8 +1240,8 @@ app.post('/eventRequests', async (req, res) => {
       // Insert into the database
       await knex("event_requests").insert({
           estimated_participant_count,
-          space_size_id,
-          event_type_id,
+          space_size_id: space_size_id || 1,
+          event_type_id: event_type_id || 1,
           first_choice_event_date,
           second_choice_event_date: second_choice_event_date || null,
           third_choice_event_date: third_choice_event_date || null,
@@ -1251,8 +1252,9 @@ app.post('/eventRequests', async (req, res) => {
           estimated_event_duration_hours,
           event_contact_first_name,
           event_contact_last_name,
+          event_contact_email,
           event_contact_phone,
-          jen_story,
+          jen_story: jen_story || 'true',
           multi_day_event,
           event_status_id: 3 // Default event_status
       });
