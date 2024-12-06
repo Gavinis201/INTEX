@@ -16,13 +16,11 @@ const knex = require("knex")({
     client: "pg", 
     connection: {
 
-      host: "awseb-e-qcqvjqsmkm-stack-awsebrdsdatabase-t5veuvo5kndo.crqwcg4emp7g.us-east-1.rds.amazonaws.com", 
-      user: "ebroot", 
-      password: "Intex2024", 
-      database: "TSP2024", 
-      port: 5432,
-      ssl: { rejectUnauthorized: false } // Enable SSL for AWS RDS PostgreSQL
-
+      host: process.env.RDS_HOSTNAME || "localhost", 
+      user: process.env.RDS_USERNAME || "postgres", 
+      password: process.env.RDS_PASSWORD || "Gavin12", 
+      database: process.env.RDS_DB_NAME || "TurtleShelterProject", 
+      port: process.env.RDS_PORT || 5432,
     }
 });
 
