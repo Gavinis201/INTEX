@@ -101,14 +101,6 @@
         align-items: center;
         gap: 15px;
     }
-
-    .checkbox {
-        text-align: center; /* Center align text and elements */
-        display: flex;
-        flex-direction: column; /* Stack elements vertically */
-        align-items: center; /* Center elements horizontally */
-    }
-
   </style>
 </head>
 <body>
@@ -183,6 +175,11 @@
             </div>
 
             <div class="form-group ">
+                <label for="event_contact_email">Email:</label>
+                <input type="text" id="event_contact_email" name="event_contact_email" required>
+            </div>
+
+            <div class="form-group ">
                 <label for="event_contact_phone">Phone Number:</label>
                 <input type="tel" id="event_contact_phone" name="event_contact_phone" required>
             </div>
@@ -193,7 +190,7 @@
             </div>
 
             <div class="form-group">
-                <label for="event_state">What State is the event going to be in? (UT for Utah)</label>
+                <label for="event_state">What State is the event going to be in? (example: UT for Utah)</label>
                 <input type="text" id="event_state" name="event_state" required>
             </div>
 
